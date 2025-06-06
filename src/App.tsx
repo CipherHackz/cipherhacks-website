@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Countdown from 'react-countdown';
-import { Link } from 'react-scroll';
+import { Link as ScrollLink } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   CalendarIcon,
   MapPinIcon,
@@ -231,20 +232,24 @@ const App: React.FC = () => {
             )}
           </div>
           <div className="flex flex-wrap justify-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-atom-purple text-white px-8 py-3 rounded-lg text-xl hover:bg-opacity-90 transition-colors"
-            >
-              Register Now
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="border-2 border-atom-blue text-atom-blue px-8 py-3 rounded-lg text-xl hover:bg-atom-blue hover:bg-opacity-10 transition-colors"
-            >
-              Sponsor Us
-            </motion.button>
+            <RouterLink to="/register">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-atom-purple text-white px-8 py-3 rounded-lg text-xl hover:bg-opacity-90 transition-colors"
+              >
+                Register Now
+              </motion.button>
+            </RouterLink>
+            <RouterLink to="/sponsor">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="border-2 border-atom-blue text-atom-blue px-8 py-3 rounded-lg text-xl hover:bg-atom-blue hover:bg-opacity-10 transition-colors"
+              >
+                Sponsor Us
+              </motion.button>
+            </RouterLink>
           </div>
         </div>
         <div className="mt-12 w-full px-4">
@@ -647,7 +652,7 @@ const App: React.FC = () => {
                     whileHover={{ y: -2 }}
                     whileTap={{ y: 0 }}
                   >
-                    <Link
+                    <ScrollLink
                       to={item.to}
                       smooth={true}
                       duration={500}
@@ -669,7 +674,7 @@ const App: React.FC = () => {
                       <span className={`${scrolled ? 'opacity-100' : 'opacity-90'}`}>
                         {item.name}
                       </span>
-                    </Link>
+                    </ScrollLink>
                   </motion.li>
                 ))}
               </ul>
