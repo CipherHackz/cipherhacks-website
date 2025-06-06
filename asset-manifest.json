@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "//cipherhacks-website/static/css/main.f855e6bc.css",
+    "main.js": "//cipherhacks-website/static/js/main.bbbf1fe4.js",
+    "static/js/453.40f88e22.chunk.js": "//cipherhacks-website/static/js/453.40f88e22.chunk.js",
+    "static/media/logo.svg": "//cipherhacks-website/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "//cipherhacks-website/index.html",
+    "main.f855e6bc.css.map": "//cipherhacks-website/static/css/main.f855e6bc.css.map",
+    "main.bbbf1fe4.js.map": "//cipherhacks-website/static/js/main.bbbf1fe4.js.map",
+    "453.40f88e22.chunk.js.map": "//cipherhacks-website/static/js/453.40f88e22.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.bbbf1fe4.js"
+  ]
+}
