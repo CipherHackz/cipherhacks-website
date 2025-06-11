@@ -4,21 +4,9 @@ import Countdown from 'react-countdown';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
 import {
-  CalendarIcon,
-  MapPinIcon,
-  QuestionMarkCircleIcon,
-  UserGroupIcon,
-  HeartIcon,
-  CommandLineIcon,
-  RocketLaunchIcon,
-  LightBulbIcon,
-  TrophyIcon,
   CodeBracketIcon,
   XMarkIcon,
-  EnvelopeIcon,
-  ShieldCheckIcon,
-  ChatBubbleBottomCenterTextIcon,
-  DocumentTextIcon,
+  HeartIcon,
 } from '@heroicons/react/24/outline';
 import InstagramIcon from './components/InstagramIcon';
 
@@ -38,7 +26,7 @@ import {
 } from './constants';
 
 // Set this to a Date object for a real countdown, or null for TBD
-const targetDate: Date | null = null; // Example: new Date('2024-08-10T09:00:00')
+const targetDate: Date | null = EVENT_DATE; // Example: new Date('2024-08-10T09:00:00')
 
 const Terminal: React.FC = () => {
   const [text, setText] = useState('');
