@@ -1,14 +1,17 @@
 # CipherHacks Website
 
-The official website for CipherHacks, San Diego's premier high school hackathon. Built with React, TypeScript, and Tailwind CSS.
+The official website for CipherHacks, San Diego's premier high school cybersecurity hackathon. Built with React, TypeScript, and Tailwind CSS.
 
 ## Features
 
 - 🎨 Modern, responsive design with Atom One Dark theme
 - ⏱️ Live countdown to the event
 - 📱 Mobile-friendly navigation
-- 🔄 Smooth scroll animations
-- ✨ Interactive UI elements with Framer Motion
+- 🔄 Smooth scroll animations with Framer Motion
+- 💰 Comprehensive sponsorship tiers and benefits
+- 📝 Integrated Tally.so forms for registration and sponsorship
+- 🔍 Smart 404 handling with URL suggestions
+- 💫 Interactive UI elements and micro-animations
 
 ## Getting Started
 
@@ -47,15 +50,27 @@ yarn build
 
 The built files will be in the `build` directory.
 
+## Project Structure
+
+```
+src/
+├── components/    # Reusable UI components
+├── pages/        # Main page components
+├── styles/       # Global styles and Tailwind config
+└── utils/        # Helper functions and constants
+```
+
 ## Technologies Used
 
-- React
+- React 18
 - TypeScript
 - Tailwind CSS
-- Framer Motion
+- Framer Motion (animations)
+- React Router
 - React Countdown
 - React Scroll
 - Heroicons
+- Tally.so (form integration)
 
 ## Contributing
 
@@ -65,6 +80,10 @@ The built files will be in the `build` directory.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## Deployment
+
+The website can be deployed to any hosting service that supports single-page applications (SPAs). Make sure to configure your server to handle client-side routing by redirecting all requests to index.html.
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
@@ -73,3 +92,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Email: team@cipherhacks.tech
 - GitHub: [CipherHacks](https://github.com/CipherHackz)
+- Website: [cipherhacks.tech](https://cipherhacks.tech)
