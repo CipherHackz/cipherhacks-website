@@ -5,7 +5,7 @@ import { HomeIcon, CodeBracketIcon, InformationCircleIcon } from '@heroicons/rea
 
 const NotFound: React.FC = () => {
   // Get the current URL that caused the 404
-  const currentUrl = window.location.href;
+//   const currentUrl = window.location.href;
   const baseUrl = window.location.origin;
   
   // Extract the path that caused the 404

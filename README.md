@@ -1,5 +1,5 @@
 # CipherHacks Website
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d78e088d-b300-4c25-b1b5-b69c97677e68/deploy-status)](https://app.netlify.com/projects/cipherhacks/deploys)
 The official website for CipherHacks, San Diego's premier high school cybersecurity hackathon. Built with React, TypeScript, and Tailwind CSS.
 
 ## Features

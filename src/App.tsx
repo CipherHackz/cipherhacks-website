@@ -69,16 +69,16 @@ const Terminal: React.FC = () => {
   );
 };
 
-const StatCard: React.FC<{ icon: any; title: string; value: string }> = ({ icon: Icon, title, value }) => (
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    className="bg-atom-bg p-6 rounded-lg shadow-xl border border-atom-blue border-opacity-20"
-  >
-    <Icon className="h-8 w-8 text-atom-blue mb-4" />
-    <h3 className="text-xl font-bold text-atom-purple mb-2">{title}</h3>
-    <p className="text-2xl font-bold text-atom-green">{value}</p>
-  </motion.div>
-);
+// const StatCard: React.FC<{ icon: any; title: string; value: string }> = ({ icon: Icon, title, value }) => (
+//   <motion.div
+//     whileHover={{ scale: 1.05 }}
+//     className="bg-atom-bg p-6 rounded-lg shadow-xl border border-atom-blue border-opacity-20"
+//   >
+//     <Icon className="h-8 w-8 text-atom-blue mb-4" />
+//     <h3 className="text-xl font-bold text-atom-purple mb-2">{title}</h3>
+//     <p className="text-2xl font-bold text-atom-green">{value}</p>
+//   </motion.div>
+// );
 
 // Add this component near other component definitions
 const SponsorPopup: React.FC<{
