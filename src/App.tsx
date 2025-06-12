@@ -1,18 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Countdown from 'react-countdown';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
 import {
-  CodeBracketIcon,
-  XMarkIcon,
+  CalendarIcon,
+  MapPinIcon,
+  QuestionMarkCircleIcon,
+  UserGroupIcon,
   HeartIcon,
+  CommandLineIcon,
+  RocketLaunchIcon,
+  LightBulbIcon,
+  TrophyIcon,
+  CodeBracketIcon,
+  EnvelopeIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline';
 import InstagramIcon from './components/InstagramIcon';
-
 import {
   EVENT_DATE,
   TERMINAL_TEXT,
+  generateTerminalText,
   NAV_ITEMS,
   NAV_ACTION_BUTTONS,
   FEATURES,
@@ -22,37 +31,221 @@ import {
   SPONSOR_TIERS,
   SOCIAL_LINKS,
   CONTACT_EMAIL,
-  type SponsorInfo
+  TEAM_MEMBERS,
+  COMMANDS,
+  type SponsorInfo,
+  ASCII_ART,
 } from './constants';
 
 // Set this to a Date object for a real countdown, or null for TBD
 const targetDate: Date | null = EVENT_DATE; // Example: new Date('2024-08-10T09:00:00')
 
-const Terminal: React.FC = () => {
+interface TerminalProps {
+  onStateChange: (state: 'open' | 'minimized' | 'closed') => void;
+}
+
+const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
   const [text, setText] = useState('');
-  
+  const [input, setInput] = useState('');
+  const [history, setHistory] = useState<string[]>([]);
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const terminalText = useMemo(() => generateTerminalText(), []);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     let index = 0;
     const timer = setInterval(() => {
-      setText(TERMINAL_TEXT.slice(0, index));
+      setText(terminalText.slice(0, index));
       index++;
-      if (index > TERMINAL_TEXT.length) {
+      if (index > terminalText.length) {
         clearInterval(timer);
       }
     }, 50);
     return () => clearInterval(timer);
-  }, []);
+  }, [terminalText]);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [history]);
+
+  const handleCommand = async (cmd: string) => {
+    const args = cmd.trim().split(' ');
+    const commandName = args[0].toLowerCase();
+    const command = COMMANDS.find(c => c.name === commandName);
+
+    if (!command) {
+      return `Command not found: ${commandName}. Type "help" for available commands.`;
+    }
+
+    return await command.action(args.slice(1));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const newHistory = [
+      ...history,
+      `hacker@cipherhacks:/home/hacker/cipherhacks$ ${input}`,
+      await handleCommand(input)
+    ].filter(Boolean);
+    setHistory(newHistory);
+    setCommandHistory(prev => [input, ...prev]);
+    setInput('');
+    setHistoryIndex(-1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (historyIndex < commandHistory.length - 1) {
+        const newIndex = historyIndex + 1;
+        setHistoryIndex(newIndex);
+        setInput(commandHistory[newIndex]);
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        const newIndex = historyIndex - 1;
+        setHistoryIndex(newIndex);
+        setInput(commandHistory[newIndex]);
+      } else if (historyIndex === 0) {
+        setHistoryIndex(-1);
+        setInput('');
+      }
+    }
+  };
+
+  // Reset history when entering fullscreen
+  useEffect(() => {
+    if (isFullscreen) {
+      setHistory([
+        ASCII_ART.logo,
+        'Welcome to CipherHacks CLI! Type "help" to see available commands.',
+        'Current user: hacker@cipherhacks',
+        ''
+      ]);
+      setCommandHistory([]);
+      setHistoryIndex(-1);
+      setInput('');
+    }
+  }, [isFullscreen]);
+
+  if (isFullscreen) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col"
+      >
+        <div className="flex items-center justify-between p-2 bg-atom-bg bg-opacity-50">
+          <h2 className="text-atom-blue font-mono text-lg">hacker@cipherhacks: ~</h2>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => {
+              setIsFullscreen(false);
+              setHistory([]);
+            }}
+            className="text-atom-fg hover:text-atom-red transition-colors"
+          >
+            <XMarkIcon className="h-6 w-6" />
+          </motion.button>
+        </div>
+        <div className="flex-1 overflow-auto p-4 font-mono">
+          {history.map((line, i) => (
+            <pre 
+              key={i} 
+              className="text-atom-green whitespace-pre-wrap mb-2"
+              dangerouslySetInnerHTML={{ __html: line }}
+            />
+          ))}
+          <form onSubmit={handleSubmit} className="flex items-center space-x-2">
+            <span className="text-atom-blue">hacker@cipherhacks:~$</span>
+            <input
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="flex-1 bg-transparent border-none outline-none text-atom-green font-mono"
+              autoFocus
+            />
+          </form>
+          <div ref={bottomRef} />
+        </div>
+      </motion.div>
+    );
+  }
+
+  if (isMinimized) {
+    return (
+      <motion.button
+        initial={{ opacity: 0, height: "auto" }}
+        animate={{ opacity: 1, height: "auto" }}
+        exit={{ opacity: 0, height: 0 }}
+        onClick={() => {
+          setIsMinimized(false);
+          onStateChange('open');
+        }}
+        className="bg-black bg-opacity-80 p-3 rounded-lg font-mono text-sm w-full max-w-2xl mx-auto flex items-center justify-between hover:bg-opacity-90 transition-all duration-300 border border-atom-blue border-opacity-20 hover:border-opacity-50"
+      >
+        <div className="flex items-center space-x-2">
+          <CodeBracketIcon className="h-5 w-5 text-atom-blue" />
+          <span className="text-atom-blue">Terminal (Click to expand)</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onStateChange('closed');
+              setIsMinimized(false);
+            }}
+            className="h-3 w-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"
+          />
+        </div>
+      </motion.button>
+    );
+  }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-black bg-opacity-80 p-4 rounded-lg font-mono text-sm md:text-base w-full max-w-2xl mx-auto"
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-black bg-opacity-80 p-4 rounded-lg font-mono text-sm md:text-base w-full max-w-2xl mx-auto border border-atom-blue border-opacity-20"
     >
       <div className="flex items-center mb-2 space-x-2">
-        <div className="h-3 w-3 rounded-full bg-red-500"></div>
-        <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
-        <div className="h-3 w-3 rounded-full bg-green-500"></div>
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => {
+            onStateChange('closed');
+            setIsMinimized(false);
+          }}
+          className="h-3 w-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"
+        />
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => {
+            setIsMinimized(true);
+            onStateChange('minimized');
+          }}
+          className="h-3 w-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors cursor-pointer"
+        />
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsFullscreen(true)}
+          className="h-3 w-3 rounded-full bg-green-500 hover:bg-green-600 transition-colors cursor-pointer"
+        />
       </div>
       <pre className="text-atom-green whitespace-pre-wrap">{text}</pre>
     </motion.div>
@@ -253,10 +446,36 @@ const SponsorPopup: React.FC<{
   );
 };
 
+const getDefaultIcon = (gender: 'male' | 'female' | 'other') => {
+  switch (gender) {
+    case 'male':
+      return (
+        <svg className="h-12 w-12 text-atom-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      );
+    case 'female':
+      return (
+        <svg className="h-12 w-12 text-atom-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          <circle cx="12" cy="4" r="1" fill="currentColor" />
+        </svg>
+      );
+    default:
+      return (
+        <svg className="h-12 w-12 text-atom-green" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2v2M12 20v2" />
+        </svg>
+      );
+  }
+};
+
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [selectedSponsor, setSelectedSponsor] = useState<SponsorInfo | null>(null);
   const [carouselKey, setCarouselKey] = useState(0);
+  const [terminalState, setTerminalState] = useState<'open' | 'minimized' | 'closed'>('open');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -264,6 +483,83 @@ const App: React.FC = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Easter egg in console
+  useEffect(() => {
+    const styles = {
+      title: [
+        'color: #61afef',
+        'font-size: 20px',
+        'font-weight: bold',
+        'text-shadow: 2px 2px #282c34',
+        'padding: 10px',
+      ].join(';'),
+      subtitle: [
+        'color: #98c379',
+        'font-size: 14px',
+        'font-weight: bold',
+      ].join(';'),
+      text: [
+        'color: #abb2bf',
+        'font-size: 12px',
+      ].join(';'),
+      link: [
+        'color: #61afef',
+        'font-size: 12px',
+        'text-decoration: underline',
+      ].join(';'),
+    };
+
+    console.log('%cWelcome to CipherHacks! 🚀', styles.title);
+    console.log('%c👾 You found our secret console message!', styles.subtitle);
+    console.log('%cSince you\'re here, you might be interested in:', styles.text);
+    console.log('%c1. Contributing to our open source code', styles.text);
+    console.log('%c2. Joining our development team', styles.text);
+    console.log('%c3. Finding more easter eggs...', styles.text);
+    console.log('\n');
+    console.log('%cGitHub: https://github.com/cipherhacks', styles.link);
+    console.log('%cEmail: team@cipherhacks.tech', styles.link);
+    console.log('\n');
+    console.log('%cTry running %chelp()%c in the console...', styles.text, styles.subtitle, styles.text);
+
+    // Add help function to window object
+    (window as any).help = () => {
+      console.log('%cAvailable Commands:', styles.subtitle);
+      console.log('%c  hack()      - Try to hack the mainframe', styles.text);
+      console.log('%c  matrix()    - Enter the matrix', styles.text);
+      console.log('%c  coffee()    - Get virtual coffee', styles.text);
+      console.log('%c  easteregg() - Find another easter egg', styles.text);
+    };
+
+    (window as any).hack = () => {
+      console.log('%cACCESS DENIED 🔒\nNice try though! Maybe try attending CipherHacks to learn real hacking skills? 😉', styles.subtitle);
+    };
+
+    (window as any).matrix = () => {
+      console.log('%cLoading the Matrix...', styles.subtitle);
+      setTimeout(() => {
+        console.log('%c Wake up, Neo...', 'color: #98c379; font-family: monospace;');
+        setTimeout(() => {
+          console.log('%c The Matrix has you...', 'color: #98c379; font-family: monospace;');
+          setTimeout(() => {
+            console.log('%c Follow the white rabbit.', 'color: #98c379; font-family: monospace;');
+            setTimeout(() => {
+              console.log('%c 🐰', 'font-size: 50px;');
+            }, 1000);
+          }, 1000);
+        }, 1000);
+      }, 1000);
+    };
+
+    (window as any).coffee = () => {
+      console.log('%cHere\'s your virtual coffee! ☕\nError: Coffee not found. Please get real coffee.', styles.subtitle);
+    };
+
+    (window as any).easteregg = () => {
+      console.log('%cCongratulations! You found another easter egg! 🥚\nBut wait... there\'s more! Keep exploring...', styles.subtitle);
+    };
+
   }, []);
 
   const handleSponsorClose = () => {
@@ -391,6 +687,7 @@ const App: React.FC = () => {
             San Diego's Premier High School Hackathon
           </motion.p>
           <div className="text-2xl sm:text-3xl md:text-4xl font-mono text-atom-green mb-8">
+          {/* <span className="text-3xl md:text-4xl font-bold text-atom-orange">Date: Tentatively October 4-5, 2025</span> */}
             {targetDate ? (
               <Countdown 
                 date={targetDate}
@@ -417,7 +714,7 @@ const App: React.FC = () => {
                 )}
               />
             ) : (
-              <span className="text-3xl md:text-4xl font-bold text-atom-orange">Date: TBD</span>
+              <span className="text-3xl md:text-4xl font-bold text-atom-orange">Date: Tentatively October 4-5, 2025</span>
             )}
           </div>
           <div className="flex flex-wrap justify-center gap-4">
@@ -452,8 +749,12 @@ const App: React.FC = () => {
             </a>
           </div>
         </div>
-        <div className="mt-12 w-full px-4">
-          <Terminal />
+        <div className={`mt-12 w-full px-4 ${terminalState === 'closed' ? 'mb-0' : 'mb-6'}`}>
+          <AnimatePresence mode="wait">
+            {terminalState !== 'closed' && (
+              <Terminal onStateChange={setTerminalState} />
+            )}
+          </AnimatePresence>
         </div>
       </motion.section>
 
@@ -636,7 +937,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-16 text-center"
+            className="mt-8 text-center"
           >
             <RouterLink 
               to="/sponsor"
@@ -649,8 +950,112 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section id="team" className="pt-12 pb-20 bg-black bg-opacity-30">
+        <div className="container-custom">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="section-title text-center"
+          >
+            Meet Our Team
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center text-xl mb-12"
+          >
+            The passionate students behind CipherHacks
+          </motion.p>
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto ${
+            TEAM_MEMBERS.length === 1 ? 'lg:grid-cols-1 max-w-lg' :
+            TEAM_MEMBERS.length === 2 ? 'lg:grid-cols-2 max-w-3xl' :
+            TEAM_MEMBERS.length === 3 ? 'lg:grid-cols-3 max-w-5xl' :
+            'lg:grid-cols-4'
+          }`}>
+            {TEAM_MEMBERS.map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-black bg-opacity-20 rounded-xl p-6 backdrop-blur-sm border border-atom-blue border-opacity-20 hover:border-opacity-50 transition-all duration-300"
+              >
+                <div className="text-center mb-4">
+                  {member.image ? (
+                    <img 
+                      src={member.image} 
+                      alt={member.name}
+                      className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-atom-blue shadow-lg"
+                    />
+                  ) : (
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 bg-atom-bg flex items-center justify-center border-2 border-atom-blue shadow-lg">
+                      {getDefaultIcon(member.gender)}
+                    </div>
+                  )}
+                  <h3 className="text-xl font-bold text-atom-blue">{member.name}</h3>
+                  <p className="text-atom-purple font-mono">{member.role}</p>
+                </div>
+                <p className="text-atom-fg text-sm mb-4 text-center">
+                  {member.description}
+                </p>
+                <div className="flex justify-center space-x-4">
+                  {member.links.github && (
+                    <a 
+                      href={member.links.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-atom-fg hover:text-atom-blue transition-colors"
+                    >
+                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                    </a>
+                  )}
+                  {member.links.linkedin && (
+                    <a 
+                      href={member.links.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-atom-fg hover:text-atom-blue transition-colors"
+                    >
+                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                      </svg>
+                    </a>
+                  )}
+                  {member.links.twitter && (
+                    <a 
+                      href={member.links.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-atom-fg hover:text-atom-blue transition-colors"
+                    >
+                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                      </svg>
+                    </a>
+                  )}
+                  {member.links.email && (
+                    <a 
+                      href={`mailto:${member.links.email}`}
+                      className="text-atom-fg hover:text-atom-blue transition-colors"
+                    >
+                      <EnvelopeIcon className="h-5 w-5" />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-black bg-opacity-30">
+      <section id="contact" className="py-20">
         <div className="container-custom">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
