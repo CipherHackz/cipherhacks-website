@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { HomeIcon, CodeBracketIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 
 const NotFound: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Get the current URL that caused the 404
 //   const currentUrl = window.location.href;
   const baseUrl = window.location.origin;

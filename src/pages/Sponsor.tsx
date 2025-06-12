@@ -59,6 +59,11 @@ const SponsorTierCard: React.FC<{
 const Sponsor: React.FC = () => {
   const formRef = useRef<HTMLDivElement>(null);
 
+  // Add scroll to top effect
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
