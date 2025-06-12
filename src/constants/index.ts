@@ -369,9 +369,9 @@ export interface TeamMember {
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Kevin Wang",
-    role: "N/A",
-    description: "Senior at Rancho Bernardo High School.",
-    image: "",
+    role: "Program Directior",
+    description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
+    image: "/team/kevin.png",
     gender: "male",
     links: {
       email: "kevin@cipherhacks.tech"
