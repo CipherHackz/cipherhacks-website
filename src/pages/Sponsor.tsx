@@ -111,7 +111,7 @@ const Sponsor: React.FC = () => {
     {
       icon: DocumentTextIcon,
       title: "Tax Benefits",
-      description: "As a registered 501(c)(3) non-profit organization, your sponsorship is tax-deductible to the extent allowed by law, providing financial benefits while supporting education."
+      description: "Through our fiscal sponsorship with Hack Club (a 501(c)(3) nonprofit), your sponsorship is tax-deductible to the extent allowed by law, providing financial benefits while supporting education."
     }
   ];
 
@@ -221,7 +221,8 @@ const Sponsor: React.FC = () => {
           <h1 className="text-5xl font-bold text-atom-blue mb-6">Sponsor CipherHacks 2025</h1>
           <p className="text-xl text-atom-fg max-w-3xl mx-auto">
             Join us in empowering the next generation of cybersecurity professionals. CipherHacks is San Diego's premier high school hackathon, 
-            bringing together passionate students for 48 hours of learning, building, and innovation in cybersecurity.
+            bringing together passionate students for 48 hours of learning, building, and innovation in cybersecurity. We are fiscally sponsored by 
+            Hack Club, a 501(c)(3) nonprofit organization that helps high school students start and run coding clubs and hackathons.
           </p>
         </motion.div>
 
@@ -304,12 +305,12 @@ const Sponsor: React.FC = () => {
           <h2 className="text-3xl font-bold text-atom-blue mb-8">Ready to Support the Future?</h2>
           <div className="flex flex-col md:flex-row justify-center items-center gap-6">
             <a 
-              href="/files/CipherHacks_2025_Sponsorship_Prospectus.pdf" 
+              href="/SponsorshipProspectus.pdf" 
               target="_blank"
               className="inline-flex items-center px-6 py-3 bg-atom-purple text-white rounded-lg hover:bg-opacity-90 transition-colors"
             >
               <DocumentTextIcon className="h-5 w-5 mr-2" />
-              Download Prospectus
+              Download Sponsorship Prospectus
             </a>
             <motion.div
               animate={{ y: [0, 5, 0] }}

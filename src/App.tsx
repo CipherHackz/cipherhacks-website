@@ -610,7 +610,8 @@ const App: React.FC = () => {
             viewport={{ once: true }}
             className="text-center text-xl mb-12"
           >
-            We are incredibly grateful to our sponsors who make CipherHacks possible.
+            We are incredibly grateful to our sponsors who make CipherHacks possible. As a Hack Club fiscally sponsored event, 
+            all donations are tax-deductible through Hack Club's 501(c)(3) nonprofit status.
           </motion.p>
           <div className="space-y-16">
             {SPONSOR_TIERS.map((tier) => (
