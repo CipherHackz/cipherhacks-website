@@ -340,8 +340,6 @@ const App: React.FC = () => {
                     ) : (
                       <a
                         href={button.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 ${button.className}`}
                       >
                         <motion.div
@@ -442,9 +440,7 @@ const App: React.FC = () => {
               </motion.button>
             </RouterLink>
             <a
-              href="https://hcb.hackclub.com/donations/start/cipherhacks"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="https://cipherhacks.tech/donate"
             >
               <motion.button
                 whileHover={{ scale: 1.05 }}

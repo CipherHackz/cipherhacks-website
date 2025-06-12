@@ -310,7 +310,7 @@ const Sponsor: React.FC = () => {
               className="inline-flex items-center px-6 py-3 bg-atom-purple text-white rounded-lg hover:bg-opacity-90 transition-colors"
             >
               <DocumentTextIcon className="h-5 w-5 mr-2" />
-              Download Sponsorship Prospectus
+              View Sponsorship Prospectus
             </a>
             <motion.div
               animate={{ y: [0, 5, 0] }}
