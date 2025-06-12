@@ -43,8 +43,20 @@ const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const terminalText = useMemo(() => generateTerminalText(), []);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     let index = 0;
@@ -214,29 +226,34 @@ const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
     >
       <div className="flex items-center mb-2 space-x-2">
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={!isMobile ? { scale: 1.1 } : {}}
+          whileTap={!isMobile ? { scale: 0.9 } : {}}
           onClick={() => {
             onStateChange('closed');
             setIsMinimized(false);
           }}
           className="h-3 w-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"
+          disabled={isMobile}
         />
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => {
-            setIsMinimized(true);
-            onStateChange('minimized');
-          }}
-          className="h-3 w-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors cursor-pointer"
-        />
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsFullscreen(true)}
-          className="h-3 w-3 rounded-full bg-green-500 hover:bg-green-600 transition-colors cursor-pointer"
-        />
+        {!isMobile && (
+          <>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => {
+                setIsMinimized(true);
+                onStateChange('minimized');
+              }}
+              className="h-3 w-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors cursor-pointer"
+            />
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsFullscreen(true)}
+              className="h-3 w-3 rounded-full bg-green-500 hover:bg-green-600 transition-colors cursor-pointer"
+            />
+          </>
+        )}
       </div>
       <pre className="text-atom-green whitespace-pre-wrap">{text}</pre>
     </motion.div>
@@ -354,28 +371,48 @@ const SponsorCarousel: React.FC<{
           touchAction: "none"
         }}
       >
-        {displaySponsors.map((sponsor, i) => (
-          <motion.div
-            key={`${sponsor.name}-${i}`}
-            whileHover={{ scale: 1.05 }}
-            onClick={() => handleSponsorClick(sponsor)}
-            className={`
-              flex-shrink-0 flex items-center justify-center p-4
-              bg-black bg-opacity-50 rounded-lg
-              border-2 border-atom-fg border-opacity-10
-              cursor-pointer transition-all duration-300
-              hover:border-atom-blue hover:border-opacity-50
-            `}
-            style={{
-              width: baseWidth,
-              aspectRatio: tier === 'DIAMOND' ? '16/9' : tier === 'GOLD' ? '4/3' : '3/2'
-            }}
-          >
-            <span className="text-atom-fg opacity-50 text-center">
-              {sponsor.name}
-            </span>
-          </motion.div>
-        ))}
+                 {displaySponsors.map((sponsor, i) => (
+           <motion.div
+             key={`${sponsor.name}-${i}`}
+             whileHover={{ scale: 1.05 }}
+             onClick={() => handleSponsorClick(sponsor)}
+             className={`
+               flex-shrink-0 flex items-center justify-center p-4
+               bg-black bg-opacity-50 rounded-lg
+               border-2 border-atom-fg border-opacity-10
+               cursor-pointer transition-all duration-300
+               hover:border-atom-blue hover:border-opacity-50
+               overflow-hidden
+             `}
+             style={{
+               width: baseWidth,
+               aspectRatio: tier === 'DIAMOND' ? '16/9' : tier === 'GOLD' ? '4/3' : '3/2'
+             }}
+           >
+             {sponsor.logo ? (
+               <div className="w-full h-full flex items-center justify-center">
+                 <img
+                   src={sponsor.logo}
+                   alt={`${sponsor.name} logo`}
+                   className="max-w-full max-h-full object-contain filter brightness-75 hover:brightness-100 transition-all duration-300"
+                   onError={(e) => {
+                     // Fallback to text if image fails to load
+                     const target = e.target as HTMLImageElement;
+                     target.style.display = 'none';
+                     const parent = target.parentElement;
+                     if (parent) {
+                       parent.innerHTML = `<span class="text-atom-fg opacity-50 text-center">${sponsor.name}</span>`;
+                     }
+                   }}
+                 />
+               </div>
+             ) : (
+               <span className="text-atom-fg opacity-50 text-center">
+                 {sponsor.name}
+               </span>
+             )}
+           </motion.div>
+         ))}
       </motion.div>
       {sponsors.length > 1 && (
         <>
@@ -404,35 +441,48 @@ const SponsorPopup: React.FC<{
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm"
       onClick={onClose}
     >
-      <motion.div
-        className="bg-atom-bg rounded-xl p-6 max-w-md w-full shadow-2xl border-2 border-atom-blue"
-        onClick={e => e.stopPropagation()}
-        layoutId={`sponsor-${sponsor.name}`}
-      >
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-2xl font-bold text-atom-blue">{sponsor.name}</h3>
-          <button
-            onClick={onClose}
-            className="text-atom-fg hover:text-atom-red transition-colors"
-          >
-            <XMarkIcon className="h-6 w-6" />
-          </button>
-        </div>
-        <p className="text-atom-fg mb-4">{sponsor.description}</p>
-        {sponsor.contribution && (
-          <p className="text-atom-green mb-4">Contribution: {sponsor.contribution}</p>
-        )}
-        {sponsor.website && (
-          <a
-            href={sponsor.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-atom-purple text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
-          >
-            Visit Website
-          </a>
-        )}
-      </motion.div>
+           <motion.div
+       className="bg-atom-bg rounded-xl p-6 max-w-md w-full shadow-2xl border-2 border-atom-blue"
+       onClick={e => e.stopPropagation()}
+       layoutId={`sponsor-${sponsor.name}`}
+     >
+       <div className="flex justify-between items-start mb-4">
+         <h3 className="text-2xl font-bold text-atom-blue">{sponsor.name}</h3>
+         <button
+           onClick={onClose}
+           className="text-atom-fg hover:text-atom-red transition-colors"
+         >
+           <XMarkIcon className="h-6 w-6" />
+         </button>
+       </div>
+       {sponsor.logo && (
+         <div className="mb-4 flex justify-center">
+           <img
+             src={sponsor.logo}
+             alt={`${sponsor.name} logo`}
+             className="max-w-32 max-h-20 object-contain"
+             onError={(e) => {
+               const target = e.target as HTMLImageElement;
+               target.style.display = 'none';
+             }}
+           />
+         </div>
+       )}
+       <p className="text-atom-fg mb-4">{sponsor.description}</p>
+       {sponsor.contribution && (
+         <p className="text-atom-green mb-4">Contribution: {sponsor.contribution}</p>
+       )}
+       {sponsor.website && (
+         <a
+           href={sponsor.website}
+           target="_blank"
+           rel="noopener noreferrer"
+           className="inline-block bg-atom-purple text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
+         >
+           Visit Website
+         </a>
+       )}
+     </motion.div>
     </motion.div>
   );
 };
@@ -561,90 +611,90 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-atom-bg">
       {/* Navigation */}
-      <motion.nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300`}
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.3 }}
-      >
-        <div className={`w-full backdrop-blur-sm transition-all duration-300 ${
-          scrolled ? 'bg-atom-bg bg-opacity-90 shadow-lg' : 'bg-transparent'
-        }`}>
-          <div className="container-custom">
-            <div className="flex items-center justify-center h-14 sm:h-16 px-2 sm:px-4">
-              <ul className="flex items-center space-x-2 sm:space-x-4 md:space-x-8">
-                {NAV_ITEMS.map((item) => (
-                  <motion.li
-                    key={item.name}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ y: 0 }}
-                  >
-                    <ScrollLink
-                      to={item.to}
-                      smooth={true}
-                      duration={500}
-                      className={`${item.className} items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1 sm:py-2 rounded-lg group transition-all duration-300 ${
-                        item.primary 
-                          ? 'text-atom-blue font-bold text-base sm:text-lg' 
-                          : 'text-atom-fg hover:text-atom-blue text-sm sm:text-base'
-                      }`}
-                    >
-                      <motion.div 
-                        className={`transition-colors ${
-                          item.primary ? 'text-atom-blue' : 'text-atom-fg group-hover:text-atom-blue'
-                        }`}
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <item.icon className={`${item.primary ? 'h-5 w-5 sm:h-7 sm:w-7' : 'h-4 w-4 sm:h-5 sm:w-5'}`} />
-                      </motion.div>
-                      <span className={`${scrolled ? 'opacity-100' : 'opacity-90'}`}>
-                        {item.name}
-                      </span>
-                    </ScrollLink>
-                  </motion.li>
-                ))}
-                {NAV_ACTION_BUTTONS.map((button) => (
-                  <motion.li
-                    key={button.name}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ y: 0 }}
-                    className="hidden lg:block"
-                  >
-                    {button.name === 'Register' ? (
-                      <RouterLink
-                        to={button.href}
-                        className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 ${button.className}`}
-                      >
-                        <motion.div
-                          whileHover={{ rotate: 360 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <button.icon className="h-5 w-5" />
-                        </motion.div>
-                        <span>{button.name}</span>
-                      </RouterLink>
-                    ) : (
-                      <a
-                        href={button.href}
-                        className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 ${button.className}`}
-                      >
-                        <motion.div
-                          whileHover={{ rotate: 360 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <button.icon className="h-5 w-5" />
-                        </motion.div>
-                        <span>{button.name}</span>
-                      </a>
-                    )}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </motion.nav>
+             <motion.nav 
+         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300`}
+         initial={{ y: -100, opacity: 0 }}
+         animate={{ y: 0, opacity: 1 }}
+         transition={{ delay: 0.5, duration: 0.3 }}
+       >
+         <div className={`w-full backdrop-blur-sm transition-all duration-300 ${
+           scrolled ? 'bg-atom-bg bg-opacity-90 shadow-lg' : 'bg-transparent'
+         }`}>
+           <div className="container-custom">
+             <div className="flex items-center justify-center h-12 sm:h-14 md:h-16 px-1 sm:px-2 md:px-4">
+               <ul className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 lg:space-x-8">
+                 {NAV_ITEMS.map((item) => (
+                   <motion.li
+                     key={item.name}
+                     whileHover={{ y: -2 }}
+                     whileTap={{ y: 0 }}
+                   >
+                     <ScrollLink
+                       to={item.to}
+                       smooth={true}
+                       duration={500}
+                       className={`${item.className} items-center space-x-1 px-1 sm:px-2 md:px-3 py-1 rounded-lg group transition-all duration-300 ${
+                         item.primary 
+                           ? 'text-atom-blue font-bold text-sm sm:text-base md:text-lg' 
+                           : 'text-atom-fg hover:text-atom-blue text-xs sm:text-sm md:text-base'
+                       }`}
+                     >
+                       <motion.div 
+                         className={`transition-colors ${
+                           item.primary ? 'text-atom-blue' : 'text-atom-fg group-hover:text-atom-blue'
+                         }`}
+                         whileHover={{ rotate: 360 }}
+                         transition={{ duration: 0.5 }}
+                       >
+                         <item.icon className={`${item.primary ? 'h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7' : 'h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5'}`} />
+                       </motion.div>
+                       <span className={`${scrolled ? 'opacity-100' : 'opacity-90'} hidden sm:inline`}>
+                         {item.name}
+                       </span>
+                     </ScrollLink>
+                   </motion.li>
+                 ))}
+                 {NAV_ACTION_BUTTONS.map((button) => (
+                   <motion.li
+                     key={button.name}
+                     whileHover={{ y: -2 }}
+                     whileTap={{ y: 0 }}
+                     className="hidden md:block"
+                   >
+                     {button.name === 'Register' ? (
+                       <RouterLink
+                         to={button.href}
+                         className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm ${button.className}`}
+                       >
+                         <motion.div
+                           whileHover={{ rotate: 360 }}
+                           transition={{ duration: 0.5 }}
+                         >
+                           <button.icon className="h-4 w-4 md:h-5 md:w-5" />
+                         </motion.div>
+                         <span className="hidden lg:inline">{button.name}</span>
+                       </RouterLink>
+                     ) : (
+                       <a
+                         href={button.href}
+                         className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm ${button.className}`}
+                       >
+                         <motion.div
+                           whileHover={{ rotate: 360 }}
+                           transition={{ duration: 0.5 }}
+                         >
+                           <button.icon className="h-4 w-4 md:h-5 md:w-5" />
+                         </motion.div>
+                         <span className="hidden lg:inline">{button.name}</span>
+                       </a>
+                     )}
+                   </motion.li>
+                 ))}
+               </ul>
+             </div>
+           </div>
+         </div>
+       </motion.nav>
 
       {/* Hero Section */}
       <motion.section 
@@ -708,37 +758,37 @@ const App: React.FC = () => {
               <span className="text-3xl md:text-4xl font-bold text-atom-orange">Date: Tentatively October 4-5, 2025</span>
             )}
           </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            <RouterLink to="/register">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-atom-purple bg-atom-purple text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-lg sm:text-xl hover:bg-opacity-90 transition-colors"
-              >
-                Register Now
-              </motion.button>
-            </RouterLink>
-            <RouterLink to="/sponsor">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-atom-blue text-atom-blue px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-lg sm:text-xl hover:bg-atom-blue hover:bg-opacity-10 transition-colors"
-              >
-                Sponsor Us
-              </motion.button>
-            </RouterLink>
-            <a
-              href="https://cipherhacks.tech/donate"
-            >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-atom-green text-atom-green px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-lg sm:text-xl hover:bg-atom-green hover:bg-opacity-10 transition-colors"
-              >
-                Donate
-              </motion.button>
-            </a>
-          </div>
+                     <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+             <RouterLink to="/register">
+               <motion.button
+                 whileHover={{ scale: 1.05 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="border-2 border-atom-purple bg-atom-purple text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-opacity-90 transition-colors"
+               >
+                 Register Now
+               </motion.button>
+             </RouterLink>
+             <RouterLink to="/sponsor">
+               <motion.button
+                 whileHover={{ scale: 1.05 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="border-2 border-atom-blue text-atom-blue px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-atom-blue hover:bg-opacity-10 transition-colors"
+               >
+                 Sponsor Us
+               </motion.button>
+             </RouterLink>
+             <a
+               href="https://cipherhacks.tech/donate"
+             >
+               <motion.button
+                 whileHover={{ scale: 1.05 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="border-2 border-atom-green text-atom-green px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-atom-green hover:bg-opacity-10 transition-colors"
+               >
+                 Donate
+               </motion.button>
+             </a>
+           </div>
         </div>
         <div className={`mt-12 w-full px-4 ${terminalState === 'closed' ? 'mb-0' : 'mb-6'}`}>
           <AnimatePresence mode="wait">
@@ -950,7 +1000,7 @@ const App: React.FC = () => {
             viewport={{ once: true }}
             className="section-title text-center"
           >
-            Meet Our Team
+            Meet Our Founding Team
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0 }}
