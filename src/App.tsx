@@ -284,8 +284,8 @@ const App: React.FC = () => {
           scrolled ? 'bg-atom-bg bg-opacity-90 shadow-lg' : 'bg-transparent'
         }`}>
           <div className="container-custom">
-            <div className="flex items-center justify-center h-16 px-4">
-              <ul className="flex items-center space-x-4 md:space-x-8">
+            <div className="flex items-center justify-center h-14 sm:h-16 px-2 sm:px-4">
+              <ul className="flex items-center space-x-2 sm:space-x-4 md:space-x-8">
                 {NAV_ITEMS.map((item) => (
                   <motion.li
                     key={item.name}
@@ -296,10 +296,10 @@ const App: React.FC = () => {
                       to={item.to}
                       smooth={true}
                       duration={500}
-                      className={`${item.className} items-center space-x-2 px-3 py-2 rounded-lg group transition-all duration-300 ${
+                      className={`${item.className} items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1 sm:py-2 rounded-lg group transition-all duration-300 ${
                         item.primary 
-                          ? 'text-atom-blue font-bold text-lg' 
-                          : 'text-atom-fg hover:text-atom-blue'
+                          ? 'text-atom-blue font-bold text-base sm:text-lg' 
+                          : 'text-atom-fg hover:text-atom-blue text-sm sm:text-base'
                       }`}
                     >
                       <motion.div 
@@ -309,7 +309,7 @@ const App: React.FC = () => {
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.5 }}
                       >
-                        <item.icon className={`${item.primary ? 'h-7 w-7' : 'h-5 w-5'}`} />
+                        <item.icon className={`${item.primary ? 'h-5 w-5 sm:h-7 sm:w-7' : 'h-4 w-4 sm:h-5 sm:w-5'}`} />
                       </motion.div>
                       <span className={`${scrolled ? 'opacity-100' : 'opacity-90'}`}>
                         {item.name}
@@ -425,7 +425,7 @@ const App: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-atom-purple text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-lg sm:text-xl hover:bg-opacity-90 transition-colors"
+                className="border-2 border-atom-purple bg-atom-purple text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-lg sm:text-xl hover:bg-opacity-90 transition-colors"
               >
                 Register Now
               </motion.button>
@@ -434,7 +434,7 @@ const App: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="border-2 border-atom-blue text-atom-blue px-8 py-3 rounded-lg text-xl hover:bg-atom-blue hover:bg-opacity-10 transition-colors"
+                className="border-2 border-atom-blue text-atom-blue px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-lg sm:text-xl hover:bg-atom-blue hover:bg-opacity-10 transition-colors"
               >
                 Sponsor Us
               </motion.button>
@@ -445,7 +445,7 @@ const App: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="border-2 border-atom-green text-atom-green px-8 py-3 rounded-lg text-xl hover:bg-atom-green hover:bg-opacity-10 transition-colors"
+                className="border-2 border-atom-green text-atom-green px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-lg sm:text-xl hover:bg-atom-green hover:bg-opacity-10 transition-colors"
               >
                 Donate
               </motion.button>
