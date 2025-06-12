@@ -279,6 +279,7 @@ export interface SponsorInfo {
   description: string;
   website?: string;
   contribution?: string;
+  logo?: string; // URL to sponsor logo image
 }
 
 export const SPONSOR_TIERS = [
@@ -287,8 +288,20 @@ export const SPONSOR_TIERS = [
     color: "text-purple-400",
     icon: "🤝",
     sponsors: [
-      { name: "Partner Corp", description: "Leading technology company focused on innovation.", website: "https://example.com", contribution: "Title Sponsor" },
-      { name: "Tech Leader", description: "Global tech leader supporting young developers.", website: "https://example.com", contribution: "Venue Sponsor" }
+      { 
+        name: "HCB", 
+        description: "Hack Club is a 501(c)(3) nonprofit that supports thousands of student-run coding clubs and events worldwide. As CipherHacks’ fiscal sponsor, they handle our donation processing, insurance, and financial oversight so the hackathon can stay free and accessible to every student.",
+        website: "https://hackclub.com/hcb", 
+        contribution: "Fiscal Sponsor",
+        logo: "/sponsors/hcb-icon-icon-dark.png"
+      },
+      { 
+        name: "Tech Leader", 
+        description: "Global tech leader supporting young developers.", 
+        website: "https://example.com", 
+        contribution: "Venue Sponsor",
+        logo: "/sponsors/tech-leader-logo.png"
+      }
     ]
   },
   {
@@ -296,10 +309,34 @@ export const SPONSOR_TIERS = [
     color: "text-blue-400",
     icon: "💎",
     sponsors: [
-      { name: "Example Corp", description: "Leading technology company focused on innovation.", website: "https://example.com", contribution: "Main Venue Sponsor" },
-      { name: "Tech Giant", description: "Global tech leader supporting young developers.", website: "https://example.com", contribution: "Prize Pool Sponsor" },
-      { name: "Future Labs", description: "Research and development company investing in education.", website: "https://example.com", contribution: "Workshop Provider" },
-      { name: "Innovation Co", description: "Startup accelerator and tech education advocate.", website: "https://example.com", contribution: "Mentorship Program" }
+      { 
+        name: "Example Corp", 
+        description: "Leading technology company focused on innovation.", 
+        website: "https://example.com", 
+        contribution: "Main Venue Sponsor",
+        logo: "/sponsors/example-corp-logo.png"
+      },
+      { 
+        name: "Tech Giant", 
+        description: "Global tech leader supporting young developers.", 
+        website: "https://example.com", 
+        contribution: "Prize Pool Sponsor",
+        logo: "/sponsors/tech-giant-logo.png"
+      },
+      { 
+        name: "Future Labs", 
+        description: "Research and development company investing in education.", 
+        website: "https://example.com", 
+        contribution: "Workshop Provider",
+        logo: "/sponsors/future-labs-logo.png"
+      },
+      { 
+        name: "Innovation Co", 
+        description: "Startup accelerator and tech education advocate.", 
+        website: "https://example.com", 
+        contribution: "Mentorship Program",
+        logo: "/sponsors/innovation-co-logo.png"
+      }
     ]
   },
   {
@@ -309,7 +346,8 @@ export const SPONSOR_TIERS = [
     sponsors: Array(6).fill(null).map((_, i) => ({
       name: `Gold Sponsor ${i + 1}`,
       description: "Supporting sponsor providing valuable resources and mentorship.",
-      website: "https://example.com"
+      website: "https://example.com",
+      logo: `/sponsors/gold-sponsor-${i + 1}-logo.png`
     }))
   },
   {
@@ -319,7 +357,8 @@ export const SPONSOR_TIERS = [
     sponsors: Array(8).fill(null).map((_, i) => ({
       name: `Silver Sponsor ${i + 1}`,
       description: "Community sponsor helping make this event possible.",
-      website: "https://example.com"
+      website: "https://example.com",
+      logo: `/sponsors/silver-sponsor-${i + 1}-logo.png`
     }))
   }
 ];
