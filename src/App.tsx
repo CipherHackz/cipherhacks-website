@@ -4,15 +4,7 @@ import Countdown from 'react-countdown';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
 import {
-  CalendarIcon,
-  MapPinIcon,
-  QuestionMarkCircleIcon,
-  UserGroupIcon,
   HeartIcon,
-  CommandLineIcon,
-  RocketLaunchIcon,
-  LightBulbIcon,
-  TrophyIcon,
   CodeBracketIcon,
   EnvelopeIcon,
   XMarkIcon,
@@ -20,7 +12,6 @@ import {
 import InstagramIcon from './components/InstagramIcon';
 import {
   EVENT_DATE,
-  TERMINAL_TEXT,
   generateTerminalText,
   NAV_ITEMS,
   NAV_ACTION_BUTTONS,
