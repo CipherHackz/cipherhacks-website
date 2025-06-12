@@ -361,7 +361,7 @@ const App: React.FC = () => {
 
       {/* Hero Section */}
       <motion.section 
-        className="min-h-screen flex flex-col items-center justify-center relative py-20 pt-24"
+        className="min-h-screen flex flex-col items-center justify-center relative py-12 sm:py-16 md:py-20 pt-20 sm:pt-24"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -373,12 +373,12 @@ const App: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <CodeBracketIcon className="h-20 w-20 text-atom-blue mx-auto" />
+            <CodeBracketIcon className="h-16 w-16 sm:h-20 sm:w-20 text-atom-blue mx-auto" />
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-bold text-atom-blue mb-4 tracking-tight"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold text-atom-blue mb-4 tracking-tight"
           >
             CipherHacks 2025
           </motion.h1>
@@ -390,7 +390,7 @@ const App: React.FC = () => {
           >
             San Diego's Premier High School Hackathon
           </motion.p>
-          <div className="text-4xl font-mono text-atom-green mb-8">
+          <div className="text-2xl sm:text-3xl md:text-4xl font-mono text-atom-green mb-8">
             {targetDate ? (
               <Countdown 
                 date={targetDate}
@@ -425,7 +425,7 @@ const App: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-atom-purple text-white px-8 py-3 rounded-lg text-xl hover:bg-opacity-90 transition-colors"
+                className="bg-atom-purple text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-lg sm:text-xl hover:bg-opacity-90 transition-colors"
               >
                 Register Now
               </motion.button>
