@@ -698,19 +698,23 @@ const App: React.FC = () => {
 
       {/* Hero Section */}
       <motion.section 
-        className="min-h-screen flex flex-col items-center justify-center relative py-12 sm:py-16 md:py-20 pt-20 sm:pt-24"
+        className="min-h-screen flex flex-col items-center justify-center relative pt-8 pb-20 sm:pt-12 sm:pb-24 md:pt-16 md:pb-28"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div className="container-custom text-center z-10">
+        <div className="container-custom text-center z-10 flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <CodeBracketIcon className="h-16 w-16 sm:h-20 sm:w-20 text-atom-blue mx-auto" />
+            <img 
+              src="/logo.svg" 
+              alt="CipherHacks Logo" 
+              className="h-48 sm:h-56 md:h-72 w-auto mx-auto"
+            />
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -790,7 +794,7 @@ const App: React.FC = () => {
              </a>
            </div>
         </div>
-        <div className={`mt-12 w-full px-4 ${terminalState === 'closed' ? 'mb-0' : 'mb-6'}`}>
+        <div className={`mt-8 w-full px-4 ${terminalState === 'closed' ? 'mb-0' : 'mb-4'}`}>
           <AnimatePresence mode="wait">
             {terminalState !== 'closed' && (
               <Terminal onStateChange={setTerminalState} />
@@ -800,7 +804,7 @@ const App: React.FC = () => {
       </motion.section>
 
       {/* Features Section */}
-      <section className="py-20 bg-black bg-opacity-30">
+      <section className="py-12 bg-black bg-opacity-30">
         <div className="container-custom">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
