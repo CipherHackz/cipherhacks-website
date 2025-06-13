@@ -420,7 +420,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Kevin Wang",
-    role: "Program Directior",
+    role: "Program Director",
     description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
     image: "/team/kevin.png",
     gender: "male",
