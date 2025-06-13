@@ -612,7 +612,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-atom-bg">
       {/* Navigation */}
              <motion.nav 
-         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300`}
+         className="fixed top-0 left-0 right-0 z-50"
          initial={{ y: -100, opacity: 0 }}
          animate={{ y: 0, opacity: 1 }}
          transition={{ delay: 0.5, duration: 0.3 }}
@@ -648,7 +648,7 @@ const App: React.FC = () => {
                        >
                          <item.icon className={`${item.primary ? 'h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7' : 'h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5'}`} />
                        </motion.div>
-                       <span className={`${scrolled ? 'opacity-100' : 'opacity-90'} hidden sm:inline`}>
+                       <span className={`${scrolled ? 'opacity-100' : 'opacity-90'}`}>
                          {item.name}
                        </span>
                      </ScrollLink>

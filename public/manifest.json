@@ -1,6 +1,7 @@
 {
   "short_name": "CipherHacks",
-  "name": "CipherHacks",
+  "name": "CipherHacks 2025 | San Diego's Premier High School Hackathon",
+  "description": "Join CipherHacks 2025, San Diego's premier high school hackathon focused on cybersecurity and innovation. Learn, build, and compete with fellow students in an exciting weekend of coding and creativity.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,16 +11,39 @@
     {
       "src": "192trans.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "512trans.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#282C34",
+  "background_color": "#282C34",
+  "orientation": "portrait",
+  "categories": ["education", "events", "technology"],
+  "screenshots": [
+    {
+      "src": "512trans.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Register",
+      "url": "/register",
+      "description": "Register for CipherHacks 2025"
+    },
+    {
+      "name": "About",
+      "url": "/#about",
+      "description": "Learn about CipherHacks"
+    }
+  ]
 }

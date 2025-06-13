@@ -407,16 +407,6 @@ export interface TeamMember {
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
-    name: "Kevin Wang",
-    role: "Program Directior",
-    description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
-    image: "/team/kevin.png",
-    gender: "male",
-    links: {
-      email: "kevin@cipherhacks.tech"
-    }
-  },
-  {
     name: "Arshan Shokoohi",
     role: "Creator of CipherHacks",
     description: "Senior at Rancho Bernardo High School, passionate about computer science, cybersecurity and making tech education accessible to all.",
@@ -426,6 +416,16 @@ export const TEAM_MEMBERS: TeamMember[] = [
       github: "https://github.com/arshansgithub",
       linkedin: "https://www.linkedin.com/in/arshanshokoohi/",
       email: "arshan@cipherhacks.tech"
+    }
+  },
+  {
+    name: "Kevin Wang",
+    role: "Program Directior",
+    description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
+    image: "/team/kevin.png",
+    gender: "male",
+    links: {
+      email: "kevin@cipherhacks.tech"
     }
   },
   {
