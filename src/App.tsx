@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Countdown from 'react-countdown';
 import { Link as ScrollLink } from 'react-scroll';
@@ -271,6 +271,12 @@ const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
 //   </motion.div>
 // );
 
+// Carousel speed constants
+const CAROUSEL_SPEED = {
+  NORMAL: 125, // pixels per second when not hovered
+  HOVERED: 50, // pixels per second when hovered
+};
+
 // Add this component near other component definitions
 const SponsorCarousel: React.FC<{
   sponsors: SponsorInfo[];
@@ -279,8 +285,11 @@ const SponsorCarousel: React.FC<{
 }> = ({ sponsors, tier, onSponsorClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const carouselRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [currentX, setCurrentX] = useState(0);
+  const animationRef = useRef<number | undefined>(undefined);
+  const lastTimeRef = useRef<number | undefined>(undefined);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   // Calculate base widths for sponsor cards
   const baseWidth = tier === 'DIAMOND' ? 320 : tier === 'GOLD' ? 280 : 240;
@@ -288,33 +297,84 @@ const SponsorCarousel: React.FC<{
   const visibleSponsors = Math.min(3, sponsors.length);
   const itemWidth = baseWidth + gap;
   
-  const displaySponsors = [...sponsors, ...sponsors, ...sponsors];
-  const totalWidth = itemWidth * sponsors.length;
+  // Only duplicate if we have sponsors and need infinite scroll
+  const displaySponsors = sponsors.length > 0 ? [...sponsors, ...sponsors, ...sponsors] : [];
+  const singleSetWidth = itemWidth * sponsors.length;
+  const totalWidth = singleSetWidth * 3;
 
   const containerWidth = Math.min(
     itemWidth * visibleSponsors - gap,
     itemWidth * sponsors.length - gap
   );
 
+  // Smooth animation loop using requestAnimationFrame
+  const animate = useCallback((timestamp: number) => {
+    if (!lastTimeRef.current) {
+      lastTimeRef.current = timestamp;
+    }
+
+    const deltaTime = timestamp - lastTimeRef.current;
+    lastTimeRef.current = timestamp;
+
+    if (!isDragging && !isPaused && sponsors.length > 1) {
+      const speed = isHovered ? CAROUSEL_SPEED.HOVERED : CAROUSEL_SPEED.NORMAL;
+      const movement = (speed * deltaTime) / 1000; // Convert to pixels per frame
+      
+      setCurrentX(prevX => {
+        let newX = prevX - movement;
+        
+        // Reset position when we've moved one full set
+        if (newX <= -singleSetWidth * 2) {
+          newX = -singleSetWidth;
+        }
+        
+        return newX;
+      });
+    }
+
+    animationRef.current = requestAnimationFrame(animate);
+  }, [isDragging, isPaused, isHovered, sponsors.length, singleSetWidth]);
+
+  // Start/stop animation
+  useEffect(() => {
+    if (sponsors.length > 1) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [animate, sponsors.length]);
+
+  // Reset animation when paused state changes
+  useEffect(() => {
+    if (!isPaused) {
+      setCurrentX(-singleSetWidth); // Start from middle set
+      lastTimeRef.current = undefined;
+    }
+  }, [isPaused, singleSetWidth]);
+
   const handleDragEnd = (event: any, info: any) => {
     setIsDragging(false);
     
-    if (!carouselRef.current) return;
+    // Snap to nearest set boundary
+    const dragOffset = info.offset.x;
+    const newX = currentX + dragOffset;
     
-    const newOffset = -info.offset.x;
-    const middleSetStart = totalWidth;
-    const middleSetEnd = totalWidth * 2;
-    
-    let adjustment = 0;
-    if (newOffset < middleSetStart) {
-      adjustment = totalWidth;
-    } else if (newOffset > middleSetEnd) {
-      adjustment = -totalWidth;
+    // Determine which set we're closest to and snap
+    let targetX = newX;
+    if (newX > -singleSetWidth * 0.5) {
+      targetX = 0;
+    } else if (newX < -singleSetWidth * 2.5) {
+      targetX = -singleSetWidth * 2;
+    } else {
+      targetX = -singleSetWidth;
     }
     
-    if (adjustment !== 0) {
-      carouselRef.current.style.transform = `translateX(${-(newOffset + adjustment)}px)`;
-    }
+    setCurrentX(targetX);
+    lastTimeRef.current = undefined; // Reset timing
   };
 
   // Handle sponsor click
@@ -323,17 +383,10 @@ const SponsorCarousel: React.FC<{
     onSponsorClick(sponsor);
   };
 
-  // Resume animation when popup closes
-  useEffect(() => {
-    if (!isPaused) {
-      const timer = setTimeout(() => {
-        if (carouselRef.current) {
-          carouselRef.current.style.transform = 'translateX(0)';
-        }
-      }, 0);
-      return () => clearTimeout(timer);
-    }
-  }, [isPaused]);
+  // If no sponsors, don't render
+  if (sponsors.length === 0) {
+    return null;
+  }
 
   return (
     <div 
@@ -348,71 +401,74 @@ const SponsorCarousel: React.FC<{
       <motion.div
         ref={carouselRef}
         className="flex gap-4 px-4 cursor-grab active:cursor-grabbing"
-        animate={!isDragging && !isPaused && sponsors.length > 1 ? {
-          x: [-totalWidth, -totalWidth * 2],
-          transition: {
-            duration: isHovered ? 45 : 10,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "loop"
-          }
-        } : undefined}
-        drag={sponsors.length > 1 ? "x" : false}
-        dragConstraints={{
-          left: -totalWidth * 3 + containerWidth,
-          right: 0
-        }}
-        dragElastic={0.05}
-        dragMomentum={false}
-        onDragStart={() => setIsDragging(true)}
-        onDragEnd={handleDragEnd}
         style={{
-          width: totalWidth * 3,
+          width: totalWidth,
+          transform: `translateX(${currentX}px)`,
           touchAction: "none"
         }}
+        drag={sponsors.length > 1 ? "x" : false}
+        dragConstraints={{
+          left: -singleSetWidth * 2,
+          right: 0
+        }}
+        dragElastic={0.1}
+        dragMomentum={false}
+        onDragStart={() => {
+          setIsDragging(true);
+          if (animationRef.current) {
+            cancelAnimationFrame(animationRef.current);
+          }
+        }}
+        onDragEnd={handleDragEnd}
+        animate={false} // Disable framer-motion's built-in animation
       >
-                 {displaySponsors.map((sponsor, i) => (
-           <motion.div
-             key={`${sponsor.name}-${i}`}
-             whileHover={{ scale: 1.05 }}
-             onClick={() => handleSponsorClick(sponsor)}
-             className={`
-               flex-shrink-0 flex items-center justify-center p-4
-               bg-black bg-opacity-50 rounded-lg
-               border-2 border-atom-fg border-opacity-10
-               cursor-pointer transition-all duration-300
-               hover:border-atom-blue hover:border-opacity-50
-               overflow-hidden
-             `}
-             style={{
-               width: baseWidth,
-               aspectRatio: tier === 'DIAMOND' ? '16/9' : tier === 'GOLD' ? '4/3' : '3/2'
-             }}
-           >
-             {sponsor.logo ? (
-               <div className="w-full h-full flex items-center justify-center">
-                 <img
-                   src={sponsor.logo}
-                   alt={`${sponsor.name} logo`}
-                   className="max-w-full max-h-full object-contain filter brightness-75 hover:brightness-100 transition-all duration-300"
-                   onError={(e) => {
-                     // Fallback to text if image fails to load
-                     const target = e.target as HTMLImageElement;
-                     target.style.display = 'none';
-                     const parent = target.parentElement;
-                     if (parent) {
-                       parent.innerHTML = `<span class="text-atom-fg opacity-50 text-center">${sponsor.name}</span>`;
-                     }
-                   }}
-                 />
-               </div>
-             ) : (
-               <span className="text-atom-fg opacity-50 text-center">
-                 {sponsor.name}
-               </span>
-             )}
-           </motion.div>
-         ))}
+        {displaySponsors.map((sponsor, i) => (
+          <motion.div
+            key={`${sponsor.name}-${i}`}
+            whileHover={{ 
+              scale: 1.05,
+              y: -8,
+              boxShadow: "0 20px 40px rgba(97, 175, 239, 0.3)",
+              transition: { duration: 0.2 }
+            }}
+            onClick={() => handleSponsorClick(sponsor)}
+            className={`
+              flex-shrink-0 flex items-center justify-center p-4
+              bg-black bg-opacity-50 rounded-lg
+              border-2 border-atom-fg border-opacity-10
+              cursor-pointer transition-all duration-300
+              hover:border-atom-blue hover:border-opacity-50
+              overflow-hidden
+            `}
+            style={{
+              width: baseWidth,
+              aspectRatio: tier === 'DIAMOND' ? '16/9' : tier === 'GOLD' ? '4/3' : '3/2'
+            }}
+          >
+            {sponsor.logo ? (
+              <div className="w-full h-full flex items-center justify-center">
+                <img
+                  src={sponsor.logo}
+                  alt={`${sponsor.name} logo`}
+                  className="max-w-full max-h-full object-contain filter brightness-75 hover:brightness-100 transition-all duration-300"
+                  onError={(e) => {
+                    // Fallback to text if image fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.innerHTML = `<span class="text-atom-blue text-lg font-semibold text-center px-2">${sponsor.name}</span>`;
+                    }
+                  }}
+                />
+              </div>
+            ) : (
+              <span className="text-atom-blue text-lg font-semibold text-center px-2 leading-tight">
+                {sponsor.name}
+              </span>
+            )}
+          </motion.div>
+        ))}
       </motion.div>
       {sponsors.length > 1 && (
         <>
