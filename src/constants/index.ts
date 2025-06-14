@@ -420,7 +420,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Kevin Wang",
-    role: "Program Director",
+    role: "Director",
     description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
     image: "/team/kevin.png",
     gender: "male",
@@ -582,12 +582,13 @@ GitHub: https://github.com/arshansgithub
 LinkedIn: https://www.linkedin.com/in/arshanshokoohi/
 
 Kevin Wang
-Role: Team Member
-About: Senior at Rancho Bernardo High School
+Role: Program Director
+About: Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.
 
 Aaran Chahal
-Role: Team Member
-About: Sophomore at Rancho Bernardo High School
+Role: Director
+About: Sophomore at Rancho Bernardo High School, passionate about computer science and AI for innovation.
+GitHub: https://github.com/a-chahal
 
 Want to join the team? Email us at team@cipherhacks.tech`)
   },
