@@ -429,12 +429,13 @@ export const TEAM_MEMBERS: TeamMember[] = [
     }
   },
   {
-    name: "Aaran Chalal",
-    role: "N/A",
-    description: "Sophomore at Rancho Bernardo High School.",
-    image: "",
+    name: "Aaran Chahal",
+    role: "Director",
+    description: "Sophomore at Rancho Bernardo High School, passionate about computer science and AI for innovation.",
+    image: "/team/aaran.jpg",
     gender: "male",
     links: {
+      github: "https://github.com/a-chahal",
       email: "aaran@cipherhacks.tech"
     }
   }
@@ -584,7 +585,7 @@ Kevin Wang
 Role: Team Member
 About: Senior at Rancho Bernardo High School
 
-Aaran Chalal
+Aaran Chahal
 Role: Team Member
 About: Sophomore at Rancho Bernardo High School
 
