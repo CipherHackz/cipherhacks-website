@@ -355,13 +355,20 @@ export const SPONSOR_TIERS = [
     tier: "SILVER",
     color: "text-gray-300",
     icon: "🥈",
-    sponsors: Array(3).fill(null).map((_, i) => ({
+    sponsors: Array(2).fill(null).map((_, i) => ({
       name: `Silver Sponsor ${i + 1}`,
       contribution: "PLACEHOLDER",
       description: "Community sponsor helping make this event possible.",
       website: "https://example.com",
       logo: `/sponsors/silver-sponsor-${i + 1}-logo.png`
     })).concat([
+      {
+        name: "Sublime Text & Merge",
+        contribution: "In-kind donation",
+        description: "Sublime HQ is supporting CipherHacks with five license keys for its flagship tools, Sublime Text and Sublime Merge. These licenses will be awarded as participant prizes, giving our student coders professional-grade software for future projects.",
+        website: "https://sublimetext.com",
+        logo: "/sponsors/sublime_hq_logos.png"
+      },
       {
         name: "theCoderSchool",
         contribution: "In-kind donation",
