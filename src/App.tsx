@@ -282,60 +282,80 @@ const SponsorCarousel: React.FC<{
   sponsors: SponsorInfo[];
   tier: string;
   onSponsorClick: (sponsor: SponsorInfo) => void;
-}> = ({ sponsors, tier, onSponsorClick }) => {
+  isPopupOpen?: boolean;
+}> = ({ sponsors, tier, onSponsorClick, isPopupOpen = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const [currentX, setCurrentX] = useState(0);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [lastDragTime, setLastDragTime] = useState(0);
+  const [isDragThresholdMet, setIsDragThresholdMet] = useState(false);
   const animationRef = useRef<number | undefined>(undefined);
-  const lastTimeRef = useRef<number | undefined>(undefined);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const lastTimeRef = useRef<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const speedRef = useRef(CAROUSEL_SPEED.NORMAL);
 
-  // Calculate base widths for sponsor cards
+  // Constants
+  const DRAG_THRESHOLD = 10; // pixels - minimum movement to start dragging
+
+  // Calculate dimensions
   const baseWidth = tier === 'DIAMOND' ? 320 : tier === 'GOLD' ? 280 : 240;
   const gap = 16;
-  const visibleSponsors = Math.min(3, sponsors.length);
   const itemWidth = baseWidth + gap;
-  
-  // Only duplicate if we have sponsors and need infinite scroll
-  const displaySponsors = sponsors.length > 0 ? [...sponsors, ...sponsors, ...sponsors] : [];
   const singleSetWidth = itemWidth * sponsors.length;
-  const totalWidth = singleSetWidth * 3;
-
+  
+  // Create triple set for infinite scroll
+  const displaySponsors = sponsors.length > 0 ? [...sponsors, ...sponsors, ...sponsors] : [];
+  
+  const visibleSponsors = Math.min(3, sponsors.length);
   const containerWidth = Math.min(
     itemWidth * visibleSponsors - gap,
     itemWidth * sponsors.length - gap
   );
 
-  // Smooth animation loop using requestAnimationFrame
-  const animate = useCallback((timestamp: number) => {
-    if (!lastTimeRef.current) {
-      lastTimeRef.current = timestamp;
+  // Wraps the position to keep it within the infinite scroll bounds
+  const wrapPosition = (newX: number) => {
+    if (sponsors.length <= 1) return newX;
+    
+    if (newX <= -singleSetWidth * 2) {
+      return newX + singleSetWidth;
+    } else if (newX >= 0) {
+      return newX - singleSetWidth;
     }
+    return newX;
+  }
 
+  // Initialize position to middle set
+  useEffect(() => {
+    if (sponsors.length > 0 && currentX === 0) {
+      setCurrentX(-singleSetWidth);
+    }
+  }, [sponsors.length, singleSetWidth, currentX]);
+
+  // Animation loop
+  const animate = useCallback((timestamp: number) => {
+    if (!lastTimeRef.current) lastTimeRef.current = timestamp;
+    
     const deltaTime = timestamp - lastTimeRef.current;
     lastTimeRef.current = timestamp;
 
-    if (!isDragging && !isPaused && sponsors.length > 1) {
-      const speed = isHovered ? CAROUSEL_SPEED.HOVERED : CAROUSEL_SPEED.NORMAL;
-      const movement = (speed * deltaTime) / 1000; // Convert to pixels per frame
+    // Determine target speed
+    const targetSpeed = (isPopupOpen || isHovered) ? CAROUSEL_SPEED.HOVERED : CAROUSEL_SPEED.NORMAL;
+
+    // Smoothly interpolate speed
+    speedRef.current += (targetSpeed - speedRef.current) * 0.05; // Smoothing factor
+
+    // Only animate if not dragging and we have multiple sponsors
+    if (!isDragging && sponsors.length > 1) {
+      const movement = (speedRef.current * deltaTime) / 1000;
       
-      setCurrentX(prevX => {
-        let newX = prevX - movement;
-        
-        // Reset position when we've moved one full set
-        if (newX <= -singleSetWidth * 2) {
-          newX = -singleSetWidth;
-        }
-        
-        return newX;
-      });
+      setCurrentX(prevX => wrapPosition(prevX - movement));
     }
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [isDragging, isPaused, isHovered, sponsors.length, singleSetWidth]);
+  }, [isDragging, isHovered, isPopupOpen, sponsors.length, singleSetWidth]);
 
-  // Start/stop animation
+  // Start animation
   useEffect(() => {
     if (sponsors.length > 1) {
       animationRef.current = requestAnimationFrame(animate);
@@ -348,111 +368,136 @@ const SponsorCarousel: React.FC<{
     };
   }, [animate, sponsors.length]);
 
-  // Reset animation when paused state changes
-  useEffect(() => {
-    if (!isPaused) {
-      setCurrentX(-singleSetWidth); // Start from middle set
-      lastTimeRef.current = undefined;
-    }
-  }, [isPaused, singleSetWidth]);
+  // Handle mouse down for dragging
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (sponsors.length <= 1) return;
+    
+    setDragStartX(e.clientX);
+    setLastDragTime(Date.now());
+    setIsDragThresholdMet(false);
+    
+    // Don't set isDragging immediately - wait for threshold
+  };
 
-  const handleDragEnd = (event: any, info: any) => {
+  // Handle mouse move for dragging
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!dragStartX) return;
+    
+    const deltaX = Math.abs(e.clientX - dragStartX);
+    
+    // Only start dragging if we've moved beyond the threshold
+    if (!isDragThresholdMet && deltaX > DRAG_THRESHOLD) {
+      setIsDragging(true);
+      setIsDragThresholdMet(true);
+      
+      if (containerRef.current) {
+        containerRef.current.style.cursor = 'grabbing';
+      }
+    }
+    
+    // Only update position if we're actually dragging
+    if (isDragThresholdMet && isDragging) {
+      const actualDeltaX = e.clientX - dragStartX;
+      
+      setCurrentX(prevX => wrapPosition(prevX + actualDeltaX * 0.8)); // Damping factor for smoother feel
+      
+      setDragStartX(e.clientX);
+    }
+  }, [isDragging, isDragThresholdMet, dragStartX, singleSetWidth, DRAG_THRESHOLD]);
+
+  // Handle mouse up for dragging
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
+    setIsDragThresholdMet(false);
+    setDragStartX(0);
     
-    // Snap to nearest set boundary
-    const dragOffset = info.offset.x;
-    const newX = currentX + dragOffset;
-    
-    // Determine which set we're closest to and snap
-    let targetX = newX;
-    if (newX > -singleSetWidth * 0.5) {
-      targetX = 0;
-    } else if (newX < -singleSetWidth * 2.5) {
-      targetX = -singleSetWidth * 2;
-    } else {
-      targetX = -singleSetWidth;
+    if (containerRef.current) {
+      containerRef.current.style.cursor = 'grab';
     }
+  }, []);
+
+  // Add global mouse event listeners for dragging
+  useEffect(() => {
+    if (dragStartX) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('mouseleave', handleMouseUp);
+      
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('mouseleave', handleMouseUp);
+      };
+    }
+  }, [dragStartX, handleMouseMove, handleMouseUp]);
+
+  // Handle card click
+  const handleCardClick = (sponsor: SponsorInfo, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     
-    setCurrentX(targetX);
-    lastTimeRef.current = undefined; // Reset timing
+    // Only trigger click if we haven't started dragging
+    if (!isDragThresholdMet && !isDragging) {
+      onSponsorClick(sponsor);
+    }
   };
 
-  // Handle sponsor click
-  const handleSponsorClick = (sponsor: SponsorInfo) => {
-    setIsPaused(true);
-    onSponsorClick(sponsor);
+  // Handle card hover
+  const handleCardHover = (isHovering: boolean) => {
+    setIsHovered(isHovering);
   };
 
-  // If no sponsors, don't render
   if (sponsors.length === 0) {
     return null;
   }
 
   return (
     <div 
-      className="relative mx-auto overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="relative mx-auto overflow-hidden select-none"
       style={{ 
         width: containerWidth,
         maxWidth: '100%'
       }}
     >
-      <motion.div
-        ref={carouselRef}
-        className="flex gap-4 px-4 cursor-grab active:cursor-grabbing"
+      <div
+        ref={containerRef}
+        className="flex gap-4 px-4"
         style={{
-          width: totalWidth,
           transform: `translateX(${currentX}px)`,
-          touchAction: "none"
+          cursor: isDragging ? 'grabbing' : (sponsors.length > 1 ? 'grab' : 'default'),
+          width: itemWidth * displaySponsors.length
         }}
-        drag={sponsors.length > 1 ? "x" : false}
-        dragConstraints={{
-          left: -singleSetWidth * 2,
-          right: 0
-        }}
-        dragElastic={0.1}
-        dragMomentum={false}
-        onDragStart={() => {
-          setIsDragging(true);
-          if (animationRef.current) {
-            cancelAnimationFrame(animationRef.current);
-          }
-        }}
-        onDragEnd={handleDragEnd}
-        animate={false} // Disable framer-motion's built-in animation
+        onMouseDown={handleMouseDown}
       >
         {displaySponsors.map((sponsor, i) => (
-          <motion.div
+          <div
             key={`${sponsor.name}-${i}`}
-            whileHover={{ 
-              scale: 1.05,
-              y: -8,
-              boxShadow: "0 20px 40px rgba(97, 175, 239, 0.3)",
-              transition: { duration: 0.2 }
-            }}
-            onClick={() => handleSponsorClick(sponsor)}
             className={`
               flex-shrink-0 flex items-center justify-center p-4
               bg-black bg-opacity-50 rounded-lg
               border-2 border-atom-fg border-opacity-10
               cursor-pointer transition-all duration-300
               hover:border-atom-blue hover:border-opacity-50
-              overflow-hidden
+              hover:scale-105 hover:-translate-y-2
+              overflow-hidden user-select-none
             `}
             style={{
               width: baseWidth,
-              aspectRatio: tier === 'DIAMOND' ? '16/9' : tier === 'GOLD' ? '4/3' : '3/2'
+              aspectRatio: tier === 'DIAMOND' ? '16/9' : tier === 'GOLD' ? '4/3' : '3/2',
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)"
             }}
+            onClick={(e) => handleCardClick(sponsor, e)}
+            onMouseEnter={() => handleCardHover(true)}
+            onMouseLeave={() => handleCardHover(false)}
           >
             {sponsor.logo ? (
-              <div className="w-full h-full flex items-center justify-center">
+              <div className="w-full h-full flex items-center justify-center pointer-events-none">
                 <img
                   src={sponsor.logo}
                   alt={`${sponsor.name} logo`}
                   className="max-w-full max-h-full object-contain filter brightness-75 hover:brightness-100 transition-all duration-300"
+                  draggable={false}
                   onError={(e) => {
-                    // Fallback to text if image fails to load
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
                     const parent = target.parentElement;
@@ -463,13 +508,14 @@ const SponsorCarousel: React.FC<{
                 />
               </div>
             ) : (
-              <span className="text-atom-blue text-lg font-semibold text-center px-2 leading-tight">
+              <span className="text-atom-blue text-lg font-semibold text-center px-2 leading-tight pointer-events-none">
                 {sponsor.name}
               </span>
             )}
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
+      
       {sponsors.length > 1 && (
         <>
           <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-atom-bg to-transparent pointer-events-none" />
@@ -571,7 +617,6 @@ const getDefaultIcon = (gender: 'male' | 'female' | 'other') => {
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [selectedSponsor, setSelectedSponsor] = useState<SponsorInfo | null>(null);
-  const [carouselKey, setCarouselKey] = useState(0);
   const [terminalState, setTerminalState] = useState<'open' | 'minimized' | 'closed'>('open');
 
   useEffect(() => {
@@ -661,7 +706,6 @@ const App: React.FC = () => {
 
   const handleSponsorClose = () => {
     setSelectedSponsor(null);
-    setCarouselKey(prev => prev + 1);
   };
 
   return (
@@ -1026,10 +1070,11 @@ const App: React.FC = () => {
                   </h3>
                 </motion.div>
                 <SponsorCarousel
-                  key={`${tier.tier}-${carouselKey}`}
+                  key={tier.tier}
                   sponsors={tier.sponsors}
                   tier={tier.tier}
                   onSponsorClick={setSelectedSponsor}
+                  isPopupOpen={selectedSponsor !== null}
                 />
               </div>
             ))}

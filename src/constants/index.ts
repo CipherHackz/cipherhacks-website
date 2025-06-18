@@ -296,11 +296,11 @@ export const SPONSOR_TIERS = [
         logo: "/sponsors/hcb-icon-icon-dark.png"
       },
       { 
-        name: "Tech Leader", 
-        description: "Global tech leader supporting young developers.", 
-        website: "https://example.com", 
-        contribution: "Venue Sponsor",
-        logo: "/sponsors/tech-leader-logo.png"
+        name: "PLACEHOLDER", 
+        description: "PLACEHOLDER", 
+        website: "https://google.com", 
+        contribution: "PLACEHOLDER",
+        logo: ""
       }
     ]
   },
@@ -345,6 +345,7 @@ export const SPONSOR_TIERS = [
     icon: "🏅",
     sponsors: Array(6).fill(null).map((_, i) => ({
       name: `Gold Sponsor ${i + 1}`,
+      contribution: "PLACEHOLDER",
       description: "Supporting sponsor providing valuable resources and mentorship.",
       website: "https://example.com",
       logo: `/sponsors/gold-sponsor-${i + 1}-logo.png`
@@ -354,12 +355,27 @@ export const SPONSOR_TIERS = [
     tier: "SILVER",
     color: "text-gray-300",
     icon: "🥈",
-    sponsors: Array(8).fill(null).map((_, i) => ({
+    sponsors: Array(3).fill(null).map((_, i) => ({
       name: `Silver Sponsor ${i + 1}`,
+      contribution: "PLACEHOLDER",
       description: "Community sponsor helping make this event possible.",
       website: "https://example.com",
       logo: `/sponsors/silver-sponsor-${i + 1}-logo.png`
-    }))
+    })).concat([
+      {
+        name: "theCoderSchool",
+        contribution: "In-kind donation",
+        description: "theCoderSchool is a San Diego coding academy that gives kids and teens personalized, semi-private coaching in Python, Java, game development, and more. They’re fueling CipherHacks by donating month-long class passes to our winning teams, so students can keep leveling up long after the hackathon ends.",
+        website: "https://thecoderschool.com",
+        logo: "/sponsors/coderschool.png"
+      }
+    ]).concat(Array(3).fill(null).map((_, i) => ({
+      name: `Silver Sponsor ${i + 1}`,
+      contribution: "PLACEHOLDER",
+      description: "Community sponsor helping make this event possible.",
+      website: "https://example.com",
+        logo: `/sponsors/silver-sponsor-${i + 1}-logo.png`
+      })))
   }
 ];
 
