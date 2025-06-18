@@ -290,7 +290,7 @@ export const SPONSOR_TIERS = [
     sponsors: [
       { 
         name: "HCB", 
-        description: "Hack Club is a 501(c)(3) nonprofit that supports thousands of student-run coding clubs and events worldwide. As CipherHacks’ fiscal sponsor, they handle our donation processing, insurance, and financial oversight so the hackathon can stay free and accessible to every student.",
+        description: "Hack Club is a 501(c)(3) nonprofit that supports thousands of student-run coding clubs and events worldwide. As CipherHacks' fiscal sponsor, they handle our donation processing, insurance, and financial oversight so the hackathon can stay free and accessible to every student.",
         website: "https://hackclub.com/hcb", 
         contribution: "Fiscal Sponsor",
         logo: "/sponsors/hcb-icon-icon-dark.png"
@@ -372,7 +372,7 @@ export const SPONSOR_TIERS = [
       {
         name: "theCoderSchool",
         contribution: "In-kind donation",
-        description: "theCoderSchool is a San Diego coding academy that gives kids and teens personalized, semi-private coaching in Python, Java, game development, and more. They’re fueling CipherHacks by donating month-long class passes to our winning teams, so students can keep leveling up long after the hackathon ends.",
+        description: "theCoderSchool is a San Diego coding academy that gives kids and teens personalized, semi-private coaching in Python, Java, game development, and more. They're fueling CipherHacks by donating month-long class passes to our winning teams, so students can keep leveling up long after the hackathon ends.",
         website: "https://thecoderschool.com",
         logo: "/sponsors/coderschool.png"
       }

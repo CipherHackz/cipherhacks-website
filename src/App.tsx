@@ -148,16 +148,15 @@ const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
         <div className="flex items-center justify-between p-2 bg-atom-bg bg-opacity-50">
           <h2 className="text-atom-blue font-mono text-lg">hacker@cipherhacks: ~</h2>
           <motion.button
+            aria-label="Close fullscreen terminal"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => {
               setIsFullscreen(false);
               setHistory([]);
             }}
-            className="text-atom-fg hover:text-atom-red transition-colors"
-          >
-            <XMarkIcon className="h-6 w-6" />
-          </motion.button>
+            className="h-5 w-5 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"
+          />
         </div>
         <div className="flex-1 overflow-auto p-4 font-mono">
           {history.map((line, i) => (
@@ -209,7 +208,8 @@ const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
               onStateChange('closed');
               setIsMinimized(false);
             }}
-            className="h-3 w-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"
+            aria-label="Close terminal"
+            className="h-5 w-5 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"
           />
         </div>
       </motion.button>
@@ -226,31 +226,34 @@ const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
     >
       <div className="flex items-center mb-2 space-x-2">
         <motion.button
+          aria-label="Close terminal"
           whileHover={!isMobile ? { scale: 1.1 } : {}}
           whileTap={!isMobile ? { scale: 0.9 } : {}}
           onClick={() => {
             onStateChange('closed');
             setIsMinimized(false);
           }}
-          className="h-3 w-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"
+          className="h-5 w-5 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"
           disabled={isMobile}
         />
         {!isMobile && (
           <>
             <motion.button
+              aria-label="Minimize terminal"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => {
                 setIsMinimized(true);
                 onStateChange('minimized');
               }}
-              className="h-3 w-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors cursor-pointer"
+              className="h-5 w-5 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors cursor-pointer"
             />
             <motion.button
+              aria-label="Maximize terminal"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsFullscreen(true)}
-              className="h-3 w-3 rounded-full bg-green-500 hover:bg-green-600 transition-colors cursor-pointer"
+              className="h-5 w-5 rounded-full bg-green-500 hover:bg-green-600 transition-colors cursor-pointer"
             />
           </>
         )}
@@ -288,7 +291,6 @@ const SponsorCarousel: React.FC<{
   const [isDragging, setIsDragging] = useState(false);
   const [currentX, setCurrentX] = useState(0);
   const [dragStartX, setDragStartX] = useState(0);
-  const [lastDragTime, setLastDragTime] = useState(0);
   const [isDragThresholdMet, setIsDragThresholdMet] = useState(false);
   const animationRef = useRef<number | undefined>(undefined);
   const lastTimeRef = useRef<number>(0);
@@ -313,18 +315,6 @@ const SponsorCarousel: React.FC<{
     itemWidth * sponsors.length - gap
   );
 
-  // Wraps the position to keep it within the infinite scroll bounds
-  const wrapPosition = (newX: number) => {
-    if (sponsors.length <= 1) return newX;
-    
-    if (newX <= -singleSetWidth * 2) {
-      return newX + singleSetWidth;
-    } else if (newX >= 0) {
-      return newX - singleSetWidth;
-    }
-    return newX;
-  }
-
   // Initialize position to middle set
   useEffect(() => {
     if (sponsors.length > 0 && currentX === 0) {
@@ -334,6 +324,18 @@ const SponsorCarousel: React.FC<{
 
   // Animation loop
   const animate = useCallback((timestamp: number) => {
+    // Wraps the position to keep it within the infinite scroll bounds
+    const wrapPosition = (newX: number) => {
+      if (sponsors.length <= 1) return newX;
+      
+      if (newX <= -singleSetWidth * 2) {
+        return newX + singleSetWidth;
+      } else if (newX >= 0) {
+        return newX - singleSetWidth;
+      }
+      return newX;
+    };
+
     if (!lastTimeRef.current) lastTimeRef.current = timestamp;
     
     const deltaTime = timestamp - lastTimeRef.current;
@@ -373,7 +375,6 @@ const SponsorCarousel: React.FC<{
     if (sponsors.length <= 1) return;
     
     setDragStartX(e.clientX);
-    setLastDragTime(Date.now());
     setIsDragThresholdMet(false);
     
     // Don't set isDragging immediately - wait for threshold
@@ -382,6 +383,18 @@ const SponsorCarousel: React.FC<{
   // Handle mouse move for dragging
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!dragStartX) return;
+    
+    // Wraps the position to keep it within the infinite scroll bounds
+    const wrapPosition = (newX: number) => {
+      if (sponsors.length <= 1) return newX;
+      
+      if (newX <= -singleSetWidth * 2) {
+        return newX + singleSetWidth;
+      } else if (newX >= 0) {
+        return newX - singleSetWidth;
+      }
+      return newX;
+    };
     
     const deltaX = Math.abs(e.clientX - dragStartX);
     
@@ -403,7 +416,7 @@ const SponsorCarousel: React.FC<{
       
       setDragStartX(e.clientX);
     }
-  }, [isDragging, isDragThresholdMet, dragStartX, singleSetWidth, DRAG_THRESHOLD]);
+  }, [isDragging, isDragThresholdMet, dragStartX, singleSetWidth, sponsors.length, DRAG_THRESHOLD]);
 
   // Handle mouse up for dragging
   const handleMouseUp = useCallback(() => {
@@ -470,8 +483,9 @@ const SponsorCarousel: React.FC<{
         onMouseDown={handleMouseDown}
       >
         {displaySponsors.map((sponsor, i) => (
-          <div
+          <motion.button
             key={`${sponsor.name}-${i}`}
+            aria-label={`View details for ${sponsor.name}`}
             className={`
               flex-shrink-0 flex items-center justify-center p-4
               bg-black bg-opacity-50 rounded-lg
@@ -479,7 +493,7 @@ const SponsorCarousel: React.FC<{
               cursor-pointer transition-all duration-300
               hover:border-atom-blue hover:border-opacity-50
               hover:scale-105 hover:-translate-y-2
-              overflow-hidden user-select-none
+              overflow-hidden user-select-none text-left
             `}
             style={{
               width: baseWidth,
@@ -512,7 +526,7 @@ const SponsorCarousel: React.FC<{
                 {sponsor.name}
               </span>
             )}
-          </div>
+          </motion.button>
         ))}
       </div>
       
@@ -552,6 +566,7 @@ const SponsorPopup: React.FC<{
          <h3 className="text-2xl font-bold text-atom-blue">{sponsor.name}</h3>
          <button
            onClick={onClose}
+           aria-label="Close sponsor details"
            className="text-atom-fg hover:text-atom-red transition-colors"
          >
            <XMarkIcon className="h-6 w-6" />
@@ -733,6 +748,7 @@ const App: React.FC = () => {
                        to={item.to}
                        smooth={true}
                        duration={500}
+                       href={`#${item.to}`}
                        className={`${item.className} items-center space-x-1 px-1 sm:px-2 md:px-3 py-1 rounded-lg group transition-all duration-300 ${
                          item.primary 
                            ? 'text-atom-blue font-bold text-sm sm:text-base md:text-lg' 
@@ -798,6 +814,7 @@ const App: React.FC = () => {
 
       {/* Hero Section */}
       <motion.section 
+        id="hero"
         className="min-h-screen flex flex-col items-center justify-center relative pt-8 pb-20 sm:pt-12 sm:pb-24 md:pt-16 md:pb-28"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -1154,6 +1171,7 @@ const App: React.FC = () => {
                       href={member.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="GitHub"
                       className="text-atom-fg hover:text-atom-blue transition-colors"
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -1166,6 +1184,7 @@ const App: React.FC = () => {
                       href={member.links.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="LinkedIn"
                       className="text-atom-fg hover:text-atom-blue transition-colors"
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -1178,6 +1197,7 @@ const App: React.FC = () => {
                       href={member.links.twitter}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="Twitter"
                       className="text-atom-fg hover:text-atom-blue transition-colors"
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -1188,6 +1208,7 @@ const App: React.FC = () => {
                   {member.links.email && (
                     <a 
                       href={`mailto:${member.links.email}`}
+                      aria-label="Email"
                       className="text-atom-fg hover:text-atom-blue transition-colors"
                     >
                       <EnvelopeIcon className="h-5 w-5" />
@@ -1242,6 +1263,7 @@ const App: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.1 }}
+                      aria-label={social.name}
                       className="text-atom-fg hover:text-atom-blue transition-colors"
                     >
                       <Icon className="h-8 w-8" />
