@@ -68,6 +68,7 @@ const TERMINAL_MESSAGES = {
     '[INFO] Loading creative modules...',
     '[INFO] Preparing for epicness...',
     '[INFO] Starting up the matrix...',
+    '[INFO] Q2lwaGVySGFja3N7UjByMTNuVF80X04zdzNSX1MzY3VyMXR5fQ== decryption module loaded...',
   ],
   hackerStats: [
     '[DEBUG] Found 1337 potential hackers in San Diego',
@@ -231,8 +232,8 @@ export const FEATURES = [
 
 // About Section
 export const ABOUT_ITEMS = [
-  { icon: CalendarIcon, text: 'Date TBD' },
-  { icon: MapPinIcon, text: 'Venue TBD' },
+  { icon: CalendarIcon, text: 'Tentative Date: October 4-5, 2025' },
+  { icon: MapPinIcon, text: 'Venue: Currently seeking sponsors!' },
   { icon: CommandLineIcon, text: 'All Skill Levels Welcome' }
 ];
 
@@ -504,7 +505,7 @@ Join us for an unforgettable weekend of coding, learning, and building alongside
 passionate about technology.
 
 🗓️ Date: Tentatively October 4-5, 2025
-📍 Location: TBD (San Diego, CA)
+📍 Location: TBD - We're seeking venue sponsors! (San Diego, CA)
 💻 Format: In-person hackathon
 🎯 Focus: Cybersecurity & Computer Science
 👥 Who: High school students in San Diego
@@ -520,7 +521,7 @@ Follow us on Instagram: https://instagram.com/cipherhacks2025
 
 Registration: Not yet open
 Interest Form: OPEN - https://cipherhacks.tech/register
-Location: To be announced
+Location: TBD - We're actively seeking venue sponsors!
 Date: Tentatively set for October 4-5, 2025
 Sponsorships: Open for discussion
 
@@ -652,7 +653,97 @@ We'll notify you about:
 drwxr-xr-x  2 hacker  cipherhacks  4096 Oct  4 09:00 schedule
 drwxr-xr-x  2 hacker  cipherhacks  4096 Oct  4 09:00 register
 drwxr-xr-x  2 hacker  cipherhacks  4096 Oct  4 09:00 sponsors
--rw-r--r--  1 hacker  cipherhacks  1337 Oct  4 09:00 README.md`
+-rw-r--r--  1 hacker  cipherhacks  1337 Oct  4 09:00 README.md
+-rwxrwxrwx  1 root    cipherhacks   666 Oct  4 13:37 .hidden`
+  },
+  {
+    name: 'nmap',
+    description: 'Network discovery and security auditing',
+    action: (args) => {
+      if (args.length === 0) {
+        return `nmap: At least one host must be specified
+Usage: nmap [target]
+Try 'nmap localhost' or 'nmap -sS target' for stealth scan`;
+      }
+      const target = args[0];
+      if (target === 'localhost' || target === '127.0.0.1') {
+        // Add the network-scan class to body temporarily for CSS steganography
+        document.body.classList.add('network-scan');
+        setTimeout(() => document.body.classList.remove('network-scan'), 5000);
+        return `Starting Nmap scan on ${target}...
+
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+443/tcp  open  https
+1337/tcp open  elite-hacker-port
+8080/tcp open  http-proxy
+
+Nmap done: 1 IP address scanned, encrypted payloads detected in CSS layer.
+Advanced hackers should inspect element styles for hidden transmissions.`;
+      }
+      return `Scanning ${target}... Permission denied. Target may be protected by advanced security measures.`;
+    }
+  },
+  {
+    name: 'netstat',
+    description: 'Display network connections',
+    action: () => {
+      document.body.classList.add('security-protocol');
+      setTimeout(() => document.body.classList.remove('security-protocol'), 3000);
+      return `Active Internet connections:
+Proto Local Address    Foreign Address   State
+tcp   0.0.0.0:80       *.*               LISTEN
+tcp   0.0.0.0:443      *.*               LISTEN  
+tcp   127.0.0.1:1337   127.0.0.1:31415   ESTABLISHED
+
+Warning: Unusual activity detected on port 1337.
+Security protocols activated. Check CSS pseudo-elements for system diagnostics.`;
+    }
+  },
+  {
+    name: 'wireshark',
+    description: 'Network protocol analyzer',
+    action: () => `Wireshark-style packet capture initiated...
+
+=== PACKET CAPTURE LOG ===
+[13:37:42] TCP 192.168.1.100:1337 → 10.0.0.1:80 [SYN]
+[13:37:42] HTTP GET /api/v1/flags HTTP/1.1
+[13:37:43] Response: 200 OK
+[13:37:43] Payload: ZmxhZ3tzM2NyM3RfaDNhZDNyX2ZvdW5kfQ==
+
+Packet analysis complete. Base64 encoded payloads detected.
+Experienced penetration testers know where to look... 🕵️‍♂️`
+  },
+  {
+    name: 'cat',
+    description: 'Display file contents',
+    action: (args) => {
+      if (args.length === 0) {
+        return 'cat: missing file operand';
+      }
+      const filename = args[0];
+      if (filename === '.hidden') {
+        return `# CLASSIFIED SECURITY BRIEFING
+# Access Level: Elite Hacker
+#
+# Subject: Advanced Penetration Testing Protocols
+# Date: October 4, 2025
+#
+# The following are hints for dedicated security researchers:
+#
+# 1. Terminal boot sequences may contain Base64 encoded intelligence
+# 2. Browser inspection tools reveal obfuscated cipher challenges  
+# 3. Network scanning activates CSS-based steganographic protocols
+# 4. ROT13 is an ancient cipher, but still useful for modern challenges
+#
+# Remember: True hackers don't just read source code - they reverse engineer!
+# 
+# Encrypted Message: PvcureUnpxf{G3zu_Jbex_Qbar_Jryy}
+# (Hint: This message uses a simple substitution cipher)`;
+      }
+      return `cat: ${filename}: No such file or directory`;
+    }
   },
 ];
 

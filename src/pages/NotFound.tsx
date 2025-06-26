@@ -69,7 +69,7 @@ const NotFound: React.FC = () => {
               Back to Home
             </Link>
             <a 
-              href="https://github.com/cipherhacks/cipherhacks-website"
+              href="https://github.com/cipherhackz/cipherhacks-website"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 border-2 border-atom-blue text-atom-blue rounded-lg hover:bg-atom-blue hover:bg-opacity-10 transition-colors w-full sm:w-auto justify-center"

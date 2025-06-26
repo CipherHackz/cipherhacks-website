@@ -8,6 +8,7 @@ import {
   CodeBracketIcon,
   EnvelopeIcon,
   XMarkIcon,
+  MapPinIcon,
 } from '@heroicons/react/24/outline';
 import InstagramIcon from './components/InstagramIcon';
 import {
@@ -633,6 +634,7 @@ const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [selectedSponsor, setSelectedSponsor] = useState<SponsorInfo | null>(null);
   const [terminalState, setTerminalState] = useState<'open' | 'minimized' | 'closed'>('open');
+  const [secretMode, setSecretMode] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -675,7 +677,7 @@ const App: React.FC = () => {
     console.log('%c2. Joining our development team', styles.text);
     console.log('%c3. Finding more easter eggs...', styles.text);
     console.log('\n');
-    console.log('%cGitHub: https://github.com/cipherhacks', styles.link);
+    console.log('%cGitHub: https://github.com/cipherhackz', styles.link);
     console.log('%cEmail: team@cipherhacks.tech', styles.link);
     console.log('\n');
     console.log('%cTry running %chelp()%c in the console...', styles.text, styles.subtitle, styles.text);
@@ -687,6 +689,10 @@ const App: React.FC = () => {
       console.log('%c  matrix()    - Enter the matrix', styles.text);
       console.log('%c  coffee()    - Get virtual coffee', styles.text);
       console.log('%c  easteregg() - Find another easter egg', styles.text);
+      console.log('%c  inspect()   - Run browser security analysis', styles.text);
+      console.log('%c  decode()    - Decode encrypted strings', styles.text);
+      console.log('\n%c🚨 Security Notice: Advanced penetration testers report unusual encrypted transmissions.', 'color: #e06c75; font-weight: bold;');
+      console.log('%cRecommended tools: Terminal network commands, element inspection, cipher analysis.', styles.text);
     };
 
     (window as any).hack = () => {
@@ -717,6 +723,333 @@ const App: React.FC = () => {
       console.log('%cCongratulations! You found another easter egg! 🥚\nBut wait... there\'s more! Keep exploring...', styles.subtitle);
     };
 
+    // Obfuscated CTF function - requires reverse engineering
+    const _0x5a1b=['Q2lwaGVySGFja3N7QnJvdzNyX1MzY3VyMXR5X0YxbmRlcn0=','fromCharCode','apply','split','map','parseInt','join'];
+    const _0x1337=function(s: string): string {return s.split('').map((c: string) => String.fromCharCode(c.charCodeAt(0)^42)).join('')};
+    const _0x4242='=B@2CEF<92\x0fB@2CL_';
+    (window as any).inspect = () => {
+      const _decoded = _0x1337(_0x4242);
+      console.log('%c🔍 Browser Security Analysis Complete', styles.subtitle);
+      console.log('%cYou\'ve unlocked the inspector protocol! This requires true detective work.', styles.text);
+      console.log(`%c${_decoded}`, 'color: #e06c75; font-weight: bold; font-size: 14px;');
+    };
+
+    // Hidden ROT13 decoder - for the advanced challenges
+    (window as any).decode = (str: string) => {
+      const rot13 = (s: string) => s.replace(/[a-zA-Z]/g, (c: string) => {
+        const code = c.charCodeAt(0) + 13;
+        return String.fromCharCode((c <= 'Z' ? 90 : 122) >= code ? code : code - 26);
+      });
+      return rot13(str);
+    };
+
+    // Advanced JavaScript Features
+    
+    // 1. Konami Code Easter Egg
+    let konamiCode = '';
+    const konamiSequence = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightKeyBKeyA';
+    const handleKonamiCode = (e: KeyboardEvent) => {
+      konamiCode += e.code;
+      if (konamiCode.length > konamiSequence.length) {
+        konamiCode = konamiCode.slice(-konamiSequence.length);
+      }
+      if (konamiCode === konamiSequence) {
+        console.log('%c🎮 KONAMI CODE ACTIVATED! 🎮', 'color: #ff6b6b; font-size: 20px; font-weight: bold;');
+        console.log('%c🚀 Welcome to the Elite Hackers Club!', 'color: #4ecdc4; font-size: 16px;');
+        console.log('%cSecret Flag: CipherHacks{K0n4m1_M4st3r_H4ck3r}', 'color: #45b7d1; font-weight: bold;');
+        // Add visual effect
+        document.body.style.animation = 'hue-rotate 2s infinite';
+        setTimeout(() => {
+          document.body.style.animation = '';
+        }, 5000);
+      }
+    };
+    document.addEventListener('keydown', handleKonamiCode);
+
+    // 2. Mouse Tracker with Particle Effects
+    const particles: Array<{x: number, y: number, life: number, vx: number, vy: number}> = [];
+    let canvas: HTMLCanvasElement | null = null;
+    let ctx: CanvasRenderingContext2D | null = null;
+
+    const createParticleCanvas = () => {
+      canvas = document.createElement('canvas');
+      canvas.id = 'particle-canvas';
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = '1000';
+      canvas.style.opacity = '0.7';
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      document.body.appendChild(canvas);
+      ctx = canvas.getContext('2d');
+    };
+
+    const addParticle = (x: number, y: number) => {
+      for (let i = 0; i < 3; i++) {
+        particles.push({
+          x: x + (Math.random() - 0.5) * 10,
+          y: y + (Math.random() - 0.5) * 10,
+          life: 1.0,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2 - 1
+        });
+      }
+    };
+
+    const updateParticles = () => {
+      if (!ctx || !canvas) return;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.02;
+        
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+        
+        ctx.save();
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = `hsl(${(Date.now() / 10) % 360}, 70%, 60%)`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2 * p.life, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+      
+      requestAnimationFrame(updateParticles);
+    };
+
+    // 3. Advanced Console Commands
+    (window as any).particles = (enable: boolean = true) => {
+      if (enable && !canvas) {
+        createParticleCanvas();
+        updateParticles();
+        
+        const mouseHandler = (e: MouseEvent) => addParticle(e.clientX, e.clientY);
+        document.addEventListener('mousemove', mouseHandler);
+        
+        console.log('%c✨ Particle effects enabled! Move your mouse around!', 'color: #ff6b6b; font-size: 14px;');
+        
+        (window as any).disableParticles = () => {
+          document.removeEventListener('mousemove', mouseHandler);
+          canvas?.remove();
+          canvas = null;
+          console.log('%c🚫 Particle effects disabled.', 'color: #ffa500;');
+        };
+      } else if (!enable && canvas) {
+        (window as any).disableParticles();
+      }
+    };
+
+    (window as any).glitch = () => {
+      const elements = document.querySelectorAll('h1, h2, h3, p, span');
+      elements.forEach((el, index) => {
+        setTimeout(() => {
+          const original = el.textContent;
+          const glitched = original?.split('').map(char => 
+            Math.random() < 0.1 ? String.fromCharCode(33 + Math.floor(Math.random() * 93)) : char
+          ).join('');
+          el.textContent = glitched || '';
+          setTimeout(() => {
+            el.textContent = original || '';
+          }, 200);
+        }, index * 50);
+      });
+      console.log('%c👾 GLITCH EFFECT ACTIVATED!', 'color: #ff0080; font-weight: bold; text-shadow: 2px 2px #00ff80;');
+    };
+
+    (window as any).rainbow = () => {
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes rainbow {
+          0% { color: #ff0000; }
+          16% { color: #ff8000; }
+          33% { color: #ffff00; }
+          50% { color: #00ff00; }
+          66% { color: #0080ff; }
+          83% { color: #8000ff; }
+          100% { color: #ff0000; }
+        }
+        .rainbow-text { animation: rainbow 2s infinite; }
+      `;
+      document.head.appendChild(style);
+      
+      document.querySelectorAll('h1, h2, h3').forEach(el => {
+        el.classList.add('rainbow-text');
+      });
+      
+      console.log('%c🌈 RAINBOW MODE ACTIVATED!', 'background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0080ff, #8000ff); -webkit-background-clip: text; color: transparent; font-weight: bold; font-size: 16px;');
+      
+      setTimeout(() => {
+        document.querySelectorAll('.rainbow-text').forEach(el => {
+          el.classList.remove('rainbow-text');
+        });
+        style.remove();
+        console.log('%c🌈 Rainbow mode disabled.', 'color: #888;');
+      }, 10000);
+    };
+
+    (window as any).cyberpunk = () => {
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes neon-glow {
+          0%, 100% { 
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff, 0 0 20px #00ffff;
+            filter: hue-rotate(0deg);
+          }
+          50% { 
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
+            filter: hue-rotate(180deg);
+          }
+        }
+        .cyberpunk-mode {
+          background: linear-gradient(45deg, #000 25%, #111 25%, #111 50%, #000 50%, #000 75%, #111 75%, #111);
+          background-size: 20px 20px;
+          animation: neon-glow 2s ease-in-out infinite;
+        }
+        .cyberpunk-mode h1, .cyberpunk-mode h2, .cyberpunk-mode h3 {
+          color: #00ffff !important;
+          text-shadow: 0 0 10px #00ffff;
+        }
+      `;
+      document.head.appendChild(style);
+      document.body.classList.add('cyberpunk-mode');
+      
+      console.log('%c🤖 CYBERPUNK MODE ENGAGED! 🤖', 'color: #00ffff; font-weight: bold; text-shadow: 0 0 10px #00ffff;');
+      
+      setTimeout(() => {
+        document.body.classList.remove('cyberpunk-mode');
+        style.remove();
+        console.log('%c🤖 Cyberpunk mode disabled.', 'color: #888;');
+      }, 15000);
+    };
+
+    (window as any).status = () => {
+      const memUsage = (performance as any).memory ? {
+        used: Math.round((performance as any).memory.usedJSHeapSize / 1048576),
+        total: Math.round((performance as any).memory.totalJSHeapSize / 1048576),
+        limit: Math.round((performance as any).memory.jsHeapSizeLimit / 1048576)
+      } : 'N/A';
+      
+      console.log('%c🖥️  SYSTEM STATUS REPORT', 'color: #00ff00; font-weight: bold; font-size: 16px;');
+      console.log('%c════════════════════════════', 'color: #00ff00;');
+      console.log(`%cUser Agent: ${navigator.userAgent}`, 'color: #00ffff;');
+      console.log(`%cScreen: ${window.screen.width}x${window.screen.height}`, 'color: #00ffff;');
+      console.log(`%cViewport: ${window.innerWidth}x${window.innerHeight}`, 'color: #00ffff;');
+      console.log(`%cMemory Usage: ${typeof memUsage === 'object' ? `${memUsage.used}MB / ${memUsage.total}MB` : memUsage}`, 'color: #00ffff;');
+      console.log(`%cConnection: ${(navigator as any).connection?.effectiveType || 'Unknown'}`, 'color: #00ffff;');
+      console.log(`%cOnline: ${navigator.onLine ? '✅' : '❌'}`, 'color: #00ffff;');
+      console.log(`%cCookies Enabled: ${navigator.cookieEnabled ? '✅' : '❌'}`, 'color: #00ffff;');
+      console.log(`%cTimezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`, 'color: #00ffff;');
+      console.log('%c════════════════════════════', 'color: #00ff00;');
+    };
+
+    // Update help function to include new commands
+    (window as any).help = () => {
+      console.log('%cAvailable Commands:', styles.subtitle);
+      console.log('%c  hack()         - Try to hack the mainframe', styles.text);
+      console.log('%c  matrix()       - Enter the matrix', styles.text);
+      console.log('%c  coffee()       - Get virtual coffee', styles.text);
+      console.log('%c  easteregg()    - Find another easter egg', styles.text);
+      console.log('%c  inspect()      - Run browser security analysis', styles.text);
+      console.log('%c  decode()       - Decode encrypted strings', styles.text);
+      console.log('\n%cVisual Effects:', 'color: #ff6b6b; font-weight: bold;');
+      console.log('%c  particles()    - Enable mouse particle effects', styles.text);
+      console.log('%c  glitch()       - Activate glitch effect', styles.text);
+      console.log('%c  rainbow()      - Rainbow text mode', styles.text);
+      console.log('%c  cyberpunk()    - Cyberpunk aesthetic mode', styles.text);
+      console.log('%c  matrixRain()   - Matrix digital rain effect', styles.text);
+      console.log('\n%cSystem Commands:', 'color: #4ecdc4; font-weight: bold;');
+      console.log('%c  status()       - Show system information', styles.text);
+      console.log('\n%cGames & Challenges:', 'color: #ffd700; font-weight: bold;');
+      console.log('%c  typing_test()  - Test your typing speed', styles.text);
+      console.log('\n%c🎮 Try the Konami Code: ↑↑↓↓←→←→BA', 'color: #ffa500; font-weight: bold;');
+      console.log('\n%c🚨 Security Notice: Advanced penetration testers report unusual encrypted transmissions.', 'color: #e06c75; font-weight: bold;');
+      console.log('%cRecommended tools: Terminal network commands, element inspection, cipher analysis.', styles.text);
+    };
+
+    // Matrix Rain Effect
+    (window as any).matrixRain = () => {
+      const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const columns = Math.floor(window.innerWidth / 20);
+      
+      const createMatrixChar = (x: number) => {
+        const char = document.createElement('div');
+        char.className = 'matrix-char';
+        char.textContent = chars[Math.floor(Math.random() * chars.length)];
+        char.style.left = x + 'px';
+        char.style.top = '-20px';
+        char.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(char);
+        
+        setTimeout(() => {
+          char.remove();
+        }, 3000);
+      };
+      
+      console.log('%c🌧️ MATRIX RAIN ACTIVATED!', 'color: #00ff00; font-weight: bold; font-family: monospace;');
+      
+      const interval = setInterval(() => {
+        for (let i = 0; i < columns; i++) {
+          if (Math.random() < 0.1) {
+            createMatrixChar(i * 20);
+          }
+        }
+      }, 100);
+      
+      setTimeout(() => {
+        clearInterval(interval);
+        console.log('%c🌧️ Matrix rain stopped.', 'color: #888;');
+      }, 10000);
+    };
+
+    // Secret typing test challenge
+    (window as any).typing_test = () => {
+      const phrases = [
+        'The quick brown fox jumps over the lazy dog',
+        'CipherHacks is the best hackathon in San Diego',
+        'Cybersecurity is not just about technology, its about people',
+        'console.log("Hello, World!");',
+        'SELECT * FROM hackers WHERE skill_level = "elite";'
+      ];
+      
+      const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+      const startTime = Date.now();
+      
+      console.log('%c⌨️ TYPING TEST CHALLENGE!', 'color: #ff6b6b; font-weight: bold; font-size: 16px;');
+      console.log(`%cType this phrase: "${phrase}"`, 'color: #00ffff; font-size: 14px;');
+      
+      const checkTyping = (input: string) => {
+        const endTime = Date.now();
+        const duration = (endTime - startTime) / 1000;
+        const wpm = Math.round((phrase.length / 5) / (duration / 60));
+        
+        if (input === phrase) {
+          console.log(`%c🎉 PERFECT! Time: ${duration.toFixed(2)}s | WPM: ${wpm}`, 'color: #00ff00; font-weight: bold;');
+          if (wpm > 60) {
+            console.log('%c🚀 Speed Demon! You earn the title: Elite Typist', 'color: #ffd700; font-weight: bold;');
+          }
+        } else {
+          console.log(`%c❌ Not quite right. You typed: "${input}"`, 'color: #ff6b6b;');
+        }
+      };
+      
+      (window as any).submit_typing = checkTyping;
+      console.log('%cWhen done, run: submit_typing("your typed phrase here")', 'color: #ffa500;');
+    };
+
+    // Add cleanup function for event listeners
+    return () => {
+      document.removeEventListener('keydown', handleKonamiCode);
+    };
+
   }, []);
 
   const handleSponsorClose = () => {
@@ -725,8 +1058,16 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-atom-bg">
+      {/* Hidden CTF Indicator - Only visible to those who know to look */}
+      <div 
+        className="fixed bottom-0 right-0 p-1 text-xs opacity-5 hover:opacity-20 transition-opacity duration-1000 select-none pointer-events-none"
+        style={{ fontSize: '8px', color: '#282c34' }}
+      >
+        Security Level: 🔒🔒🔒 | Flags: 3 | Status: Hidden
+      </div>
+
       {/* Navigation */}
-             <motion.nav 
+      <motion.nav 
          className="fixed top-0 left-0 right-0 z-50"
          initial={{ y: -100, opacity: 0 }}
          animate={{ y: 0, opacity: 1 }}
@@ -812,10 +1153,36 @@ const App: React.FC = () => {
          </div>
        </motion.nav>
 
+      {/* Venue Notice Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.5 }}
+        className="fixed top-12 sm:top-14 md:top-16 left-0 right-0 z-40 bg-gradient-to-r from-atom-purple to-atom-blue bg-opacity-95 backdrop-blur-sm border-b border-atom-blue border-opacity-30"
+      >
+        <div className="container-custom py-2 md:py-3 px-4">
+          <div className="flex items-center justify-center text-center">
+            <div className="flex items-center space-x-1 md:space-x-2 text-white">
+              <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 animate-pulse flex-shrink-0" />
+              <span className="text-xs sm:text-sm md:text-base font-medium">
+                🚀 <strong>We're looking for a venue!</strong> Date & time are tentative. 
+                Know someone who can sponsor our venue? 
+                <a 
+                  href="mailto:team@cipherhacks.tech?subject=Venue Sponsorship Inquiry" 
+                  className="underline hover:text-atom-green transition-colors ml-1"
+                >
+                  Let us know!
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Hero Section */}
       <motion.section 
         id="hero"
-        className="min-h-screen flex flex-col items-center justify-center relative pt-8 pb-20 sm:pt-12 sm:pb-24 md:pt-16 md:pb-28"
+        className="min-h-screen flex flex-col items-center justify-center relative pt-20 pb-20 sm:pt-24 sm:pb-24 md:pt-28 md:pb-28"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -848,37 +1215,49 @@ const App: React.FC = () => {
           >
             San Diego's Premier High School Hackathon
           </motion.p>
-          <div className="text-2xl sm:text-3xl md:text-4xl font-mono text-atom-green mb-8">
-          {/* <span className="text-3xl md:text-4xl font-bold text-atom-orange">Date: Tentatively October 4-5, 2025</span> */}
+          <div className="text-2xl sm:text-3xl md:text-4xl font-mono text-atom-green mb-4">
             {targetDate ? (
-              <Countdown 
-                date={targetDate}
-                renderer={({ days, hours, minutes, seconds }) => (
-                  <div className="grid grid-cols-4 gap-4 max-w-xl mx-auto">
-                    {[
-                      { value: days, label: 'Days' },
-                      { value: hours, label: 'Hours' },
-                      { value: minutes, label: 'Minutes' },
-                      { value: seconds, label: 'Seconds' }
-                    ].map((item, index) => (
-                      <motion.div
-                        key={item.label}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 * index }}
-                        className="bg-atom-bg bg-opacity-50 p-4 rounded-lg"
-                      >
-                        <div className="text-3xl md:text-4xl font-bold">{item.value}</div>
-                        <div className="text-sm text-atom-fg">{item.label}</div>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
-              />
+              <div className="space-y-4">
+                <div className="text-lg md:text-xl text-atom-orange font-bold">
+                  📅 Tentative Date: October 4-5, 2025
+                </div>
+                <Countdown 
+                  date={targetDate}
+                  renderer={({ days, hours, minutes, seconds }) => (
+                    <div className="grid grid-cols-4 gap-4 max-w-xl mx-auto">
+                      {[
+                        { value: days, label: 'Days' },
+                        { value: hours, label: 'Hours' },
+                        { value: minutes, label: 'Minutes' },
+                        { value: seconds, label: 'Seconds' }
+                      ].map((item, index) => (
+                        <motion.div
+                          key={item.label}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.1 * index }}
+                          className="bg-atom-bg bg-opacity-50 p-4 rounded-lg"
+                        >
+                          <div className="text-3xl md:text-4xl font-bold">{item.value}</div>
+                          <div className="text-sm text-atom-fg">{item.label}</div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                />
+              </div>
             ) : (
-              <span className="text-3xl md:text-4xl font-bold text-atom-orange">Date: Tentatively October 4-5, 2025</span>
+              <span className="text-3xl md:text-4xl font-bold text-atom-orange">📅 Tentative Date: October 4-5, 2025</span>
             )}
           </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-lg md:text-xl text-atom-fg mb-8 max-w-2xl mx-auto"
+          >
+            📍 <span className="text-atom-orange font-semibold">Venue:</span> TBD - We're actively searching for the perfect location!
+          </motion.p>
                      <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
              <RouterLink to="/register">
                <motion.button
