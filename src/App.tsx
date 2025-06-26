@@ -1248,14 +1248,14 @@ const App: React.FC = () => {
               <span className="text-3xl md:text-4xl font-bold text-atom-orange">📅 Tentative Date: October 4-5, 2025</span>
             )}
           </div>
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="text-lg md:text-xl text-atom-fg mb-8 max-w-2xl mx-auto"
           >
             📍 <span className="text-atom-orange font-semibold">Venue:</span> TBD - We're actively searching for the perfect location!
-          </motion.p>
+          </motion.p> */}
                      <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
              <RouterLink to="/register">
                <motion.button
