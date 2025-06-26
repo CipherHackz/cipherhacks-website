@@ -634,7 +634,6 @@ const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [selectedSponsor, setSelectedSponsor] = useState<SponsorInfo | null>(null);
   const [terminalState, setTerminalState] = useState<'open' | 'minimized' | 'closed'>('open');
-  const [secretMode, setSecretMode] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -724,7 +723,6 @@ const App: React.FC = () => {
     };
 
     // Obfuscated CTF function - requires reverse engineering
-    const _0x5a1b=['Q2lwaGVySGFja3N7QnJvdzNyX1MzY3VyMXR5X0YxbmRlcn0=','fromCharCode','apply','split','map','parseInt','join'];
     const _0x1337=function(s: string): string {return s.split('').map((c: string) => String.fromCharCode(c.charCodeAt(0)^42)).join('')};
     const _0x4242='=B@2CEF<92\x0fB@2CL_';
     (window as any).inspect = () => {
