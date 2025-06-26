@@ -277,8 +277,8 @@ const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
 
 // Carousel speed constants
 const CAROUSEL_SPEED = {
-  NORMAL: 125, // pixels per second when not hovered
-  HOVERED: 50, // pixels per second when hovered
+  NORMAL: 135, // pixels per second when not hovered
+  HOVERED: 45, // pixels per second when hovered
 };
 
 // Add this component near other component definitions
