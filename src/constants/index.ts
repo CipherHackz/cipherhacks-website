@@ -368,7 +368,7 @@ export const SPONSOR_TIERS = [
         contribution: "In-kind donation",
         description: "Sublime HQ is supporting CipherHacks with five license keys for its flagship tools, Sublime Text and Sublime Merge. These licenses will be awarded as participant prizes, giving our student coders professional-grade software for future projects.",
         website: "https://sublimetext.com",
-        logo: "/sponsors/sublime_hq_logos.png"
+        logo: "/sponsors/sublime_light_logos.png"
       },
       {
         name: "theCoderSchool",
@@ -376,6 +376,13 @@ export const SPONSOR_TIERS = [
         description: "theCoderSchool is a San Diego coding academy that gives kids and teens personalized, semi-private coaching in Python, Java, game development, and more. They're fueling CipherHacks by donating month-long class passes to our winning teams, so students can keep leveling up long after the hackathon ends.",
         website: "https://thecoderschool.com",
         logo: "/sponsors/coderschool.png"
+      },
+      {
+        name: `O'Reilly`,
+        contribution: "In-kind donation",
+        description: "O'Reilly learning is supporting CipherHacks with a free 30-day trial to the O'Reilly Learning Platform for all attendees. It is an online library with books, videos, and courses to help people learn new skills and keep up with technology and business trends.",
+        website: "https://www.oreilly.com/online-learning/",
+        logo: "/sponsors/oreilly_logo.png"
       }
     ]).concat(Array(3).fill(null).map((_, i) => ({
       name: `Silver Sponsor ${i + 1}`,
