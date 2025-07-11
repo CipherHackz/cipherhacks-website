@@ -9,6 +9,7 @@ import {
   EnvelopeIcon,
   XMarkIcon,
   MapPinIcon,
+  GlobeAltIcon,
 } from '@heroicons/react/24/outline';
 import InstagramIcon from './components/InstagramIcon';
 import {
@@ -1543,6 +1544,7 @@ const App: React.FC = () => {
                   {member.description}
                 </p>
                 <div className="flex justify-center space-x-4">
+                  
                   {member.links.github && (
                     <a 
                       href={member.links.github}
@@ -1582,6 +1584,7 @@ const App: React.FC = () => {
                       </svg>
                     </a>
                   )}
+                  
                   {member.links.email && (
                     <a 
                       href={`mailto:${member.links.email}`}
@@ -1589,6 +1592,17 @@ const App: React.FC = () => {
                       className="text-atom-fg hover:text-atom-blue transition-colors"
                     >
                       <EnvelopeIcon className="h-5 w-5" />
+                    </a>
+                  )}
+                  {member.links.website && (
+                    <a 
+                      href={member.links.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Website"
+                      className="text-atom-fg hover:text-atom-blue transition-colors"
+                    >
+                      <GlobeAltIcon className="h-5 w-5" />
                     </a>
                   )}
                 </div>

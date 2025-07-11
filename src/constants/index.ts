@@ -428,7 +428,8 @@ export interface TeamMember {
   description: string;
   image?: string; // URL to profile image (optional)
   gender: 'male' | 'female' | 'other';
-  links: {
+  links: {  
+    website?: string;
     github?: string;
     linkedin?: string;
     twitter?: string;
@@ -444,6 +445,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: "/team/arshan.jpg",
     gender: "male",
     links: {
+      website: "https://arshan.dev",
       github: "https://github.com/arshansgithub",
       linkedin: "https://www.linkedin.com/in/arshanshokoohi/",
       email: "arshan@cipherhacks.tech"

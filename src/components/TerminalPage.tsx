@@ -179,6 +179,7 @@ Role: Creator of CipherHacks
 About: Senior at Rancho Bernardo High School
 GitHub: https://github.com/arshansgithub
 LinkedIn: https://www.linkedin.com/in/arshanshokoohi/
+Website: https://arshan.dev
 
 Kevin Wang
 Role: Team Member
