@@ -1217,21 +1217,16 @@ const App: React.FC = () => {
           <div className="mb-6">
             {targetDate ? (
               <div className="space-y-6">
-                {/* Date and Venue Info - Side by side on larger screens */}
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center lg:gap-8 xl:gap-12 space-y-4 lg:space-y-0 w-full">
-                  <div className="text-lg md:text-xl text-atom-orange font-bold mx-auto text-center">
-                    📅 October 10-11, 2025
-                  </div>
-                  <div className="text-lg md:text-xl text-atom-fg mx-auto text-center">
-                    📍 <span className="text-atom-orange font-semibold">Venue:</span> <a 
-                      href="https://maps.google.com/?q=330+Park+Blvd,+San+Diego,+CA+92101" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-atom-blue hover:text-atom-green transition-colors underline"
-                    >
-                      San Diego Central Library Shiley Events Suite
-                    </a>
-                  </div>
+                {/* Date and Venue Info - Centered */}
+                <div className="text-lg md:text-xl text-atom-orange font-bold text-center">
+                  📅 October 10-11, 2025 @ <a 
+                    href="https://maps.google.com/?q=330+Park+Blvd,+San+Diego,+CA+92101" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-atom-blue hover:text-atom-green transition-colors underline"
+                  >
+                    San Diego Central Library Shiley Events Suite
+                  </a>
                 </div>
                 
                 {/* Countdown */}
