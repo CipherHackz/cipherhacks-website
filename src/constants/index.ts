@@ -18,8 +18,8 @@ import {
 } from '@heroicons/react/24/outline';
 
 // Event Details
-export const EVENT_DATE: Date | null = new Date('2025-10-04T09:00:00'); // Example: new Date('2024-08-10T09:00:00')
-export const EVENT_LOCATION = 'Venue TBD';
+export const EVENT_DATE: Date | null = new Date('2025-10-10T09:00:00'); // October 10-11, 2025
+export const EVENT_LOCATION = 'San Diego Central Library Shiley Events Suite';
 
 // ASCII Art
 export const ASCII_ART = {
@@ -231,9 +231,9 @@ export const FEATURES = [
 ];
 
 // About Section
-export const ABOUT_ITEMS = [
-  { icon: CalendarIcon, text: 'Tentative Date: October 4-5, 2025' },
-  { icon: MapPinIcon, text: 'Venue: Currently seeking sponsors!' },
+export const HERO_ITEMS = [
+  { icon: CalendarIcon, text: 'October 10-11, 2025' },
+  { icon: MapPinIcon, text: '330 Park Blvd, San Diego Central Library' },
   { icon: CommandLineIcon, text: 'All Skill Levels Welcome' }
 ];
 
@@ -513,8 +513,9 @@ CipherHacks is San Diego's premier high school hackathon, focusing on cybersecur
 Join us for an unforgettable weekend of coding, learning, and building alongside fellow students 
 passionate about technology.
 
-🗓️ Date: Tentatively October 4-5, 2025
-📍 Location: TBD - We're seeking venue sponsors! (San Diego, CA)
+🗓️ Date: October 10-11, 2025
+📍 Location: San Diego Central Library Shiley Events Suite
+📍 Address: 330 Park Blvd, San Diego, CA 92101
 💻 Format: In-person hackathon
 🎯 Focus: Cybersecurity & Computer Science
 👥 Who: High school students in San Diego
@@ -530,8 +531,9 @@ Follow us on Instagram: https://instagram.com/cipherhacks2025
 
 Registration: Not yet open
 Interest Form: OPEN - https://cipherhacks.tech/register
-Location: TBD - We're actively seeking venue sponsors!
-Date: Tentatively set for October 4-5, 2025
+Location: San Diego Central Library Shiley Events Suite
+Address: 330 Park Blvd, San Diego, CA 92101
+Date: October 10-11, 2025
 Sponsorships: Open for discussion
 
 Want to stay updated? Fill out the interest form!`)
@@ -737,7 +739,7 @@ Experienced penetration testers know where to look... 🕵️‍♂️`
 # Access Level: Elite Hacker
 #
 # Subject: Advanced Penetration Testing Protocols
-# Date: October 4, 2025
+# Date: October 10, 2025
 #
 # The following are hints for dedicated security researchers:
 #

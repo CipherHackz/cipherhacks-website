@@ -79,8 +79,9 @@ CipherHacks is San Diego's premier high school hackathon, focusing on cybersecur
 Join us for an unforgettable weekend of coding, learning, and building alongside fellow students 
 passionate about technology.
 
-🗓️ Date: Tentatively October 4-5, 2025
-📍 Location: TBD - We're seeking venue sponsors! (San Diego, CA)
+🗓️ Date: October 10-11, 2025
+📍 Location: San Diego Central Library Shiley Events Suite
+📍 Address: 330 Park Blvd, San Diego, CA 92101
 💻 Format: In-person hackathon
 🎯 Focus: Cybersecurity & Computer Science
 👥 Who: High school students in San Diego
@@ -96,8 +97,9 @@ Follow us on Instagram: https://instagram.com/cipherhacks2025
 
 Registration: Not yet open
 Interest Form: OPEN - https://cipherhacks.tech/register
-Location: TBD - We're actively seeking venue sponsors!
-Date: Tentatively set for October 4-5, 2025
+Location: San Diego Central Library Shiley Events Suite
+Address: 330 Park Blvd, San Diego, CA 92101
+Date: October 10-11, 2025
 Sponsorships: Open for discussion
 
 Want to stay updated? Fill out the interest form!`)
@@ -270,7 +272,7 @@ Advanced hackers should inspect browser console for hidden transmissions.`;
 # Access Level: Elite Hacker
 #
 # Subject: Advanced Penetration Testing Protocols
-# Date: October 4, 2025
+# Date: October 10, 2025
 #
 # The following are hints for dedicated security researchers:
 #

@@ -8,7 +8,6 @@ import {
   CodeBracketIcon,
   EnvelopeIcon,
   XMarkIcon,
-  MapPinIcon,
   GlobeAltIcon,
 } from '@heroicons/react/24/outline';
 import InstagramIcon from './components/InstagramIcon';
@@ -18,7 +17,7 @@ import {
   NAV_ITEMS,
   NAV_ACTION_BUTTONS,
   FEATURES,
-  ABOUT_ITEMS,
+  HERO_ITEMS,
   WHAT_TO_EXPECT,
   FAQ_ITEMS,
   SPONSOR_TIERS,
@@ -1162,15 +1161,14 @@ const App: React.FC = () => {
         <div className="container-custom py-2 md:py-3 px-4">
           <div className="flex items-center justify-center text-center">
             <div className="flex items-center space-x-1 md:space-x-2 text-white">
-              <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 animate-pulse flex-shrink-0" />
+              <HeartIcon className="h-4 w-4 md:h-5 md:w-5 animate-pulse flex-shrink-0" />
               <span className="text-xs sm:text-sm md:text-base font-medium">
-                🚀 <strong>We're looking for a venue!</strong> Date & time are tentative. 
-                Know someone who can sponsor our venue? 
+                💰 <strong>We're seeking monetary sponsorships and donations!</strong> Help us make this event amazing. 
                 <a 
-                  href="mailto:team@cipherhacks.tech?subject=Venue Sponsorship Inquiry" 
+                  href="mailto:sponsors@cipherhacks.tech?subject=Sponsorship Inquiry" 
                   className="underline hover:text-atom-green transition-colors ml-1"
                 >
-                  Let us know!
+                  Contact us!
                 </a>
               </span>
             </div>
@@ -1191,12 +1189,12 @@ const App: React.FC = () => {
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="mb-8"
+            className="mb-6"
           >
             <img 
               src="/logo.svg" 
               alt="CipherHacks Logo" 
-              className="h-48 sm:h-56 md:h-72 w-auto mx-auto"
+              className="h-40 sm:h-48 md:h-64 lg:h-56 xl:h-64 w-auto mx-auto"
             />
           </motion.div>
           <motion.h1
@@ -1210,16 +1208,33 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl md:text-3xl text-atom-fg mb-8"
+            className="text-xl md:text-3xl text-atom-fg mb-6"
           >
             San Diego's Premier High School Hackathon
           </motion.p>
-          <div className="text-2xl sm:text-3xl md:text-4xl font-mono text-atom-green mb-4">
+          
+          {/* Combined Date and Venue Section */}
+          <div className="mb-6">
             {targetDate ? (
-              <div className="space-y-4">
-                <div className="text-lg md:text-xl text-atom-orange font-bold">
-                  📅 Tentative Date: October 4-5, 2025
+              <div className="space-y-6">
+                {/* Date and Venue Info - Side by side on larger screens */}
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center lg:gap-8 xl:gap-12 space-y-4 lg:space-y-0 w-full">
+                  <div className="text-lg md:text-xl text-atom-orange font-bold mx-auto text-center">
+                    📅 October 10-11, 2025
+                  </div>
+                  <div className="text-lg md:text-xl text-atom-fg mx-auto text-center">
+                    📍 <span className="text-atom-orange font-semibold">Venue:</span> <a 
+                      href="https://maps.google.com/?q=330+Park+Blvd,+San+Diego,+CA+92101" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-atom-blue hover:text-atom-green transition-colors underline"
+                    >
+                      San Diego Central Library Shiley Events Suite
+                    </a>
+                  </div>
                 </div>
+                
+                {/* Countdown */}
                 <Countdown 
                   date={targetDate}
                   renderer={({ days, hours, minutes, seconds }) => (
@@ -1235,10 +1250,10 @@ const App: React.FC = () => {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.1 * index }}
-                          className="bg-atom-bg bg-opacity-50 p-4 rounded-lg"
+                          className="bg-atom-bg bg-opacity-50 p-3 md:p-4 rounded-lg"
                         >
-                          <div className="text-3xl md:text-4xl font-bold">{item.value}</div>
-                          <div className="text-sm text-atom-fg">{item.label}</div>
+                          <div className="text-2xl md:text-3xl xl:text-4xl font-bold font-mono text-atom-green">{item.value}</div>
+                          <div className="text-xs md:text-sm text-atom-fg">{item.label}</div>
                         </motion.div>
                       ))}
                     </div>
@@ -1246,18 +1261,22 @@ const App: React.FC = () => {
                 />
               </div>
             ) : (
-              <span className="text-3xl md:text-4xl font-bold text-atom-orange">📅 Tentative Date: October 4-5, 2025</span>
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center lg:gap-8 xl:gap-12 space-y-4 lg:space-y-0 text-center">
+                <span className="text-2xl md:text-3xl xl:text-4xl font-bold text-atom-orange text-center">📅 October 10-11, 2025</span>
+                <div className="text-lg md:text-xl text-atom-fg text-center">
+                  📍 <span className="text-atom-orange font-semibold">Venue:</span> <a 
+                    href="https://maps.google.com/?q=330+Park+Blvd,+San+Diego,+CA+92101" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-atom-blue hover:text-atom-green transition-colors underline"
+                  >
+                    San Diego Central Library Shiley Events Suite
+                  </a>
+                </div>
+              </div>
             )}
           </div>
-          {/* <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-lg md:text-xl text-atom-fg mb-8 max-w-2xl mx-auto"
-          >
-            📍 <span className="text-atom-orange font-semibold">Venue:</span> TBD - We're actively searching for the perfect location!
-          </motion.p> */}
-                     <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+                     <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
              <RouterLink to="/register">
                <motion.button
                  whileHover={{ scale: 1.05 }}
@@ -1365,7 +1384,7 @@ const App: React.FC = () => {
                 Join us for an unforgettable weekend of coding, learning, and building alongside fellow high school students passionate about technology.
               </p>
               <div className="space-y-4">
-                {ABOUT_ITEMS.map((item, index) => (
+                {HERO_ITEMS.map((item, index) => (
                   <div key={index} className="flex items-center space-x-3 text-atom-green">
                     <item.icon className="h-6 w-6" />
                     <span>{item.text}</span>
