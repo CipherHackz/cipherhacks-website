@@ -383,6 +383,13 @@ export const SPONSOR_TIERS = [
         description: "For over 40 years O’Reilly has provided technology and business training, knowledge, and insight to help companies succeed. Their unique network of experts and innovators share their knowledge and expertise through books, articles, and our online learning platform. O’Reilly online learning gives you on-demand access to live training courses, in-depth learning paths, interactive coding environments, certification prep materials, and a vast collection of text and video from O’Reilly and 200+ other publishers. O'Reilly is providing a free 30-day subscription to their learning platform for all attendees.",
         website: "https://www.oreilly.com/",
         logo: "/sponsors/oreilly_logo.png"
+      },
+      {
+        name: `XYZ`,
+        contribution: "In-kind donation",
+        description: "Participants can use the .xyz domains to hone their skills creating websites. XYZ is offering 10 .xyz domains that are free for the first year to CipherHacks participants.",
+        website: "https://gen.xyz/",
+        logo: "/sponsors/xyzlogo.png"
       }
     ]).concat(Array(3).fill(null).map((_, i) => ({
       name: `Silver Sponsor ${i + 1}`,
