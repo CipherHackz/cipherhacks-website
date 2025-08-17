@@ -459,13 +459,16 @@ export const TEAM_MEMBERS: TeamMember[] = [
     }
   },
   {
-    name: "Kevin Wang",
+    name: "Wyatt Gill",
     role: "Director",
-    description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
-    image: "/team/kevin.png",
+    description: "Freshman at Francis Parker High School, passionate about Low Level Systems, Cybersecurity and AI.",
+    image: "/team/wyatt.jpg",
     gender: "male",
     links: {
-      email: "kevin@cipherhacks.tech"
+      website: "https://wyattgill9.github.io",
+      github: "https://github.com/wyattgill9",
+      linkedin: "https://www.linkedin.com/in/wyatt-gill-17380b323",
+      email: "wyatt@cipherhacks.tech",
     }
   },
   {
@@ -478,7 +481,17 @@ export const TEAM_MEMBERS: TeamMember[] = [
       github: "https://github.com/a-chahal",
       email: "aaran@cipherhacks.tech"
     }
-  }
+  },
+  {
+      name: "Kevin Wang",
+      role: "Director",
+      description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
+      image: "/team/kevin.png",
+      gender: "male",
+      links: {
+        email: "kevin@cipherhacks.tech"
+      }
+    },
 ];
 
 // Terminal Commands
