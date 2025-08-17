@@ -461,7 +461,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Wyatt Gill",
     role: "Director",
-    description: "Freshman at Francis Parker High School, passionate about Low Level Systems, Cybersecurity and AI.",
+    description: "Freshman at Francis Parker High School, passionate about Low Level systems, Cybersecurity and AI.",
     image: "/team/wyatt.jpg",
     gender: "male",
     links: {
