@@ -378,6 +378,13 @@ export const SPONSOR_TIERS = [
         logo: "/sponsors/coderschool.png"
       },
       {
+        name: "Jukebox Print",
+        contribution: "In-kind donation",
+        description: "Big shoutout to Jukebox for our custom stickers!",
+        website: "https://www.jukeboxprint.com/custom-stickers",
+        logo: "/sponsors/jukeboxprint_logo_trans.png"
+      },
+      {
         name: `O'Reilly`,
         contribution: "In-kind donation",
         description: "For over 40 years O’Reilly has provided technology and business training, knowledge, and insight to help companies succeed. Their unique network of experts and innovators share their knowledge and expertise through books, articles, and our online learning platform. O’Reilly online learning gives you on-demand access to live training courses, in-depth learning paths, interactive coding environments, certification prep materials, and a vast collection of text and video from O’Reilly and 200+ other publishers. O'Reilly is providing a free 30-day subscription to their learning platform for all attendees.",

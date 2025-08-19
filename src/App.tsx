@@ -1680,6 +1680,29 @@ const App: React.FC = () => {
           </div>
         </div>
       </section>
+      <section className="py-8 bg-black bg-opacity-30">
+        <div className="container-custom">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <p className="text-atom-fg">
+              Big shoutout to Jukebox for our{" "}
+              <a 
+                href="https://www.jukeboxprint.com/custom-stickers"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-atom-blue hover:text-atom-green transition-colors underline"
+              >
+                custom stickers
+              </a>
+              !
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Sponsor Popup */}
       <AnimatePresence>
