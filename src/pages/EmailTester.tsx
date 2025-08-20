@@ -70,13 +70,6 @@ const EmailTester: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-atom-bg relative flex items-center justify-center p-4">
-      <Link 
-        to="/"
-        className="absolute top-4 left-4 z-10 inline-flex items-center text-atom-blue hover:text-atom-purple transition-colors bg-black bg-opacity-50 px-4 py-2 rounded-lg"
-      >
-        <ArrowLeftIcon className="h-5 w-5 mr-2" />
-        Back to Home
-      </Link>
       
       <div className="w-full max-w-md bg-gray-900 bg-opacity-70 p-8 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold text-center text-white mb-4">Email Delivery Test</h1>
