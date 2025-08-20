@@ -2,3 +2,11 @@ name = "cipherhacks-website"
 compatibility_date = "2025-08-13"
 
 main = "src/functions/index.ts"
+
+[assets]
+directory = "./build"
+not_found_handling = "single-page-application"
+
+routes = [
+  { pattern = "cipherhacks.tech/*", zone_name = "cipherhacks.tech" }
+]

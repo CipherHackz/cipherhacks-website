@@ -11,7 +11,7 @@ const EmailTester: React.FC = () => {
   const turnstileRef = useRef<TurnstileInstance>(null);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
 
-  const turnstileSiteKey = "0x4AAAAAABs9PvTPaaVeWafh";
+  const turnstileSiteKey = "0x4AAAAAABtbTNrJD8WuPQih";
 
   useEffect(() => {
     window.scrollTo(0, 0);
