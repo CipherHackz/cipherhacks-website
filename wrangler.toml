@@ -2,4 +2,3 @@ name = "cipherhacks-website"
 compatibility_date = "2025-08-13"
 
 main = "src/functions/index.ts"
-route = { pattern = "cipherhacks.tech/*", zone_name = "cipherhacks.tech" }
