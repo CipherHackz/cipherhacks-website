@@ -475,7 +475,7 @@ const SponsorCarousel: React.FC<{
     >
       <div
         ref={containerRef}
-        className="flex gap-4 px-4"
+        className="flex gap-4 px-4 py-4"
         style={{
           transform: `translateX(${currentX}px)`,
           cursor: isDragging ? 'grabbing' : (sponsors.length > 1 ? 'grab' : 'default'),
@@ -494,7 +494,8 @@ const SponsorCarousel: React.FC<{
               cursor-pointer transition-all duration-300
               hover:border-atom-blue hover:border-opacity-50
               hover:scale-105 hover:-translate-y-2
-              overflow-hidden user-select-none text-left
+              user-select-none text-left
+              ${sponsor.specialStyle ? sponsor.specialStyle : ''}
             `}
             style={{
               width: baseWidth,
@@ -598,6 +599,16 @@ const SponsorPopup: React.FC<{
            className="inline-block bg-atom-purple text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
          >
            Visit Website
+         </a>
+       )}
+       {sponsor.popupUrl && sponsor.popupUrlText && (
+         <a 
+           href={sponsor.popupUrl} 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           className="text-sm text-atom-bright-blue hover:text-atom-pink underline mt-2 inline-block"
+         >
+           {sponsor.popupUrlText}
          </a>
        )}
      </motion.div>
@@ -1464,30 +1475,42 @@ const App: React.FC = () => {
             We are incredibly grateful to our sponsors who make CipherHacks possible. As a Hack Club fiscally sponsored event, 
             all donations are tax-deductible through Hack Club's 501(c)(3) nonprofit status.
           </motion.p>
-          <div className="space-y-16">
-            {SPONSOR_TIERS.map((tier) => (
-              <div key={tier.tier} className="space-y-4">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="flex items-center justify-center gap-3 mb-6"
-                >
-                  <span className="text-4xl">{tier.icon}</span>
-                  <h3 className={`text-2xl font-bold ${tier.color}`}>
-                    {tier.tier} Sponsors
-                  </h3>
-                </motion.div>
-                <SponsorCarousel
-                  key={tier.tier}
-                  sponsors={tier.sponsors}
-                  tier={tier.tier}
-                  onSponsorClick={setSelectedSponsor}
-                  isPopupOpen={selectedSponsor !== null}
-                />
-              </div>
-            ))}
+          <div className="space-y-16 mb-8">
+            {SPONSOR_TIERS.map(
+              (tier) =>
+                tier.tier !== 'IN-KIND' && (
+                  <div key={tier.tier} className="mb-12 py-4 space-y-4">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-100px' }}
+                      className="flex items-center justify-center gap-3 mb-6"
+                    >
+                      <span className="text-4xl">{tier.icon}</span>
+                      <h3 className={`text-2xl font-bold ${tier.color}`}>
+                        {tier.tier} Sponsors
+                      </h3>
+                    </motion.div>
+                    <SponsorCarousel
+                      key={tier.tier}
+                      sponsors={tier.sponsors}
+                      tier={tier.tier}
+                      onSponsorClick={setSelectedSponsor}
+                      isPopupOpen={selectedSponsor !== null}
+                    />
+                  </div>
+                )
+            )}
           </div>
+
+          <motion.p 
+              initial={{ opacity: 0 }} 
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-center text-atom-bright-blue mt-8"
+          >
+            Big shoutout to Jukebox for our <a href="https://www.jukeboxprint.com/custom-stickers" target="_blank" rel="noopener noreferrer" className="underline hover:text-atom-pink">custom stickers</a> at the Hackathon!
+          </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1688,18 +1711,6 @@ const App: React.FC = () => {
             viewport={{ once: true }}
             className="text-center"
           >
-            <p className="text-atom-fg">
-              Big shoutout to Jukebox for our{" "}
-              <a 
-                href="https://www.jukeboxprint.com/custom-stickers"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-atom-blue hover:text-atom-green transition-colors underline"
-              >
-                custom stickers
-              </a>
-              !
-            </p>
           </motion.div>
         </div>
       </section>

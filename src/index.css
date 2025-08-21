@@ -111,3 +111,7 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #56b6c2;
 }
+
+.pink-glow {
+  box-shadow: 0 0 15px 5px rgba(255, 105, 180, 0.7), 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}

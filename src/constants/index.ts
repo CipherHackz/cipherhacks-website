@@ -277,10 +277,13 @@ export const FAQ_ITEMS = [
 // Sponsors Section
 export interface SponsorInfo {
   name: string;
-  description: string;
-  website?: string;
+  description?: string;
+  specialStyle?: string;
+  popupUrl?: string;
+  popupUrlText?: string;
   contribution?: string;
   logo?: string; // URL to sponsor logo image
+  website?: string;
 }
 
 export const SPONSOR_TIERS = [
@@ -356,13 +359,15 @@ export const SPONSOR_TIERS = [
     tier: "SILVER",
     color: "text-gray-300",
     icon: "🥈",
-    sponsors: Array(2).fill(null).map((_, i) => ({
-      name: `Silver Sponsor ${i + 1}`,
-      contribution: "PLACEHOLDER",
-      description: "Community sponsor helping make this event possible.",
-      website: "https://example.com",
-      logo: `/sponsors/silver-sponsor-${i + 1}-logo.png`
-    })).concat([
+    sponsors: (
+      Array(2).fill(null).map((_, i) => ({
+        name: `Silver Sponsor ${i + 1}`,
+        contribution: "PLACEHOLDER",
+        description: "Community sponsor helping make this event possible.",
+        website: "https://example.com",
+        logo: `/sponsors/silver-sponsor-${i+1}-logo.png`
+      })) as SponsorInfo[]
+    ).concat([
       {
         name: "Sublime Text & Merge",
         contribution: "In-kind donation",
@@ -382,7 +387,8 @@ export const SPONSOR_TIERS = [
         contribution: "In-kind donation",
         description: "Big shoutout to Jukebox for our custom stickers!",
         website: "https://www.jukeboxprint.com/custom-stickers",
-        logo: "/sponsors/jukeboxprint_logo_trans.png"
+        logo: "/sponsors/jukeboxprint_logo_trans.png",
+        specialStyle: "pink-glow",
       },
       {
         name: `O'Reilly`,
@@ -398,13 +404,15 @@ export const SPONSOR_TIERS = [
         website: "https://gen.xyz/",
         logo: "/sponsors/xyzlogo.png"
       }
-    ]).concat(Array(3).fill(null).map((_, i) => ({
-      name: `Silver Sponsor ${i + 1}`,
-      contribution: "PLACEHOLDER",
-      description: "Community sponsor helping make this event possible.",
-      website: "https://example.com",
+    ]).concat(
+      Array(3).fill(null).map((_, i) => ({
+        name: `Silver Sponsor ${i + 1}`,
+        contribution: "PLACEHOLDER",
+        description: "Community sponsor helping make this event possible.",
+        website: "https://example.com",
         logo: `/sponsors/silver-sponsor-${i + 1}-logo.png`
-      })))
+      })) as SponsorInfo[]
+    )
   }
 ];
 
