@@ -299,75 +299,26 @@ export const SPONSOR_TIERS = [
         contribution: "Fiscal Sponsor",
         logo: "/sponsors/hcb-icon-icon-dark.png"
       },
-      { 
-        name: "PLACEHOLDER", 
-        description: "PLACEHOLDER", 
-        website: "https://google.com", 
-        contribution: "PLACEHOLDER",
-        logo: ""
-      }
+      
     ]
   },
   {
     tier: "DIAMOND",
     color: "text-blue-400",
     icon: "💎",
-    sponsors: [
-      { 
-        name: "Example Corp", 
-        description: "Leading technology company focused on innovation.", 
-        website: "https://example.com", 
-        contribution: "Main Venue Sponsor",
-        logo: "/sponsors/example-corp-logo.png"
-      },
-      { 
-        name: "Tech Giant", 
-        description: "Global tech leader supporting young developers.", 
-        website: "https://example.com", 
-        contribution: "Prize Pool Sponsor",
-        logo: "/sponsors/tech-giant-logo.png"
-      },
-      { 
-        name: "Future Labs", 
-        description: "Research and development company investing in education.", 
-        website: "https://example.com", 
-        contribution: "Workshop Provider",
-        logo: "/sponsors/future-labs-logo.png"
-      },
-      { 
-        name: "Innovation Co", 
-        description: "Startup accelerator and tech education advocate.", 
-        website: "https://example.com", 
-        contribution: "Mentorship Program",
-        logo: "/sponsors/innovation-co-logo.png"
-      }
-    ]
+    sponsors: []
   },
   {
     tier: "GOLD",
     color: "text-yellow-400",
     icon: "🏅",
-    sponsors: Array(6).fill(null).map((_, i) => ({
-      name: `Gold Sponsor ${i + 1}`,
-      contribution: "PLACEHOLDER",
-      description: "Supporting sponsor providing valuable resources and mentorship.",
-      website: "https://example.com",
-      logo: `/sponsors/gold-sponsor-${i + 1}-logo.png`
-    }))
+    sponsors: []
   },
   {
     tier: "SILVER",
     color: "text-gray-300",
     icon: "🥈",
-    sponsors: (
-      Array(2).fill(null).map((_, i) => ({
-        name: `Silver Sponsor ${i + 1}`,
-        contribution: "PLACEHOLDER",
-        description: "Community sponsor helping make this event possible.",
-        website: "https://example.com",
-        logo: `/sponsors/silver-sponsor-${i+1}-logo.png`
-      })) as SponsorInfo[]
-    ).concat([
+    sponsors: [
       {
         name: "Sublime Text & Merge",
         contribution: "In-kind donation",
@@ -404,15 +355,7 @@ export const SPONSOR_TIERS = [
         website: "https://gen.xyz/",
         logo: "/sponsors/xyzlogo.png"
       }
-    ]).concat(
-      Array(3).fill(null).map((_, i) => ({
-        name: `Silver Sponsor ${i + 1}`,
-        contribution: "PLACEHOLDER",
-        description: "Community sponsor helping make this event possible.",
-        website: "https://example.com",
-        logo: `/sponsors/silver-sponsor-${i + 1}-logo.png`
-      })) as SponsorInfo[]
-    )
+    ]
   }
 ];
 

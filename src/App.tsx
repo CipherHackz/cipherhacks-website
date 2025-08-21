@@ -306,29 +306,27 @@ const SponsorCarousel: React.FC<{
   const gap = 16;
   const itemWidth = baseWidth + gap;
   const singleSetWidth = itemWidth * sponsors.length;
+  const isInfinite = sponsors.length > 3;
   
-  // Create triple set for infinite scroll
-  const displaySponsors = sponsors.length > 0 ? [...sponsors, ...sponsors, ...sponsors] : [];
+  // Create triple set for infinite scroll only when there are enough items
+  const displaySponsors = isInfinite
+    ? [...sponsors, ...sponsors, ...sponsors]
+    : sponsors;
   
-  const visibleSponsors = Math.min(3, sponsors.length);
-  const containerWidth = Math.min(
-    itemWidth * visibleSponsors - gap,
-    itemWidth * sponsors.length - gap
-  );
+  // When not infinite, we simply center the items without fixed width
 
   // Initialize position to middle set
   useEffect(() => {
-    if (sponsors.length > 0 && currentX === 0) {
+    if (isInfinite && currentX === 0) {
       setCurrentX(-singleSetWidth);
     }
-  }, [sponsors.length, singleSetWidth, currentX]);
+  }, [isInfinite, singleSetWidth, currentX]);
 
   // Animation loop
   const animate = useCallback((timestamp: number) => {
     // Wraps the position to keep it within the infinite scroll bounds
     const wrapPosition = (newX: number) => {
-      if (sponsors.length <= 1) return newX;
-      
+      if (!isInfinite) return newX;
       if (newX <= -singleSetWidth * 2) {
         return newX + singleSetWidth;
       } else if (newX >= 0) {
@@ -349,18 +347,18 @@ const SponsorCarousel: React.FC<{
     speedRef.current += (targetSpeed - speedRef.current) * 0.05; // Smoothing factor
 
     // Only animate if not dragging and we have multiple sponsors
-    if (!isDragging && sponsors.length > 1) {
+    if (!isDragging && isInfinite) {
       const movement = (speedRef.current * deltaTime) / 1000;
       
       setCurrentX(prevX => wrapPosition(prevX - movement));
     }
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [isDragging, isHovered, isPopupOpen, sponsors.length, singleSetWidth]);
+  }, [isDragging, isHovered, isPopupOpen, isInfinite, singleSetWidth]);
 
   // Start animation
   useEffect(() => {
-    if (sponsors.length > 1) {
+    if (isInfinite) {
       animationRef.current = requestAnimationFrame(animate);
     }
     
@@ -369,11 +367,11 @@ const SponsorCarousel: React.FC<{
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [animate, sponsors.length]);
+  }, [animate, isInfinite]);
 
   // Handle mouse down for dragging
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (sponsors.length <= 1) return;
+    if (!isInfinite) return;
     
     setDragStartX(e.clientX);
     setIsDragThresholdMet(false);
@@ -387,8 +385,7 @@ const SponsorCarousel: React.FC<{
     
     // Wraps the position to keep it within the infinite scroll bounds
     const wrapPosition = (newX: number) => {
-      if (sponsors.length <= 1) return newX;
-      
+      if (!isInfinite) return newX;
       if (newX <= -singleSetWidth * 2) {
         return newX + singleSetWidth;
       } else if (newX >= 0) {
@@ -417,7 +414,7 @@ const SponsorCarousel: React.FC<{
       
       setDragStartX(e.clientX);
     }
-  }, [isDragging, isDragThresholdMet, dragStartX, singleSetWidth, sponsors.length, DRAG_THRESHOLD]);
+  }, [isDragging, isDragThresholdMet, dragStartX, singleSetWidth, isInfinite, DRAG_THRESHOLD]);
 
   // Handle mouse up for dragging
   const handleMouseUp = useCallback(() => {
@@ -462,24 +459,25 @@ const SponsorCarousel: React.FC<{
   };
 
   if (sponsors.length === 0) {
-    return null;
+    return (
+      <div className="mx-auto max-w-md text-center text-atom-fg-muted py-3 px-3 bg-black bg-opacity-30 rounded-lg border border-atom-blue border-opacity-20">
+        No sponsors in this tier yet. Check back soon!
+      </div>
+    );
   }
 
   return (
     <div 
-      className="relative mx-auto overflow-hidden select-none"
-      style={{ 
-        width: containerWidth,
-        maxWidth: '100%'
-      }}
+      className="relative mx-auto overflow-hidden select-none bg-black bg-opacity-30 rounded-lg border border-atom-blue border-opacity-20 p-1 w-fit max-w-full"
     >
       <div
         ref={containerRef}
-        className="flex gap-4 px-4 py-4"
+        className={`flex gap-4 ${isInfinite ? 'px-4' : 'px-0'} py-2 ${isInfinite ? 'flex-nowrap' : 'flex-wrap justify-center'}`}
         style={{
-          transform: `translateX(${currentX}px)`,
-          cursor: isDragging ? 'grabbing' : (sponsors.length > 1 ? 'grab' : 'default'),
-          width: itemWidth * displaySponsors.length
+          transform: isInfinite ? `translateX(${currentX}px)` : 'none',
+          cursor: isDragging ? 'grabbing' : (isInfinite ? 'grab' : 'default'),
+          width: isInfinite ? itemWidth * displaySponsors.length : 'auto',
+          justifyContent: isInfinite ? undefined : 'center'
         }}
         onMouseDown={handleMouseDown}
       >
@@ -488,7 +486,7 @@ const SponsorCarousel: React.FC<{
             key={`${sponsor.name}-${i}`}
             aria-label={`View details for ${sponsor.name}`}
             className={`
-              flex-shrink-0 flex items-center justify-center p-4
+              ${isInfinite ? 'flex-shrink-0' : 'flex-shrink'} flex items-center justify-center p-4
               bg-black bg-opacity-50 rounded-lg
               border-2 border-atom-fg border-opacity-10
               cursor-pointer transition-all duration-300
@@ -500,7 +498,8 @@ const SponsorCarousel: React.FC<{
             style={{
               width: baseWidth,
               aspectRatio: tier === 'DIAMOND' ? '16/9' : tier === 'GOLD' ? '4/3' : '3/2',
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)"
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+              maxWidth: isInfinite ? undefined : 'min(100%, 90vw)'
             }}
             onClick={(e) => handleCardClick(sponsor, e)}
             onMouseEnter={() => handleCardHover(true)}
@@ -532,7 +531,7 @@ const SponsorCarousel: React.FC<{
         ))}
       </div>
       
-      {sponsors.length > 1 && (
+      {isInfinite && (
         <>
           <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-atom-bg to-transparent pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-atom-bg to-transparent pointer-events-none" />
@@ -1470,37 +1469,36 @@ const App: React.FC = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-center text-xl mb-12"
+            className="text-center text-xl mb-8"
           >
             We are incredibly grateful to our sponsors who make CipherHacks possible. As a Hack Club fiscally sponsored event, 
             all donations are tax-deductible through Hack Club's 501(c)(3) nonprofit status.
           </motion.p>
-          <div className="space-y-16 mb-8">
-            {SPONSOR_TIERS.map(
-              (tier) =>
-                tier.tier !== 'IN-KIND' && (
-                  <div key={tier.tier} className="mb-12 py-4 space-y-4">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-100px' }}
-                      className="flex items-center justify-center gap-3 mb-6"
-                    >
-                      <span className="text-4xl">{tier.icon}</span>
-                      <h3 className={`text-2xl font-bold ${tier.color}`}>
-                        {tier.tier} Sponsors
-                      </h3>
-                    </motion.div>
-                    <SponsorCarousel
-                      key={tier.tier}
-                      sponsors={tier.sponsors}
-                      tier={tier.tier}
-                      onSponsorClick={setSelectedSponsor}
-                      isPopupOpen={selectedSponsor !== null}
-                    />
-                  </div>
-                )
-            )}
+          <div className="divide-y divide-white/10">
+            {SPONSOR_TIERS
+              .filter((t) => t.tier !== 'IN-KIND')
+              .map((tier) => (
+                <div key={tier.tier} className="py-4 md:py-6 space-y-2 first:pt-0 last:pb-0">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-100px' }}
+                    className="flex items-center justify-center gap-3 mb-1"
+                  >
+                    <span className="text-4xl">{tier.icon}</span>
+                    <h3 className={`text-2xl font-bold ${tier.color}`}>
+                      {tier.tier} Sponsors
+                    </h3>
+                  </motion.div>
+                  <SponsorCarousel
+                    key={tier.tier}
+                    sponsors={tier.sponsors}
+                    tier={tier.tier}
+                    onSponsorClick={setSelectedSponsor}
+                    isPopupOpen={selectedSponsor !== null}
+                  />
+                </div>
+              ))}
           </div>
 
           <motion.p 
