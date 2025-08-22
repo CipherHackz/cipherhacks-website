@@ -6,7 +6,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import {
   HeartIcon,
   CodeBracketIcon,
-  EnvelopeIcon,
   XMarkIcon,
   GlobeAltIcon,
 } from '@heroicons/react/24/outline';
@@ -1087,38 +1086,54 @@ const App: React.FC = () => {
            <div className="container-custom">
              <div className="flex items-center justify-center h-12 sm:h-14 md:h-16 px-1 sm:px-2 md:px-4">
                <ul className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 lg:space-x-8">
-                 {NAV_ITEMS.map((item) => (
-                   <motion.li
-                     key={item.name}
-                     whileHover={{ y: -2 }}
-                     whileTap={{ y: 0 }}
-                   >
-                     <ScrollLink
-                       to={item.to}
-                       smooth={true}
-                       duration={500}
-                       href={`#${item.to}`}
-                       className={`${item.className} items-center space-x-1 px-1 sm:px-2 md:px-3 py-1 rounded-lg group transition-all duration-300 ${
-                         item.primary 
-                           ? 'text-atom-blue font-bold text-sm sm:text-base md:text-lg' 
-                           : 'text-atom-fg hover:text-atom-blue text-xs sm:text-sm md:text-base'
-                       }`}
-                     >
-                       <motion.div 
-                         className={`transition-colors ${
-                           item.primary ? 'text-atom-blue' : 'text-atom-fg group-hover:text-atom-blue'
-                         }`}
-                         whileHover={{ rotate: 360 }}
-                         transition={{ duration: 0.5 }}
-                       >
-                         <item.icon className={`${item.primary ? 'h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7' : 'h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5'}`} />
-                       </motion.div>
-                       <span className={`${scrolled ? 'opacity-100' : 'opacity-90'}`}>
-                         {item.name}
-                       </span>
-                     </ScrollLink>
-                   </motion.li>
-                 ))}
+                 {NAV_ITEMS.map((item) => {
+                  const linkContent = (
+                    <>
+                      <motion.div
+                        className={`transition-colors ${
+                          item.primary ? 'text-atom-blue' : 'text-atom-fg group-hover:text-atom-blue'
+                        }`}
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <item.icon className={`${item.primary ? 'h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7' : 'h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5'}`} />
+                      </motion.div>
+                      <span className={`${scrolled ? 'opacity-100' : 'opacity-90'}`}>
+                        {item.name}
+                      </span>
+                    </>
+                  );
+
+                  const commonClasses = `${item.className} items-center space-x-1 px-1 sm:px-2 md:px-3 py-1 rounded-lg group transition-all duration-300 ${
+                    item.primary 
+                      ? 'text-atom-blue font-bold text-sm sm:text-base md:text-lg' 
+                      : 'text-atom-fg hover:text-atom-blue text-xs sm:text-sm md:text-base'
+                  }`;
+
+                  return (
+                    <motion.li
+                      key={item.name}
+                      whileHover={{ y: -2 }}
+                      whileTap={{ y: 0 }}
+                    >
+                      {'href' in item && item.href ? (
+                        <RouterLink to={item.href} className={commonClasses}>
+                          {linkContent}
+                        </RouterLink>
+                      ) : (
+                        <ScrollLink
+                          to={item.to!}
+                          smooth={true}
+                          duration={500}
+                          href={`#${item.to}`}
+                          className={commonClasses}
+                        >
+                          {linkContent}
+                        </ScrollLink>
+                      )}
+                    </motion.li>
+                  );
+                })}
                  {NAV_ACTION_BUTTONS.map((button) => (
                    <motion.li
                      key={button.name}
@@ -1329,6 +1344,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="section-title text-center mb-12"
           >
             What Makes CipherHacks Special
@@ -1340,7 +1356,7 @@ const App: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ duration: 0.25, delay: index * 0.1 }}
                 className="bg-atom-bg bg-opacity-50 p-6 rounded-lg shadow-xl border border-atom-blue border-opacity-20 hover:border-opacity-50 transition-all duration-300"
               >
                 <div className="flex items-start space-x-4">
@@ -1373,6 +1389,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="section-title"
           >
             About CipherHacks
@@ -1382,6 +1399,7 @@ const App: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.25 }}
               className="space-y-6"
             >
               <p className="text-lg leading-relaxed">
@@ -1401,6 +1419,7 @@ const App: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.25 }}
               className="bg-black bg-opacity-50 rounded-lg p-8 shadow-xl"
             >
               <h3 className="text-2xl font-bold text-atom-orange mb-6">What to Expect</h3>
@@ -1411,7 +1430,7 @@ const App: React.FC = () => {
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ duration: 0.25, delay: index * 0.1 }}
                     className="flex items-center space-x-3 text-lg"
                   >
                     <span className="text-2xl">{item.emoji}</span>
@@ -1431,6 +1450,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="section-title"
           >
             Frequently Asked Questions
@@ -1442,7 +1462,7 @@ const App: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ duration: 0.25, delay: index * 0.1 }}
                 whileHover={{ scale: 1.02 }}
                 className="bg-atom-bg bg-opacity-50 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-atom-blue border-opacity-0 hover:border-opacity-20"
               >
@@ -1461,6 +1481,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="section-title"
           >
             Our Amazing Sponsors
@@ -1469,6 +1490,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="text-center text-xl mb-8"
           >
             We are incredibly grateful to our sponsors who make CipherHacks possible. As a Hack Club fiscally sponsored event, 
@@ -1483,6 +1505,7 @@ const App: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-100px' }}
+                    transition={{ duration: 0.25 }}
                     className="flex items-center justify-center gap-3 mb-1"
                   >
                     <span className="text-4xl">{tier.icon}</span>
@@ -1513,6 +1536,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="mt-8 text-center"
           >
             <RouterLink 
@@ -1533,6 +1557,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="section-title text-center"
           >
             Meet Our Founding Team
@@ -1541,6 +1566,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="text-center text-xl mb-12"
           >
             The passionate students behind CipherHacks
@@ -1557,7 +1583,7 @@ const App: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ duration: 0.25, delay: index * 0.1 }}
                 className="bg-black bg-opacity-20 rounded-xl p-6 backdrop-blur-sm border border-atom-blue border-opacity-20 hover:border-opacity-50 transition-all duration-300"
               >
                 <div className="text-center mb-4">
@@ -1611,31 +1637,6 @@ const App: React.FC = () => {
                       href={member.links.twitter}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Twitter"
-                      className="text-atom-fg hover:text-atom-blue transition-colors"
-                    >
-                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                      </svg>
-                    </a>
-                  )}
-                  
-                  {member.links.email && (
-                    <a 
-                      href={`mailto:${member.links.email}`}
-                      aria-label="Email"
-                      className="text-atom-fg hover:text-atom-blue transition-colors"
-                    >
-                      <EnvelopeIcon className="h-5 w-5" />
-                    </a>
-                  )}
-                  {member.links.website && (
-                    <a 
-                      href={member.links.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Website"
-                      className="text-atom-fg hover:text-atom-blue transition-colors"
                     >
                       <GlobeAltIcon className="h-5 w-5" />
                     </a>
@@ -1654,6 +1655,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
             className="section-title"
           >
             Get in Touch
@@ -1701,17 +1703,40 @@ const App: React.FC = () => {
           </div>
         </div>
       </section>
-      <section className="py-8 bg-black bg-opacity-30">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-          </motion.div>
+      <footer className="py-8 bg-black bg-opacity-30">
+        <div className="container-custom text-center text-atom-fg">
+          <div className="flex justify-center space-x-6 mb-4">
+            {SOCIAL_LINKS.map((social) => {
+              const Icon = social.name === "Instagram" ? InstagramIcon : social.icon;
+              return (
+                <motion.a
+                  key={social.name}
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  aria-label={social.name}
+                  className="text-atom-fg hover:text-atom-blue transition-colors"
+                >
+                  <Icon className="h-6 w-6" />
+                </motion.a>
+              );
+            })}
+          </div>
+          <div className="mb-4">
+            <RouterLink to="/privacy" className="text-sm hover:text-atom-blue hover:underline transition-colors">
+              Privacy Policy
+            </RouterLink>
+          </div>
+          <div className="flex justify-center space-x-6 my-4">
+            <RouterLink to="/rules" className="text-sm text-atom-fg-muted hover:text-atom-blue transition-colors">Rules & Policy</RouterLink>
+            <RouterLink to="/conduct" className="text-sm text-atom-fg-muted hover:text-atom-blue transition-colors">Code of Conduct</RouterLink>
+          </div>
+          <p className="text-sm text-atom-fg-muted max-w-2xl mx-auto">
+            CipherHacks is a student-led event. CipherHacks is a fiscally sponsored event under Hack Club, a 501(c)(3) nonprofit organization.
+          </p>
         </div>
-      </section>
+      </footer>
 
       {/* Sponsor Popup */}
       <AnimatePresence>

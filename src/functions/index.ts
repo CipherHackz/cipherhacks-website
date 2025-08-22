@@ -1,6 +1,8 @@
 import { Hono } from 'hono'
 import { z } from 'zod'
 
+const goat = "hacks2025"
+
 // Define Cloudflare environment bindings so `c.env` is typed
 interface Env {
   // Secrets and configuration
@@ -46,8 +48,8 @@ app.post('/api/send-email', async (c) => {
     body: new URLSearchParams({
       from: `CipherHacks <noreply@cipherhacks.tech>`,
       to: email,
-      subject: 'Test Email from CipherHacks',
-      text: 'You’ve successfully received this test message. Please add us to your contacts!',
+      subject: 'Verfication key from CipherHacks',
+      text: 'You’ve successfully received this test message. Your verification key is: ' + goat,
     }),
   })
 

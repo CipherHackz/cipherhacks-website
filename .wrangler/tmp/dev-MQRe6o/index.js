@@ -5726,6 +5726,7 @@ var coerce = {
 var NEVER = INVALID;
 
 // src/functions/index.ts
+var goat = "hacks2025";
 var app = new Hono2();
 var schema = external_exports.object({
   email: external_exports.string().email(),
@@ -5757,8 +5758,8 @@ app.post("/api/send-email", async (c) => {
     body: new URLSearchParams({
       from: `CipherHacks <noreply@cipherhacks.tech>`,
       to: email,
-      subject: "Test Email from CipherHacks",
-      text: "You\u2019ve successfully received this test message. Please add us to your contacts!"
+      subject: "Verfication key from CipherHacks",
+      text: "You\u2019ve successfully received this test message. Your verification key is: " + goat
     })
   });
   if (!mgRes.ok) {
@@ -5811,7 +5812,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-UF1WYF/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-22xYiM/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -5843,7 +5844,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-UF1WYF/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-22xYiM/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
