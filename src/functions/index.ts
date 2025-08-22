@@ -49,7 +49,7 @@ app.post('/api/send-email', async (c) => {
       from: `CipherHacks <noreply@cipherhacks.tech>`,
       to: email,
       subject: 'Verfication key from CipherHacks',
-      text: 'You’ve successfully received this test message. Your verification key is: ' + goat,
+      text: 'hi heres ur key: ' + goat + '\n\n happy hacking!\narshan',
     }),
   })
 
