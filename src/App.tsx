@@ -10,6 +10,7 @@ import {
   GlobeAltIcon,
 } from '@heroicons/react/24/outline';
 import InstagramIcon from './components/InstagramIcon';
+import Footer from './components/Footer';
 import {
   EVENT_DATE,
   generateTerminalText,
@@ -581,32 +582,24 @@ const SponsorPopup: React.FC<{
              onError={(e) => {
                const target = e.target as HTMLImageElement;
                target.style.display = 'none';
+               const parent = target.parentElement;
+               if (parent) {
+                 parent.innerHTML = `<span class="text-atom-blue text-lg font-semibold text-center px-2">${sponsor.name}</span>`;
+               }
              }}
            />
          </div>
        )}
-       <p className="text-atom-fg mb-4">{sponsor.description}</p>
-       {sponsor.contribution && (
-         <p className="text-atom-green mb-4">Contribution: {sponsor.contribution}</p>
-       )}
-       {sponsor.website && (
+       <p className="text-atom-fg-muted mb-4">{sponsor.description}</p>
+       {sponsor.popupUrl && (
          <a
-           href={sponsor.website}
+           href={sponsor.popupUrl}
            target="_blank"
            rel="noopener noreferrer"
-           className="inline-block bg-atom-purple text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors"
+           className="inline-flex items-center space-x-2 text-atom-purple hover:underline"
          >
-           Visit Website
-         </a>
-       )}
-       {sponsor.popupUrl && sponsor.popupUrlText && (
-         <a 
-           href={sponsor.popupUrl} 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           className="text-sm text-atom-bright-blue hover:text-atom-pink underline mt-2 inline-block"
-         >
-           {sponsor.popupUrlText}
+           <span>{sponsor.popupUrlText || 'Visit Website'}</span>
+           <GlobeAltIcon className="h-5 w-5" />
          </a>
        )}
      </motion.div>
@@ -1059,9 +1052,6 @@ const App: React.FC = () => {
 
   }, []);
 
-  const handleSponsorClose = () => {
-    setSelectedSponsor(null);
-  };
 
   return (
     <div className="min-h-screen bg-atom-bg">
@@ -1301,7 +1291,7 @@ const App: React.FC = () => {
                <motion.button
                  whileHover={{ scale: 1.05 }}
                  whileTap={{ scale: 0.95 }}
-                 className="border-2 border-atom-purple bg-atom-purple text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-opacity-90 transition-colors"
+                 className="border-2 border-atom-purple bg-atom-purple text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-opacity-90 transition-colors animate-glow-purple"
                >
                  Register Now
                </motion.button>
@@ -1741,12 +1731,10 @@ const App: React.FC = () => {
       {/* Sponsor Popup */}
       <AnimatePresence>
         {selectedSponsor && (
-          <SponsorPopup
-            sponsor={selectedSponsor}
-            onClose={handleSponsorClose}
-          />
+          <SponsorPopup sponsor={selectedSponsor} onClose={() => setSelectedSponsor(null)} />
         )}
       </AnimatePresence>
+      <Footer />
     </div>
   );
 };

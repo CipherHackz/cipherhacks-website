@@ -6,7 +6,7 @@ const policyData = [
   {
     title: '1) Scope',
     content: [
-      'This policy covers information we collect through our application and registration forms, email deliverability test, event check-in, judging and submissions portals (e.g., Devpost), event communications (email and Discord), and on-site activities (e.g., photos and video).',
+            'This policy covers information we collect through our application and registration forms, email deliverability test, event check-in, judging and submissions portals (e.g., Devpost), event communications (email and Discord), and on-site activities (e.g., photos and video). Please note that additional information may be collected through other forms, surveys, or interactive features provided by CipherHacks.',
     ],
   },
   {

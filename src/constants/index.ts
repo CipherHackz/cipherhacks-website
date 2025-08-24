@@ -1,4 +1,6 @@
 import { ComponentType } from 'react';
+import InstagramIcon from '../components/InstagramIcon';
+import YouTubeIcon from '../components/YouTubeIcon';
 import {
   CalendarIcon,
   MapPinIcon,
@@ -172,6 +174,12 @@ export const NAV_ITEMS = [
 
 export const NAV_ACTION_BUTTONS = [
   {
+    name: 'Register',
+    icon: UserGroupIcon,
+    href: '/register',
+    className: 'bg-atom-blue animate-glow-blue'
+  },
+  {
     name: 'Donate',
     icon: HeartIcon,
     href: 'https://cipherhacks.tech/donate',
@@ -182,12 +190,6 @@ export const NAV_ACTION_BUTTONS = [
     icon: DocumentTextIcon,
     href: 'https://cipherhacks.tech/sponsor',
     className: 'bg-atom-green'
-  },
-  {
-    name: 'Register',
-    icon: UserGroupIcon,
-    href: '/register',
-    className: 'bg-atom-blue'
   }
 ];
 
@@ -385,8 +387,13 @@ export const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     name: "Instagram",
-    icon: CodeBracketIcon,
+    icon: InstagramIcon,
     link: "https://instagram.com/cipherhacks2025"
+  },
+  {
+    name: 'YouTube',
+    icon: YouTubeIcon,
+    link: 'https://www.youtube.com/@cipherhacks',
   },
   {
     name: "Email",

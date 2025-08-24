@@ -61,13 +61,13 @@ const Register: React.FC = () => {
       </Link>
       <div className="h-screen w-full">
         <iframe
-          data-tally-src="https://tally.so/r/np6OYZ"
+          data-tally-src="https://tally.so/r/mRNRq9"
           width="100%"
           height="100%"
           frameBorder="0"
           marginHeight={0}
           marginWidth={0}
-          title="CipherHacks 2025 Interest Form"
+          title="CipherHacks 2025 Registration"
           style={{ border: 'none' }}
         ></iframe>
       </div>
