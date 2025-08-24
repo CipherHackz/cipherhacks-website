@@ -421,7 +421,7 @@ export interface TeamMember {
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Arshan Shokoohi",
-    role: "Creator of CipherHacks",
+    role: "Founder & Head Director",
     description: "Senior at Rancho Bernardo High School, passionate about computer science, cybersecurity and making tech education accessible to all.",
     image: "/team/arshan.jpg",
     gender: "male",
