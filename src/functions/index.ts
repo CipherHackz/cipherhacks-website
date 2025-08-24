@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { z } from 'zod'
 
-const goat = "hacks2025"
+const goat = "supertopsecretkey6741"
 
 // Define Cloudflare environment bindings so `c.env` is typed
 interface Env {
