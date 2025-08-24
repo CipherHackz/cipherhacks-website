@@ -313,7 +313,15 @@ export const SPONSOR_TIERS = [
     tier: "GOLD",
     color: "text-yellow-400",
     icon: "🏅",
-    sponsors: []
+    sponsors: [
+      {
+        name: "Yubico",
+        contribution: "In-kind donation",
+        description: "Yubico is supporting CipherHacks with 30 YubiKeys, industry-leading security keys for strong two-factor authentication. These keys will be available for teams to use during the hackathon and awarded as prizes, giving students hands-on experience with professional-grade security tools.",
+        website: "https://yubico.com",
+        logo: "/sponsors/yubico.png"
+      },
+    ]
   },
   {
     tier: "SILVER",
