@@ -180,6 +180,12 @@ export const NAV_ACTION_BUTTONS = [
     className: 'bg-atom-blue animate-glow-blue'
   },
   {
+    name: 'Schedule',
+    icon: CalendarIcon,
+    action: 'openSchedule',
+    className: 'bg-atom-orange'
+  },
+  {
     name: 'Donate',
     icon: HeartIcon,
     href: 'https://cipherhacks.tech/donate',

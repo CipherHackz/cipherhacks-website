@@ -11,6 +11,7 @@ import {
   GlobeAltIcon
 } from '@heroicons/react/24/outline';
 import InstagramIcon from './components/InstagramIcon';
+import PdfViewer from './components/PdfViewer';
 import Footer from './components/Footer';
 import {
   EVENT_DATE,
@@ -637,6 +638,7 @@ const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [selectedSponsor, setSelectedSponsor] = useState<SponsorInfo | null>(null);
   const [terminalState, setTerminalState] = useState<'open' | 'minimized' | 'closed'>('open');
+  const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1134,7 +1136,7 @@ const App: React.FC = () => {
                    >
                      {button.name === 'Register' ? (
                        <RouterLink
-                         to={button.href}
+                         to={button.href!}
                          className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm ${button.className}`}
                        >
                          <motion.div
@@ -1145,9 +1147,22 @@ const App: React.FC = () => {
                          </motion.div>
                          <span className="hidden lg:inline">{button.name}</span>
                        </RouterLink>
+                     ) : button.action === 'openSchedule' ? (
+                       <button
+                         onClick={() => setIsPdfViewerOpen(true)}
+                         className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm ${button.className}`}
+                       >
+                         <motion.div
+                           whileHover={{ rotate: 360 }}
+                           transition={{ duration: 0.5 }}
+                         >
+                           <button.icon className="h-4 w-4 md:h-5 md:w-5" />
+                         </motion.div>
+                         <span className="hidden lg:inline">{button.name}</span>
+                       </button>
                      ) : (
                        <a
-                         href={button.href}
+                         href={button.href!}
                          className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm ${button.className}`}
                        >
                          <motion.div
@@ -1297,6 +1312,14 @@ const App: React.FC = () => {
                  Register Now
                </motion.button>
              </RouterLink>
+             <motion.button
+               onClick={() => setIsPdfViewerOpen(true)}
+               whileHover={{ scale: 1.05 }}
+               whileTap={{ scale: 0.95 }}
+               className="border-2 border-atom-orange text-atom-orange px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-atom-orange hover:bg-opacity-10 transition-colors"
+             >
+               View Schedule
+             </motion.button>
              <RouterLink to="/sponsor">
                <motion.button
                  whileHover={{ scale: 1.05 }}
@@ -1730,6 +1753,10 @@ const App: React.FC = () => {
       </footer>
 
       {/* Sponsor Popup */}
+      <AnimatePresence>
+        {isPdfViewerOpen && <PdfViewer onClose={() => setIsPdfViewerOpen(false)} />}
+      </AnimatePresence>
+
       <AnimatePresence>
         {selectedSponsor && (
           <SponsorPopup sponsor={selectedSponsor} onClose={() => setSelectedSponsor(null)} />
