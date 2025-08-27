@@ -3,6 +3,9 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon, MagnifyingGlassMinusIcon, MagnifyingGlassPlusIcon } from '@heroicons/react/24/outline';
 
+// Configure PDF.js worker
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+
 // Custom CSS for PDF styling
 const pdfStyles = `
   .pdf-container .react-pdf__Page {
