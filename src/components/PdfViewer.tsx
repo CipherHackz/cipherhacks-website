@@ -23,10 +23,6 @@ const pdfStyles = `
   }
 `;
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.mjs',
-    import.meta.url,
-  ).toString();
 
 const schedules = [
   { name: 'Day 1', path: '/ScheduleDay1.pdf' },
