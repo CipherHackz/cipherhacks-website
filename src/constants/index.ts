@@ -165,7 +165,6 @@ export const TERMINAL_TEXT = generateTerminalText();
 export const NAV_ITEMS = [
   { name: 'CipherHacks', icon: CodeBracketIcon, to: 'hero', primary: true, className: 'hidden lg:flex' },
   { name: 'About', icon: InformationCircleIcon, to: 'about', className: 'flex' },
-  { name: 'Rules', icon: DocumentTextIcon, href: '/rules-and-policy', className: 'flex' },
   { name: 'FAQ', icon: QuestionMarkCircleIcon, to: 'faq', className: 'flex' },
   { name: 'Sponsors', icon: HeartIcon, to: 'sponsors', className: 'flex' },
   { name: 'Team', icon: UserGroupIcon, to: 'team', className: 'flex' },
