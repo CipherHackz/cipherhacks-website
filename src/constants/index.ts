@@ -471,6 +471,16 @@ export const TEAM_MEMBERS: TeamMember[] = [
         email: "kevin@cipherhacks.tech"
       }
     },
+    {
+      name: "Elijah Reuben Agcaoili",
+      role: "Director",
+      description: "Senior at Rancho Bernardo High School, passionate about administration, technology, and making a positive impact in our community.",
+      image: "/team/elijah.jpg",
+      gender: "male",
+      links: {
+        email: "elijah@cipherhacks.tech"
+      }
+    }
 ];
 
 // Terminal Commands
