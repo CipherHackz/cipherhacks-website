@@ -620,24 +620,13 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
         email: 'hello@cipherhacks.tech',
         image: '/192trans.png',
         gender: 'other',
-        bio: 'Representing 100+ passionate students, cybersecurity enthusiasts, and future tech leaders who participate in our hackathons.',
+        bio: 'Representing passionate students, cybersecurity enthusiasts, and future tech leaders who will participate in our inaugural hackathon.',
         school: 'Various High Schools & Universities',
         grade: 'Mixed Levels',
         specialties: ['Cybersecurity', 'Programming', 'Innovation', 'Problem Solving', 'Teamwork'],
         links: {
           website: 'https://cipherhacks.tech'
         }
-      },
-      {
-        name: 'Past Winners & Alumni',
-        email: 'alumni@cipherhacks.tech',
-        image: '/512trans.png',
-        gender: 'other',
-        bio: 'Former participants who have gone on to pursue cybersecurity careers, internships, and advanced studies.',
-        school: 'Alumni Network',
-        grade: 'Graduates',
-        specialties: ['Leadership', 'Mentorship', 'Industry Experience', 'Career Guidance'],
-        links: {}
       }
     ]
   }

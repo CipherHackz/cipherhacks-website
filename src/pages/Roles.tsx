@@ -19,6 +19,31 @@ import {
   type PersonInRole 
 } from '../constants/roles';
 
+// Expandable Text Component
+const ExpandableText: React.FC<{ 
+  text: string; 
+  maxLength?: number; 
+  className?: string;
+}> = ({ text, maxLength = 150, className = "" }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  if (text.length <= maxLength) {
+    return <span className={className}>{text}</span>;
+  }
+
+  return (
+    <span className={className}>
+      {isExpanded ? text : `${text.slice(0, maxLength)}...`}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="ml-2 text-atom-blue hover:text-atom-purple transition-colors text-sm underline font-medium"
+      >
+        {isExpanded ? 'Show less' : 'Show more'}
+      </button>
+    </span>
+  );
+};
+
 // Person Card Component
 const PersonCard: React.FC<{ person: PersonInRole }> = ({ person }) => {
   const getDefaultIcon = (gender: 'male' | 'female' | 'other') => {
@@ -72,7 +97,9 @@ const PersonCard: React.FC<{ person: PersonInRole }> = ({ person }) => {
             <p className="text-sm text-atom-purple font-mono">{person.grade} at {person.school}</p>
           )}
           {person.bio && (
-            <p className="text-sm text-atom-fg-muted mt-2 line-clamp-2">{person.bio}</p>
+            <p className="text-sm text-atom-fg-muted mt-2">
+              <ExpandableText text={person.bio} maxLength={100} />
+            </p>
           )}
           {person.specialties && person.specialties.length > 0 && (
             <div className="flex flex-wrap gap-1 mt-2">
@@ -204,7 +231,9 @@ const RoleCard: React.FC<{
                 <div className="space-y-4">
                   <div>
                     <h4 className="text-lg font-semibold text-atom-blue mb-2">Description</h4>
-                    <p className="text-atom-fg-muted">{role.description}</p>
+                    <p className="text-atom-fg-muted">
+                      <ExpandableText text={role.description} maxLength={200} />
+                    </p>
                   </div>
 
                   <div>
