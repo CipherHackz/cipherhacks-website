@@ -1726,6 +1726,28 @@ const App: React.FC = () => {
               </motion.div>
             ))}
           </div>
+          
+          {/* Roles Information Link */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.25, delay: 0.3 }}
+            className="mt-12 text-center"
+          >
+            <p className="text-atom-fg-muted mb-4">
+              Want to learn more about all event roles and positions?
+            </p>
+            <RouterLink
+              to="/roles"
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-atom-purple bg-opacity-20 border-2 border-atom-purple text-atom-purple rounded-lg hover:bg-atom-purple hover:text-white transition-all duration-300 font-semibold"
+            >
+              <span>View All Event Roles & Hierarchy</span>
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </RouterLink>
+          </motion.div>
         </div>
       </section>
 

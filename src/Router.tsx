@@ -10,6 +10,8 @@ import RulesAndPolicy from './pages/RulesAndPolicy';
 import CodeOfConduct from './pages/CodeOfConduct';
 import ScrollToTop from './components/ScrollToTop';
 import Referral from './pages/Referral';
+import Roles from './pages/Roles';
+import Volunteer from './pages/Volunteer';
 
 const DonateRedirect: React.FC = () => {
   useEffect(() => {
@@ -33,6 +35,8 @@ const Router: React.FC = () => {
         <Route path="/conduct" element={<CodeOfConduct />} />
         <Route path="/donate" element={<DonateRedirect />} />
         <Route path="/referral" element={<Referral />} />
+        <Route path="/roles" element={<Roles />} />
+        <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
