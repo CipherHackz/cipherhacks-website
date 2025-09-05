@@ -179,6 +179,12 @@ export const NAV_ACTION_BUTTONS = [
     className: 'bg-atom-blue animate-glow-blue'
   },
   {
+    name: 'Volunteer',
+    icon: HeartIcon,
+    href: '/volunteer',
+    className: 'bg-atom-purple'
+  },
+  {
     name: 'Schedule',
     icon: CalendarIcon,
     action: 'openSchedule',
@@ -188,13 +194,13 @@ export const NAV_ACTION_BUTTONS = [
     name: 'Donate',
     icon: HeartIcon,
     href: 'https://cipherhacks.tech/donate',
-    className: 'bg-atom-purple'
+    className: 'bg-atom-green'
   },
   {
     name: 'Sponsor',
     icon: DocumentTextIcon,
     href: 'https://cipherhacks.tech/sponsor',
-    className: 'bg-atom-green'
+    className: 'bg-atom-orange'
   }
 ];
 

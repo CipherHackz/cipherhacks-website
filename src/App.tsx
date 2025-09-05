@@ -9,7 +9,9 @@ import {
   XMarkIcon,
   EnvelopeIcon,
   GlobeAltIcon,
-  KeyIcon
+  KeyIcon,
+  RocketLaunchIcon,
+  ChevronDownIcon
 } from '@heroicons/react/24/outline';
 import InstagramIcon from './components/InstagramIcon';
 import PdfViewer from './components/PdfViewer';
@@ -640,6 +642,8 @@ const App: React.FC = () => {
   const [selectedSponsor, setSelectedSponsor] = useState<SponsorInfo | null>(null);
   const [terminalState, setTerminalState] = useState<'open' | 'minimized' | 'closed'>('open');
   const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
+  const [isActionsMenuOpen, setIsActionsMenuOpen] = useState(false);
+  const [isActionsMenuHovered, setIsActionsMenuHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -648,6 +652,19 @@ const App: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close actions menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isActionsMenuOpen && !target.closest('.actions-menu')) {
+        setIsActionsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isActionsMenuOpen]);
 
   // Easter egg in console
   useEffect(() => {
@@ -1128,55 +1145,101 @@ const App: React.FC = () => {
                     </motion.li>
                   );
                 })}
-                 {NAV_ACTION_BUTTONS.map((button) => (
-                   <motion.li
-                     key={button.name}
+                 {/* Actions Dropdown Menu */}
+                 <motion.li
+                   className="hidden md:block relative actions-menu"
+                   onMouseEnter={() => setIsActionsMenuHovered(true)}
+                   onMouseLeave={() => setIsActionsMenuHovered(false)}
+                 >
+                   <motion.button
+                     onClick={() => setIsActionsMenuOpen(!isActionsMenuOpen)}
                      whileHover={{ y: -2 }}
                      whileTap={{ y: 0 }}
-                     className="hidden md:block"
+                     className="flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white bg-atom-blue hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm animate-glow-blue"
                    >
-                     {button.name === 'Register' ? (
-                       <RouterLink
-                         to={button.href!}
-                         className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm ${button.className}`}
+                     <motion.div
+                       whileHover={{ rotate: 360 }}
+                       transition={{ duration: 0.5 }}
+                     >
+                       <RocketLaunchIcon className="h-4 w-4 md:h-5 md:w-5" />
+                     </motion.div>
+                     <span className="hidden lg:inline">Actions</span>
+                     <motion.div
+                       animate={{ rotate: (isActionsMenuOpen || isActionsMenuHovered) ? 180 : 0 }}
+                       transition={{ duration: 0.3 }}
+                     >
+                       <ChevronDownIcon className="h-3 w-3 md:h-4 md:w-4" />
+                     </motion.div>
+                   </motion.button>
+
+                   <AnimatePresence>
+                     {(isActionsMenuOpen || isActionsMenuHovered) && (
+                       <motion.div
+                         initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                         animate={{ opacity: 1, y: 0, scale: 1 }}
+                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                         transition={{ duration: 0.2 }}
+                         className="absolute top-full right-0 mt-2 w-48 bg-atom-bg bg-opacity-95 backdrop-blur-sm rounded-lg shadow-xl border border-atom-blue border-opacity-30 overflow-hidden z-50"
                        >
-                         <motion.div
-                           whileHover={{ rotate: 360 }}
-                           transition={{ duration: 0.5 }}
-                         >
-                           <button.icon className="h-4 w-4 md:h-5 md:w-5" />
-                         </motion.div>
-                         <span className="hidden lg:inline">{button.name}</span>
-                       </RouterLink>
-                     ) : button.action === 'openSchedule' ? (
-                       <button
-                         onClick={() => setIsPdfViewerOpen(true)}
-                         className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm ${button.className}`}
-                       >
-                         <motion.div
-                           whileHover={{ rotate: 360 }}
-                           transition={{ duration: 0.5 }}
-                         >
-                           <button.icon className="h-4 w-4 md:h-5 md:w-5" />
-                         </motion.div>
-                         <span className="hidden lg:inline">{button.name}</span>
-                       </button>
-                     ) : (
-                       <a
-                         href={button.href!}
-                         className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-3 py-1 md:py-2 rounded-lg text-white hover:bg-opacity-90 transition-all duration-300 text-xs md:text-sm ${button.className}`}
-                       >
-                         <motion.div
-                           whileHover={{ rotate: 360 }}
-                           transition={{ duration: 0.5 }}
-                         >
-                           <button.icon className="h-4 w-4 md:h-5 md:w-5" />
-                         </motion.div>
-                         <span className="hidden lg:inline">{button.name}</span>
-                       </a>
+                         {NAV_ACTION_BUTTONS.map((button, index) => (
+                           <motion.div
+                             key={button.name}
+                             initial={{ opacity: 0, x: 20 }}
+                             animate={{ opacity: 1, x: 0 }}
+                             transition={{ delay: index * 0.05 }}
+                           >
+                             {button.name === 'Register' ? (
+                               <RouterLink
+                                 to={button.href!}
+                                 className="flex items-center space-x-3 px-4 py-3 hover:bg-atom-blue hover:bg-opacity-20 transition-all duration-200 border-b border-atom-blue border-opacity-10 last:border-b-0"
+                               >
+                                 <motion.div
+                                   whileHover={{ rotate: 360 }}
+                                   transition={{ duration: 0.5 }}
+                                   className={`p-2 rounded-lg ${button.className}`}
+                                 >
+                                   <button.icon className="h-4 w-4 text-white" />
+                                 </motion.div>
+                                 <span className="text-atom-fg font-medium">{button.name}</span>
+                               </RouterLink>
+                             ) : button.action === 'openSchedule' ? (
+                               <button
+                                 onClick={() => {
+                                   setIsPdfViewerOpen(true);
+                                   setIsActionsMenuOpen(false);
+                                 }}
+                                 className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-atom-blue hover:bg-opacity-20 transition-all duration-200 border-b border-atom-blue border-opacity-10 last:border-b-0"
+                               >
+                                 <motion.div
+                                   whileHover={{ rotate: 360 }}
+                                   transition={{ duration: 0.5 }}
+                                   className={`p-2 rounded-lg ${button.className}`}
+                                 >
+                                   <button.icon className="h-4 w-4 text-white" />
+                                 </motion.div>
+                                 <span className="text-atom-fg font-medium">{button.name}</span>
+                               </button>
+                             ) : (
+                               <a
+                                 href={button.href!}
+                                 className="flex items-center space-x-3 px-4 py-3 hover:bg-atom-blue hover:bg-opacity-20 transition-all duration-200 border-b border-atom-blue border-opacity-10 last:border-b-0"
+                               >
+                                 <motion.div
+                                   whileHover={{ rotate: 360 }}
+                                   transition={{ duration: 0.5 }}
+                                   className={`p-2 rounded-lg ${button.className}`}
+                                 >
+                                   <button.icon className="h-4 w-4 text-white" />
+                                 </motion.div>
+                                 <span className="text-atom-fg font-medium">{button.name}</span>
+                               </a>
+                             )}
+                           </motion.div>
+                         ))}
+                       </motion.div>
                      )}
-                   </motion.li>
-                 ))}
+                   </AnimatePresence>
+                 </motion.li>
                </ul>
              </div>
            </div>
@@ -1310,6 +1373,15 @@ const App: React.FC = () => {
                  className="border-2 border-atom-purple bg-atom-purple text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-opacity-90 transition-colors animate-glow-purple"
                >
                  Register Now
+               </motion.button>
+             </RouterLink>
+             <RouterLink to="/volunteer">
+               <motion.button
+                 whileHover={{ scale: 1.05 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="border-2 border-atom-green bg-atom-green text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-opacity-90 transition-colors animate-glow-green"
+               >
+                 Volunteer
                </motion.button>
              </RouterLink>
              <motion.button
