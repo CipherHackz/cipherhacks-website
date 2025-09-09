@@ -1,12 +1,54 @@
 # https://www.robotstxt.org/robotstxt.html
-# Allow all crawlers
+# CipherHacks 2025 - San Diego's Premier High School Hackathon
+# Robots.txt for optimal SEO and crawling
+
+# Allow all crawlers by default
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://cipherhacks.tech/sitemap.xml
+# Prioritize important pages for crawling
+Allow: /register
+Allow: /sponsor
+Allow: /referral
+Allow: /roles
+Allow: /volunteer
 
-# Disallow admin and private routes
+# Disallow admin, private, and development routes
 Disallow: /admin/
 Disallow: /private/
 Disallow: /api/
+Disallow: /email-tester
+Disallow: /_next/
+Disallow: /build/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /src/
+
+# Specific crawler optimizations
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 3
+
+# Social media crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemap locations
+Sitemap: https://cipherhacks.tech/sitemap.xml
+
+# Host specification for canonical domain
+Host: https://cipherhacks.tech

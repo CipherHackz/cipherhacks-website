@@ -1,0 +1,48 @@
+/* TEAM */
+
+Founder & Lead Developer: Arshan Shokoohi
+Website: https://cipherhacks.tech
+Location: San Diego, California
+
+/* THANKS */
+
+CipherHacks 2025 is made possible by our amazing team of volunteers,
+mentors, sponsors, and the vibrant San Diego tech community.
+
+Special thanks to:
+- All our volunteer staff and mentors
+- Our generous sponsors and partners
+- The San Diego Central Library
+- High school students passionate about cybersecurity
+- Open source contributors and the developer community
+
+/* SITE */
+
+Last update: 2025/01/08
+Language: English
+Doctype: HTML5
+IDE: Various (VS Code, WebStorm, etc.)
+Technologies: React, TypeScript, Tailwind CSS, Framer Motion
+Hosting: Netlify/Vercel
+Standards: W3C, WCAG 2.1 AA
+Components: Responsive design, Progressive Web App
+
+/* CONTACT */
+
+Email: team@cipherhacks.tech
+Instagram: @cipherhacks
+GitHub: https://github.com/cipherhackz
+Website: https://cipherhacks.tech
+
+Join us in making cybersecurity education accessible to all high school students!
+
+                     _       _               _                _        
+                    (_)     | |             | |              | |       
+  ___  _  _ __   ___ _  _ __| |__   __ _  ___| | __  ___    __| |  ___  
+ / __|| || '_ \ / __| || '_ \ '_ \ / _` |/ __| |/ / / __|  / _` | / _ \ 
+| (__ | || |_) | (__| || |_) | | || (_| | (__|   <  \__ \ | (_| ||  __/ 
+ \___||_|| .__/ \___|_|| .__/|_| | \__,_|\___|_|\_\ |___/  \__,_| \___| 
+         | |           | |                                             
+         |_|           |_|                                             
+
+/* EOF */

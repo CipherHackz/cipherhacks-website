@@ -1,27 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <!-- Homepage - Highest Priority -->
   <url>
     <loc>https://cipherhacks.tech/</loc>
-    <lastmod>2024-03-20</lastmod>
+    <lastmod>2025-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://cipherhacks.tech/512trans.png</image:loc>
+      <image:title>CipherHacks 2025 Logo</image:title>
+      <image:caption>San Diego's Premier High School Hackathon</image:caption>
+    </image:image>
   </url>
+  
+  <!-- Registration - Critical for conversions -->
   <url>
     <loc>https://cipherhacks.tech/register</loc>
-    <lastmod>2024-03-20</lastmod>
+    <lastmod>2025-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  
+  <!-- Referral Program - High engagement -->
+  <url>
+    <loc>https://cipherhacks.tech/referral</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Sponsorship - Important for partnerships -->
   <url>
     <loc>https://cipherhacks.tech/sponsor</loc>
-    <lastmod>2024-03-20</lastmod>
+    <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Roles & Team - Shows organization structure -->
   <url>
-    <loc>https://cipherhacks.tech/donate</loc>
-    <lastmod>2024-03-20</lastmod>
+    <loc>https://cipherhacks.tech/roles</loc>
+    <lastmod>2025-01-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  
+  <!-- Volunteer Opportunities -->
+  <url>
+    <loc>https://cipherhacks.tech/volunteer</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Donation - External redirect but still indexed -->
+  <url>
+    <loc>https://cipherhacks.tech/donate</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Legal & Policy Pages -->
+  <url>
+    <loc>https://cipherhacks.tech/privacy</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  
+  <url>
+    <loc>https://cipherhacks.tech/rules</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://cipherhacks.tech/conduct</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset> 

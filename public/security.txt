@@ -1,0 +1,11 @@
+Contact: mailto:security@cipherhacks.tech
+Contact: https://cipherhacks.tech/contact
+Expires: 2025-12-31T23:59:59.000Z
+Encryption: https://cipherhacks.tech/pgp-key.txt
+Acknowledgments: https://cipherhacks.tech/security-acknowledgments
+Policy: https://cipherhacks.tech/security-policy
+Hiring: https://cipherhacks.tech/volunteer
+
+# CipherHacks 2025 Security Contact Information
+# This file is part of our commitment to cybersecurity education
+# and responsible disclosure practices.

@@ -2,11 +2,22 @@
   "short_name": "CipherHacks",
   "name": "CipherHacks 2025 | San Diego's Premier High School Hackathon",
   "description": "Join CipherHacks 2025, San Diego's premier high school hackathon focused on cybersecurity and innovation. Learn, build, and compete with fellow students in an exciting weekend of coding and creativity.",
+  "lang": "en-US",
+  "dir": "ltr",
+  "scope": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "theme_color": "#282C34",
+  "background_color": "#282C34",
+  "orientation": "portrait-primary",
+  "categories": ["education", "events", "technology", "developer", "hackathon", "cybersecurity"],
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/x-icon",
+      "purpose": "any"
     },
     {
       "src": "192trans.png",
@@ -21,29 +32,75 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#282C34",
-  "background_color": "#282C34",
-  "orientation": "portrait",
-  "categories": ["education", "events", "technology"],
   "screenshots": [
     {
       "src": "512trans.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "CipherHacks 2025 Homepage"
     }
   ],
   "shortcuts": [
     {
-      "name": "Register",
+      "name": "Register Now",
+      "short_name": "Register",
       "url": "/register",
-      "description": "Register for CipherHacks 2025"
+      "description": "Register for CipherHacks 2025 - San Diego's premier high school hackathon",
+      "icons": [
+        {
+          "src": "192trans.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
-      "name": "About",
-      "url": "/#about",
-      "description": "Learn about CipherHacks"
+      "name": "Referral Program",
+      "short_name": "Referral",
+      "url": "/referral",
+      "description": "Get a free YubiKey 5 NFC by referring friends",
+      "icons": [
+        {
+          "src": "192trans.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Sponsor Us",
+      "short_name": "Sponsor",
+      "url": "/sponsor",
+      "description": "Partner with CipherHacks 2025",
+      "icons": [
+        {
+          "src": "192trans.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Event Roles",
+      "short_name": "Roles",
+      "url": "/roles",
+      "description": "View all event roles and team hierarchy",
+      "icons": [
+        {
+          "src": "192trans.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
-  ]
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
 }
