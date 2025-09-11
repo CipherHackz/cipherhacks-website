@@ -11,7 +11,6 @@ import CodeOfConduct from './pages/CodeOfConduct';
 import ScrollToTop from './components/ScrollToTop';
 import Referral from './pages/Referral';
 import Chipotle from './pages/Chipotle';
-import ReferralPrograms from './pages/ReferralPrograms';
 import Roles from './pages/Roles';
 import Volunteer from './pages/Volunteer';
 
