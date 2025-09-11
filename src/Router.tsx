@@ -10,6 +10,8 @@ import RulesAndPolicy from './pages/RulesAndPolicy';
 import CodeOfConduct from './pages/CodeOfConduct';
 import ScrollToTop from './components/ScrollToTop';
 import Referral from './pages/Referral';
+import Chipotle from './pages/Chipotle';
+import ReferralPrograms from './pages/ReferralPrograms';
 import Roles from './pages/Roles';
 import Volunteer from './pages/Volunteer';
 
@@ -35,6 +37,8 @@ const Router: React.FC = () => {
         <Route path="/conduct" element={<CodeOfConduct />} />
         <Route path="/donate" element={<DonateRedirect />} />
         <Route path="/referral" element={<Referral />} />
+        <Route path="/chipotle" element={<Chipotle />} />
+        {/* <Route path="/referral-programs" element={<ReferralPrograms />} /> */}
         <Route path="/roles" element={<Roles />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/404" element={<NotFound />} />
