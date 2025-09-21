@@ -131,7 +131,7 @@ const rulesAndPolicies = [
         subtitle: 'Round 1: Judging Criteria',
         content: [
           'In the first round, judges will visit teams to assess projects on the following criteria: Technical Implementation, Creativity/Originality, Impact/Purpose, Polish/Presentation, Cyber Alignment/Ethics, and Wow-Factor.',
-          'Based on qualifications, judges may also tag projects as eligible for special tracks like Best Beginner Hack, Best Cybersecurity Hack, Best Hardware Hack, or Best Design.',
+          'Based on qualifications, judges may also tag projects as eligible for special tracks like Best Beginner Hack, Best Design.',
         ],
       },
       {
