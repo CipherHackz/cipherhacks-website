@@ -444,6 +444,16 @@ export const TEAM_MEMBERS: TeamMember[] = [
     }
   },
   {
+    name: "Elijah Reuben Agcaoili",
+    role: "Director",
+    description: "Senior at Rancho Bernardo High School, passionate about administration, technology, and making a positive impact in our community.",
+    image: "/team/elijah.jpg",
+    gender: "male",
+    links: {
+      email: "elijah@cipherhacks.tech"
+    }
+  },
+  {
     name: "Wyatt Gill",
     role: "Director",
     description: "Freshman at Francis Parker High School, passionate about Low Level systems, Cybersecurity and AI.",
@@ -454,6 +464,16 @@ export const TEAM_MEMBERS: TeamMember[] = [
       github: "https://github.com/wyattgill9",
       linkedin: "https://www.linkedin.com/in/wyatt-gill-17380b323",
       email: "wyatt@cipherhacks.tech",
+    }
+  },
+  {
+    name: "Kevin Wang",
+    role: "Director",
+    description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
+    image: "/team/kevin.png",
+    gender: "male",
+    links: {
+      email: "kevin@cipherhacks.tech"
     }
   },
   {
@@ -468,25 +488,16 @@ export const TEAM_MEMBERS: TeamMember[] = [
     }
   },
   {
-      name: "Kevin Wang",
-      role: "Director",
-      description: "Senior at Rancho Bernardo High School, passionate about AI and computer science for social good.",
-      image: "/team/kevin.png",
-      gender: "male",
-      links: {
-        email: "kevin@cipherhacks.tech"
-      }
-    },
-    {
-      name: "Elijah Reuben Agcaoili",
-      role: "Director",
-      description: "Senior at Rancho Bernardo High School, passionate about administration, technology, and making a positive impact in our community.",
-      image: "/team/elijah.jpg",
-      gender: "male",
-      links: {
-        email: "elijah@cipherhacks.tech"
-      }
+    name: "Jonathan Le",
+    role: "Director",
+    description: "Senior at Rancho Bernardo High School, passionate in stem education specializing in finance management and marketing.",
+    image: "/team/jonathan.jpeg",
+    gender: "male",
+    links: {
+      email: "jonathan@cipherhacks.tech"
     }
+  }
+  
 ];
 
 // Terminal Commands

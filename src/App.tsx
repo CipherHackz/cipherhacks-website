@@ -16,6 +16,7 @@ import {
 import InstagramIcon from './components/InstagramIcon';
 import PdfViewer from './components/PdfViewer';
 import Footer from './components/Footer';
+import FaqPopup from './components/FaqPopup';
 import {
   EVENT_DATE,
   generateTerminalText,
@@ -644,6 +645,8 @@ const App: React.FC = () => {
   const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
   const [isActionsMenuOpen, setIsActionsMenuOpen] = useState(false);
   const [isActionsMenuHovered, setIsActionsMenuHovered] = useState(false);
+  const [isFaqPopupVisible, setIsFaqPopupVisible] = useState(false);
+  const [faqPopupDismissed, setFaqPopupDismissed] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -665,6 +668,22 @@ const App: React.FC = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isActionsMenuOpen]);
+
+  // Show FAQ popup after 2 seconds if not dismissed
+  useEffect(() => {
+    if (!faqPopupDismissed) {
+      const timer = setTimeout(() => {
+        setIsFaqPopupVisible(true);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [faqPopupDismissed]);
+
+  const handleFaqPopupDismiss = () => {
+    setIsFaqPopupVisible(false);
+    setFaqPopupDismissed(true);
+  };
 
   // Easter egg in console
   useEffect(() => {
@@ -1923,6 +1942,13 @@ const App: React.FC = () => {
           <SponsorPopup sponsor={selectedSponsor} onClose={() => setSelectedSponsor(null)} />
         )}
       </AnimatePresence>
+
+      {/* FAQ Popup */}
+      <FaqPopup 
+        isVisible={isFaqPopupVisible} 
+        onDismiss={handleFaqPopupDismiss} 
+      />
+
       <Footer />
     </div>
   );

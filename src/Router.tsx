@@ -42,6 +42,8 @@ const Router: React.FC = () => {
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
+        {/* Redirect to discord */}
+        <Route path="/discord" element={<Navigate to="https://discord.gg/3WvKNfBdQ6" replace />} />
       </Routes>
     </BrowserRouter>
   );

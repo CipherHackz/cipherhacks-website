@@ -509,6 +509,17 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
         grade: 'Senior',
         specialties: ['Administration', 'Technology Management', 'Community Outreach'],
         links: {}
+      },
+      {
+        name: 'Jonathan Le',
+        email: 'jonathan@cipherhacks.tech',
+        image: '/team/jonathan.jpeg',
+        gender: 'male',
+        bio: 'Passionate in stem education specializing in finance management and marketing.',
+        school: 'Rancho Bernardo High School',
+        grade: 'Senior',
+        specialties: ['Finance Management', 'Marketing', 'Community Outreach'],
+        links: {}
       }
     ]
   },
