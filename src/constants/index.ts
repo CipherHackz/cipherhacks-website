@@ -15,6 +15,7 @@ import {
   EnvelopeIcon,
   ShieldCheckIcon,
   ChatBubbleBottomCenterTextIcon,
+  ChatBubbleLeftRightIcon,
   DocumentTextIcon,
   InformationCircleIcon,
 } from '@heroicons/react/24/outline';
@@ -177,6 +178,12 @@ export const NAV_ACTION_BUTTONS = [
     icon: UserGroupIcon,
     href: '/register',
     className: 'bg-atom-blue animate-glow-blue'
+  },
+  {
+    name: 'Discord',
+    icon: ChatBubbleLeftRightIcon,
+    href: 'https://cipherhacks.tech/discord',
+    className: 'bg-atom-purple animate-glow-purple'
   },
   {
     name: 'Volunteer',

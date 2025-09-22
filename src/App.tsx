@@ -1394,6 +1394,15 @@ const App: React.FC = () => {
                  Register Now
                </motion.button>
              </RouterLink>
+             <a href="https://cipherhacks.tech/discord" target="_blank" rel="noopener noreferrer">
+               <motion.button
+                 whileHover={{ scale: 1.05 }}
+                 whileTap={{ scale: 0.95 }}
+                 className="border-2 border-atom-blue bg-atom-blue text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-opacity-90 transition-colors animate-glow-blue"
+               >
+                 Join Discord
+               </motion.button>
+             </a>
              <RouterLink to="/volunteer">
                <motion.button
                  whileHover={{ scale: 1.05 }}
