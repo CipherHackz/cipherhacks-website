@@ -14,6 +14,7 @@ import Roles from './pages/Roles';
 import Volunteer from './pages/Volunteer';
 import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
+import SanDiegoHackathon from './pages/SanDiegoHackathon';
 
 // Discord redirect component
 const DiscordRedirect: React.FC = () => {
@@ -79,6 +80,7 @@ const Router: React.FC = () => {
         {/* <Route path="/referral-programs" element={<ReferralPrograms />} /> */}
         <Route path="/roles" element={<Roles />} />
         <Route path="/volunteer" element={<Volunteer />} />
+        <Route path="/san-diego-hackathon" element={<SanDiegoHackathon />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
         {/* Redirect to discord */}

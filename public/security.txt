@@ -1,4 +1,4 @@
-Contact: mailto:security@cipherhacks.tech
+Contact: mailto:team@cipherhacks.tech
 Contact: https://cipherhacks.tech/contact
 Expires: 2025-12-31T23:59:59.000Z
 Encryption: https://cipherhacks.tech/pgp-key.txt
