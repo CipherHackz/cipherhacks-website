@@ -3,23 +3,62 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './App';
 import Register from './pages/Register';
 import Sponsor from './pages/Sponsor';
-import NotFound from './pages/NotFound';
 import EmailTester from './pages/EmailTester';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import RulesAndPolicy from './pages/RulesAndPolicy';
 import CodeOfConduct from './pages/CodeOfConduct';
-import ScrollToTop from './components/ScrollToTop';
 import Referral from './pages/Referral';
 import Chipotle from './pages/Chipotle';
+// import ReferralPrograms from './pages/ReferralPrograms';
 import Roles from './pages/Roles';
 import Volunteer from './pages/Volunteer';
+import NotFound from './pages/NotFound';
+import ScrollToTop from './components/ScrollToTop';
 
+// Discord redirect component
+const DiscordRedirect: React.FC = () => {
+  useEffect(() => {
+    window.location.href = 'https://discord.gg/3WvKNfBdQ6';
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-atom-bg flex items-center justify-center">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-atom-blue mb-4">Redirecting to Discord...</h2>
+        <p className="text-atom-fg-muted">If you're not redirected automatically, 
+          <a 
+            href="https://discord.gg/3WvKNfBdQ6" 
+            className="text-atom-blue hover:text-atom-green ml-1"
+          >
+            click here
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// Donate redirect component
 const DonateRedirect: React.FC = () => {
   useEffect(() => {
     window.location.href = 'https://hcb.hackclub.com/donations/start/cipherhacks';
   }, []);
 
-  return <div>Redirecting to donation page...</div>;
+  return (
+    <div className="min-h-screen bg-atom-bg flex items-center justify-center">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-atom-blue mb-4">Redirecting to donation page...</h2>
+        <p className="text-atom-fg-muted">If you're not redirected automatically, 
+          <a 
+            href="https://hcb.hackclub.com/donations/start/cipherhacks" 
+            className="text-atom-blue hover:text-atom-green ml-1"
+          >
+            click here
+          </a>
+        </p>
+      </div>
+    </div>
+  );
 };
 
 const Router: React.FC = () => {
@@ -43,7 +82,7 @@ const Router: React.FC = () => {
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
         {/* Redirect to discord */}
-        <Route path="/discord" element={<Navigate to="https://discord.gg/3WvKNfBdQ6" replace />} />
+        <Route path="/discord" element={<DiscordRedirect />} />
       </Routes>
     </BrowserRouter>
   );
