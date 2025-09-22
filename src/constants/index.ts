@@ -494,6 +494,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: "/team/jonathan.jpeg",
     gender: "male",
     links: {
+      linkedin: "https://www.linkedin.com/in/jonathan-le-036796342",
       email: "jonathan@cipherhacks.tech"
     }
   }

@@ -519,7 +519,9 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
         school: 'Rancho Bernardo High School',
         grade: 'Senior',
         specialties: ['Finance Management', 'Marketing', 'Community Outreach'],
-        links: {}
+        links: {
+          linkedin: "https://www.linkedin.com/in/jonathan-le-036796342",
+        }
       }
     ]
   },
