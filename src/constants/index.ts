@@ -18,6 +18,7 @@ import {
   ChatBubbleLeftRightIcon,
   DocumentTextIcon,
   InformationCircleIcon,
+  CurrencyDollarIcon,
 } from '@heroicons/react/24/outline';
 
 // Event Details
@@ -168,6 +169,7 @@ export const NAV_ITEMS = [
   { name: 'About', icon: InformationCircleIcon, to: 'about', className: 'flex' },
   { name: 'FAQ', icon: QuestionMarkCircleIcon, to: 'faq', className: 'flex' },
   { name: 'Sponsors', icon: HeartIcon, to: 'sponsors', className: 'flex' },
+  { name: 'Donators', icon: CurrencyDollarIcon, to: 'donators', className: 'flex' },
   { name: 'Team', icon: UserGroupIcon, to: 'team', className: 'flex' },
   { name: 'Contact', icon: RocketLaunchIcon, to: 'contact', className: 'flex' }
 ];
@@ -387,6 +389,28 @@ export const SPONSOR_TIERS = [
     ]
   }
 ];
+
+// Donators Section
+export interface DonatorInfo {
+  name: string;
+  amount: number; // in USD
+  message?: string; // optional message from donator
+  date?: string; // donation date
+  isAnonymous?: boolean;
+}
+
+export const DONATORS: DonatorInfo[] = [
+  // Add donators here as they come in
+  // Example:
+  // { name: "John Doe", amount: 100, message: "Keep up the great work!", date: "2025-01-15" },
+  {name: "Anonymous Donor", amount: 500, date: "2025-08-28"},
+  {name: "Virendra Chahal", amount: 100, date: "2025-08-06"},
+  {name: "Ladan Esfandiari", amount: 100, date: "2025-09-28"}
+
+];
+
+// HCB (Hack Club Bank) transparency link
+export const HCB_TRANSPARENCY_URL = "https://hcb.hackclub.com/cipherhacks/transactions";
 
 // Contact Section
 export const CONTACT_EMAIL = "team@cipherhacks.tech";

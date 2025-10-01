@@ -27,6 +27,8 @@ import {
   WHAT_TO_EXPECT,
   FAQ_ITEMS,
   SPONSOR_TIERS,
+  DONATORS,
+  HCB_TRANSPARENCY_URL,
   SOCIAL_LINKS,
   CONTACT_EMAIL,
   TEAM_MEMBERS,
@@ -1664,8 +1666,122 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Donators Section */}
+      <section id="donators" className="py-20 bg-black bg-opacity-30">
+        <div className="container-custom">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
+            className="section-title"
+          >
+            Our Generous Donators
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
+            className="text-center text-xl mb-8"
+          >
+            Thank you to everyone who has donated to make CipherHacks possible! 
+            All donations are tax-deductible through Hack Club's 501(c)(3) nonprofit status.
+          </motion.p>
+
+          {DONATORS.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {DONATORS.map((donator, index) => (
+                <motion.div
+                  key={`${donator.name}-${index}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.25, delay: index * 0.05 }}
+                  className="bg-atom-bg bg-opacity-50 p-6 rounded-lg shadow-lg border border-atom-green border-opacity-20 hover:border-opacity-50 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <h3 className="text-xl font-bold text-atom-green">
+                        {donator.isAnonymous ? "Anonymous Donor" : donator.name}
+                      </h3>
+                      {donator.date && (
+                        <p className="text-sm text-atom-fg-muted mt-1">{donator.date}</p>
+                      )}
+                    </div>
+                    <div className="text-2xl font-bold text-atom-cyan">
+                      ${donator.amount}
+                    </div>
+                  </div>
+                  {donator.message && (
+                    <p className="text-atom-fg italic border-l-2 border-atom-green pl-3 mt-3">
+                      "{donator.message}"
+                    </p>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-center py-8"
+            >
+              <p className="text-atom-fg-muted text-lg mb-4">
+                Be the first to donate and support CipherHacks!
+              </p>
+            </motion.div>
+          )}
+
+          {/* Financial Transparency Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
+            className="mt-8 bg-black bg-opacity-50 rounded-lg p-6 border border-atom-blue border-opacity-30"
+          >
+            <h3 className="text-2xl font-bold text-atom-cyan mb-4 text-center">
+              💎 Financial Transparency
+            </h3>
+            <p className="text-atom-fg text-center mb-4">
+              We believe in complete transparency. View our real-time financial transactions and ledger on Hack Club Bank (HCB).
+            </p>
+            <div className="flex justify-center">
+              <a
+                href={HCB_TRANSPARENCY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-3 bg-atom-cyan text-white rounded-lg text-lg hover:bg-opacity-90 transition-colors group"
+              >
+                <GlobeAltIcon className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" />
+                View Full Transparency Page
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Donate CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.25 }}
+            className="mt-8 text-center"
+          >
+            <a 
+              href="https://cipherhacks.tech/donate"
+              className="inline-flex items-center px-8 py-3 bg-atom-green text-white rounded-lg text-xl hover:bg-opacity-90 transition-colors group"
+            >
+              <HeartIcon className="h-6 w-6 mr-2 group-hover:scale-110 transition-transform" />
+              Make a Donation
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Team Section */}
-      <section id="team" className="pt-12 pb-20 bg-black bg-opacity-30">
+      <section id="team" className="pt-12 pb-20">
         <div className="container-custom">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
