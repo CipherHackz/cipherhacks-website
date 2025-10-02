@@ -403,9 +403,10 @@ export const DONATORS: DonatorInfo[] = [
   // Add donators here as they come in
   // Example:
   // { name: "John Doe", amount: 100, message: "Keep up the great work!", date: "2025-01-15" },
-  {name: "Anonymous Donor", amount: 500, date: "2025-08-28"},
-  {name: "Virendra Chahal", amount: 100, date: "2025-08-06"},
-  {name: "Ladan Esfandiari", amount: 100, date: "2025-09-28"}
+  {name: "Anonymous Donor", amount: 500, date: "08-28-2025"},
+  {name: "Virendra Chahal", amount: 100, date: "08-06-2025"},
+  {name: "Ladan Esfandiari", amount: 100, date: "09-28-2025"},
+  {name: "Wang Family", amount: 100, date: "10-01-2025"}
 
 ];
 
