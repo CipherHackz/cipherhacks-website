@@ -407,7 +407,8 @@ export const DONATORS: DonatorInfo[] = [
   {name: "Virendra Chahal", amount: 100, date: "08-06-2025"},
   {name: "Ladan Esfandiari", amount: 100, date: "09-28-2025"},
   {name: "Wang Family", amount: 100, date: "10-01-2025"},
-  {name: "Ying Chen", amount: 50, date: "10-03-2025"}
+  {name: "Ying Chen", amount: 50, date: "10-03-2025"},
+  {name: "Douglas Doerrige", amount: 50, date: "10-04-2025"}
 
 ];
 
