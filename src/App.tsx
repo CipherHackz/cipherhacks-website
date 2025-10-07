@@ -1414,23 +1414,20 @@ const App: React.FC = () => {
                  Volunteer
                </motion.button>
              </RouterLink>
-             <motion.button
-               onClick={() => setIsPdfViewerOpen(true)}
-               whileHover={{ scale: 1.05 }}
-               whileTap={{ scale: 0.95 }}
-               className="border-2 border-atom-orange text-atom-orange px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-atom-orange hover:bg-opacity-10 transition-colors"
+             <a
+               href="https://solstice-radish-06f.notion.site/Guide-to-CipherHacks-2025-284c9b2800fd80debae6c74e28c07238"
+               target="_blank"
+               rel="noopener noreferrer"
              >
-               View Schedule
-             </motion.button>
-             <RouterLink to="/sponsor">
                <motion.button
                  whileHover={{ scale: 1.05 }}
                  whileTap={{ scale: 0.95 }}
-                 className="border-2 border-atom-blue text-atom-blue px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-atom-blue hover:bg-opacity-10 transition-colors"
+                 className="border-2 border-atom-orange bg-atom-orange text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-opacity-90 transition-colors animate-glow-orange font-semibold"
+                 style={{ boxShadow: '0 0 30px rgba(209,154,102,0.8), 0 0 60px rgba(209,154,102,0.5)' }}
                >
-                 Sponsor Us
+                 Event Guide
                </motion.button>
-             </RouterLink>
+             </a>
              <a
                href="https://cipherhacks.tech/donate"
              >

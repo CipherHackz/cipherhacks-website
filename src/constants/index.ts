@@ -525,13 +525,23 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Jonathan Le",
-    role: "Director",
+    role: "Social Media Director",
     description: "Senior at Rancho Bernardo High School, passionate in stem education specializing in finance management and marketing.",
     image: "/team/jonathan.jpeg",
     gender: "male",
     links: {
       linkedin: "https://www.linkedin.com/in/jonathan-le-036796342",
       email: "jonathan@cipherhacks.tech"
+    }
+  },
+  {
+    name: "Gabe Santos",
+    role: "Outreach Director",
+    description: "Senior at Rancho Bernardo High School, passionate in stem education specializing in outreach and community engagement.",
+    image: "/team/gabe.jpeg",
+    gender: "male",
+    links: {
+      email: "team@cipherhacks.tech"
     }
   }
   

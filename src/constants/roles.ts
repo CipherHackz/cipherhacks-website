@@ -522,6 +522,18 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
         links: {
           linkedin: "https://www.linkedin.com/in/jonathan-le-036796342",
         }
+      },
+      {
+        name: 'Gabe Santos',
+        email: 'gabe@cipherhacks.tech',
+        image: '/team/gabe.jpeg',
+        gender: 'male',
+        bio: 'Passionate in stem education specializing in outreach and community engagement.',
+        school: 'Rancho Bernardo High School',
+        grade: 'Senior',
+        specialties: ['Outreach', 'Community Engagement', 'Marketing'],
+        links: {
+        }
       }
     ]
   },
