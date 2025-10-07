@@ -1422,11 +1422,7 @@ const App: React.FC = () => {
              >
                View Schedule
              </motion.button>
-             <a
-               href="https://solstice-radish-06f.notion.site/Guide-to-CipherHacks-2025-284c9b2800fd80debae6c74e28c07238"
-               target="_blank"
-               rel="noopener noreferrer"
-             >
+             <RouterLink to="/guide">
                <motion.button
                  whileHover={{ scale: 1.05 }}
                  whileTap={{ scale: 0.95 }}
@@ -1435,7 +1431,7 @@ const App: React.FC = () => {
                >
                  Event Guide
                </motion.button>
-             </a>
+             </RouterLink>
              <a
                href="https://cipherhacks.tech/donate"
              >

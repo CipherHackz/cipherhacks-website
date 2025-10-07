@@ -62,6 +62,29 @@ const DonateRedirect: React.FC = () => {
   );
 };
 
+// Event Guide redirect component
+const EventGuideRedirect: React.FC = () => {
+  useEffect(() => {
+    window.location.href = 'https://solstice-radish-06f.notion.site/Guide-to-CipherHacks-2025-284c9b2800fd80debae6c74e28c07238';
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-atom-bg flex items-center justify-center">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-atom-orange mb-4">Redirecting to Event Guide...</h2>
+        <p className="text-atom-fg-muted">If you're not redirected automatically, 
+          <a 
+            href="https://solstice-radish-06f.notion.site/Guide-to-CipherHacks-2025-284c9b2800fd80debae6c74e28c07238" 
+            className="text-atom-orange hover:text-atom-green ml-1"
+          >
+            click here
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const Router: React.FC = () => {
   return (
     <BrowserRouter>
@@ -75,6 +98,7 @@ const Router: React.FC = () => {
         <Route path="/rules" element={<RulesAndPolicy />} />
         <Route path="/conduct" element={<CodeOfConduct />} />
         <Route path="/donate" element={<DonateRedirect />} />
+        <Route path="/guide" element={<EventGuideRedirect />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/chipotle" element={<Chipotle />} />
         {/* <Route path="/referral-programs" element={<ReferralPrograms />} /> */}
