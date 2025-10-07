@@ -1414,6 +1414,14 @@ const App: React.FC = () => {
                  Volunteer
                </motion.button>
              </RouterLink>
+             <motion.button
+               onClick={() => setIsPdfViewerOpen(true)}
+               whileHover={{ scale: 1.05 }}
+               whileTap={{ scale: 0.95 }}
+               className="border-2 border-atom-blue text-atom-blue px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-lg md:text-xl hover:bg-atom-blue hover:bg-opacity-10 transition-colors"
+             >
+               View Schedule
+             </motion.button>
              <a
                href="https://solstice-radish-06f.notion.site/Guide-to-CipherHacks-2025-284c9b2800fd80debae6c74e28c07238"
                target="_blank"
