@@ -454,6 +454,17 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
           github: 'https://github.com/arshansgithub',
           linkedin: 'https://www.linkedin.com/in/arshanshokoohi/'
         }
+      },
+      {
+        name: 'Elijah Reuben Agcaoili',
+        email: 'elijah@cipherhacks.tech',
+        image: '/team/elijah.jpg',
+        gender: 'male',
+        bio: 'Administrative leader passionate about technology and community development.',
+        school: 'Rancho Bernardo High School',
+        grade: 'Senior',
+        specialties: ['Administration', 'Technology Management', 'Community Outreach'],
+        links: {}
       }
     ]
   },
@@ -500,19 +511,7 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
         links: {}
       },
       {
-        name: 'Elijah Reuben Agcaoili',
-        email: 'elijah@cipherhacks.tech',
-        image: '/team/elijah.jpg',
-        gender: 'male',
-        bio: 'Administrative leader passionate about technology and community development.',
-        school: 'Rancho Bernardo High School',
-        grade: 'Senior',
-        specialties: ['Administration', 'Technology Management', 'Community Outreach'],
-        links: {}
-      },
-      {
         name: 'Jonathan Le',
-        email: 'jonathan@cipherhacks.tech',
         image: '/team/jonathan.jpeg',
         gender: 'male',
         bio: 'Passionate in stem education specializing in finance management and marketing.',
@@ -525,7 +524,6 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
       },
       {
         name: 'Gabe Santos',
-        email: 'gabe@cipherhacks.tech',
         image: '/team/gabe.jpeg',
         gender: 'male',
         bio: 'Passionate in stem education specializing in outreach and community engagement.',
@@ -594,6 +592,18 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
           github: 'https://github.com/arshansgithub',
           linkedin: 'https://www.linkedin.com/in/arshanshokoohi/'
         }
+      },
+      {
+        name: 'Elijah Reuben Agcaoili',
+        email: 'elijah@cipherhacks.tech',
+        image: '/team/elijah.jpg',
+        gender: 'male',
+        bio: 'Administrative leader passionate about technology and community development.',
+        school: 'Rancho Bernardo High School',
+        grade: 'Senior',
+        specialties: ['Administration', 'Technology Management', 'Community Outreach'],
+        links: {
+        }
       }
     ]
   },
@@ -619,23 +629,239 @@ export const ROLE_ASSIGNMENTS: RoleAssignment[] = [
   },
   {
     roleId: 'event-staff',
-    people: []
+    people: [
+      {
+        name: "Tanida (Pear) Apiwattanachai",
+        image: "/team/staff/pear.jpeg",
+        gender: "female",
+        bio: "Likes singing and playing guitar.",
+        school: "Rancho Bernardo High School",
+        grade: "Senior",
+        specialties: ['Event Staff'],
+        links: {
+        }
+      },
+      {
+        name: "Kevin Kirby",
+        image: "/team/staff/kev.jpg",
+        gender: "male",
+        bio: "Loves photography and tea.",
+        school: "Rancho Bernardo High School",
+        grade: "Senior",
+        specialties: ['Photography', 'Event Staff'],
+        links: {
+        }
+      },
+      {
+        name: "Michael Stampfli",
+        image: "/team/staff/michael.jpeg",
+        gender: "male",
+        bio: "Speaks Spanish.",
+        school: "Rancho Bernardo High School",
+        grade: "Senior",
+        specialties: ['Photography', 'Event Staff'],
+        links: {
+        }
+      },
+      {
+        name: "Xavier Dinh",
+        image: "/team/staff/xavier.jpeg",
+        gender: "male",
+        bio: "Big fan of Cipherhacks.",
+        school: "Rancho Bernardo High School",
+        grade: "Senior",
+        specialties: ['Event Staff'],
+        links: {
+        }
+      }
+    ]
   },
   {
     roleId: 'mentor',
-    people: []
+    people: [
+      {
+        name: "Sherveen Shokoohi",
+        image: "/team/adults/sherveen.jpeg",
+        gender: "male",
+        bio: "Former bus driver turned software engineer, fueled by coffee and a passion for snowboarding!",
+        school: "SeeByte",
+        grade: "Software Engineer",
+        specialties: ['Snowboard Extraordinaire', "Software Engineering", "Cybersecurity"],
+        links: {
+        }
+      },
+      {
+        name: "Rahul Salvi",
+        image: "/team/adults/rahul.jpg",
+        gender: "male",
+        bio: "Writes everything in green pen.",
+        school: "Qualcomm",
+        grade: "Senior Engineer Wireless R&D",
+        specialties: ['Snowboard Extraordinaire', "Software Engineering", "Cybersecurity"],
+        links: {
+        }
+      }
+    ]
   },
   {
     roleId: 'judge',
-    people: []
+    people: [
+      {
+        name: "Felipe Cortes",
+        image: "/team/adults/felipe.jpg",
+        gender: "male",
+        bio: "Built first app at 13. Has both technical and business background.",
+        school: "Domu.ai",
+        grade: "CFO",
+        specialties: ["Software Engineering", "Business", "Entrepreneurship"],
+        links: {
+        }
+      },
+      {
+        name: "Rahul Salvi",
+        image: "/team/adults/rahul.jpg",
+        gender: "male",
+        bio: "Writes everything in green pen.",
+        school: "Qualcomm",
+        grade: "Senior Engineer & Wireless R&D",
+        specialties: ["Software Engineering", "Communications", "Hardware"],
+        links: {
+        }
+      },
+      {
+        name: "Sherveen Shokoohi",
+        image: "/team/adults/sherveen.jpeg",
+        gender: "male",
+        bio: "Former bus driver turned software engineer, fueled by coffee and a passion for snowboarding!",
+        school: "SeeByte",
+        grade: "Software Engineer",
+        specialties: ['Snowboard Extraordinaire', "Software Engineering", "Cybersecurity"],
+        links: {
+        }
+      },
+      {
+        name: "Peyton Slape",
+        image: "/team/adults/peyton.jpg",
+        gender: "male",
+        bio: "Likes robots",
+        school: "San Diego Miramar College",
+        grade: "Student",
+        specialties: ["Robotics", "Programming", "Innovation", "Problem Solving", "Teamwork"],
+        links: {
+        }
+      },
+    ]
   },
   {
     roleId: 'industry-professional',
-    people: []
+    people: [
+      {
+        name: "Tyler Gill",
+        image: "/team/adults/tyler.jpg",
+        gender: "male",
+        bio: "FinTech Entrepreneur",
+        school: "AP Technology, LLC",
+        grade: "CGO",
+        specialties: ["FinTech", "Business", "Entrepreneurship"],
+        links: {
+        }
+      },
+      {
+        name: "James Santo",
+        image: "/team/adults/james.jpeg",
+        gender: "male",
+        bio: "Division 1 at scrolling on Facebook",
+        school: "Sycuan Casino Resort",
+        grade: "Director IT Engineering",
+        specialties: ["IT Engineering", "Business", "Entrepreneurship"],
+        links: {
+        }
+      },
+      {
+        name: "Felipe Cortes",
+        image: "/team/adults/felipe.jpg",
+        gender: "male",
+        bio: "Built first app at 13. Has both technical and business background.",
+        school: "Domu.ai",
+        grade: "CFO",
+        specialties: ["Software Engineering", "Business", "Entrepreneurship"],
+        links: {
+        }
+      }
+    ]
   },
   {
     roleId: 'college-panelist',
-    people: []
+    people: [
+      {
+        name: "Allie Atkinson",
+        image: "/team/adults/allie.png",
+        gender: "female",
+        bio: "Aspiring game developer!",
+        school: "UCSD",
+        grade: "Student/TritonHacks Codirector",
+        specialties: ["Game Development", "Programming", "Innovation", "Problem Solving", "Teamwork"],
+        links: {
+        }
+      },
+      {
+        name: "Parth Trivedi",
+        image: "/team/adults/parth.jpeg",
+        gender: "male",
+        bio: "Aspiring game developer!",
+        school: "UCSD",
+        grade: "Student/TritonHacks Codirector",
+        specialties: ["Game Development", "Programming", "Innovation", "Problem Solving", "Teamwork"],
+        links: {
+        }
+      },
+      {
+        name: "Peyton Slape",
+        image: "/team/adults/peyton.jpg",
+        gender: "male",
+        bio: "Likes robots",
+        school: "San Diego Miramar College",
+        grade: "Student",
+        specialties: ["Robotics", "Programming", "Innovation", "Problem Solving", "Teamwork"],
+        links: {
+        }
+      },
+      {
+        name: "Philip Avdey",
+        image: "/team/adults/phillip.jpeg",
+        gender: "male",
+        bio: "Likes to play guitar when not coding!",
+        school: "CSUSM",
+        grade: "Student/Vice Chair of ACM",
+        specialties: ["Programming", "Innovation", "Problem Solving", "Teamwork"],
+        links: {
+        }
+      },
+      {
+        name: "Aidan Rodriguez",
+        email: "team@cipherhacks.tech",
+        image: "/team/adults/aidan.jpg",
+        gender: "male",
+        bio: "Minor in physics. Makes own pasta.",
+        school: "CSUSM",
+        grade: "Student/Chair of ACM",
+        specialties: ["Programming", "Innovation", "Problem Solving", "Teamwork"],
+        links: {
+        }
+      },
+      {
+        name: "Jenna Tumlos",
+        email: "team@cipherhacks.tech",
+        image: "/team/adults/jenna.jpg",
+        gender: "female",
+        bio: "Recently studied abroad in Seoul, South Korea",
+        school: "USD",
+        grade: "Senior",
+        specialties: ["Programming", "Innovation", "Problem Solving", "Teamwork"],
+        links: {
+        }
+      }
+    ]
   },
   {
     roleId: 'hacker-attendee',

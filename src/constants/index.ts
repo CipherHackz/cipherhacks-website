@@ -481,7 +481,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
   {
     name: "Elijah Reuben Agcaoili",
-    role: "Director",
+    role: "Head Director",
     description: "Senior at Rancho Bernardo High School, passionate about administration, technology, and making a positive impact in our community.",
     image: "/team/elijah.jpg",
     gender: "male",
