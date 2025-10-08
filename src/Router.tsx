@@ -15,6 +15,14 @@ import Volunteer from './pages/Volunteer';
 import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 import SanDiegoHackathon from './pages/SanDiegoHackathon';
+// Security Learning Demo Pages
+import CtfExample from './pages/CtfExample';
+import ApiDemo from './pages/ApiDemo';
+import Sha256Demo from './pages/Sha256Demo';
+import CrackSha256 from './pages/CrackSha256';
+import NetSecLogin from './pages/NetSecLogin';
+import CheckPwned from './pages/CheckPwned';
+import CheckStrength from './pages/CheckStrength';
 
 // Discord redirect component
 const DiscordRedirect: React.FC = () => {
@@ -105,6 +113,14 @@ const Router: React.FC = () => {
         <Route path="/roles" element={<Roles />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/san-diego-hackathon" element={<SanDiegoHackathon />} />
+        {/* Security Learning Demo Routes */}
+        <Route path="/ctf-example" element={<CtfExample />} />
+        <Route path="/api-demo" element={<ApiDemo />} />
+        <Route path="/sha256" element={<Sha256Demo />} />
+        <Route path="/crack-sha256" element={<CrackSha256 />} />
+        <Route path="/netsec-login" element={<NetSecLogin />} />
+        <Route path="/check-pwned" element={<CheckPwned />} />
+        <Route path="/check-strength" element={<CheckStrength />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
         {/* Redirect to discord */}
