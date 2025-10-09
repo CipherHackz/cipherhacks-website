@@ -31,7 +31,7 @@ const ApiDemo: React.FC = () => {
     
     // Update current URL display
     setCurrentUrl(window.location.href);
-  }, [location.search]);
+  }, [location.search, isAdmin]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();

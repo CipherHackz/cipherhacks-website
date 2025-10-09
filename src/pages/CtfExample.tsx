@@ -94,10 +94,9 @@ const CtfExample: React.FC = () => {
           </div>
         </motion.div>
       </div>
+      {/* FLAG: CTF{html_comment_detective} */}
     </div>
   );
 };
 
 export default CtfExample;
-
-{/* FLAG: CTF{html_comment_detective} */}
