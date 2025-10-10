@@ -93,6 +93,28 @@ const EventGuideRedirect: React.FC = () => {
   );
 };
 
+const VolunteerGuideRedirect: React.FC = () => {
+  useEffect(() => {
+    window.location.href = 'https://solstice-radish-06f.notion.site/Volunteer-and-Staff-Guide-to-CipherHacks-2025-285c9b2800fd802d8373d1db8d91e564?source=copy_link';
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-atom-bg flex items-center justify-center">
+      <div className="text-center">
+        <h2 className="text-2xl font-bold text-atom-orange mb-4">Redirecting to Event Guide...</h2>
+        <p className="text-atom-fg-muted">If you're not redirected automatically, 
+          <a 
+            href="https://solstice-radish-06f.notion.site/Volunteer-and-Staff-Guide-to-CipherHacks-2025-285c9b2800fd802d8373d1db8d91e564?source=copy_link" 
+            className="text-atom-orange hover:text-atom-green ml-1"
+          >
+            click here
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const Router: React.FC = () => {
   return (
     <BrowserRouter>
@@ -107,6 +129,7 @@ const Router: React.FC = () => {
         <Route path="/conduct" element={<CodeOfConduct />} />
         <Route path="/donate" element={<DonateRedirect />} />
         <Route path="/guide" element={<EventGuideRedirect />} />
+        <Route path="/vguide" element={<VolunteerGuideRedirect />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/chipotle" element={<Chipotle />} />
         {/* <Route path="/referral-programs" element={<ReferralPrograms />} /> */}
