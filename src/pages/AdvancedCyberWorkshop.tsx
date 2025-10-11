@@ -8,11 +8,8 @@ import {
   HomeIcon, 
   ChevronLeftIcon, 
   ChevronRightIcon,
-  CommandLineIcon,
   BugAntIcon,
   CpuChipIcon,
-  ShieldExclamationIcon,
-  BeakerIcon,
   CodeBracketIcon
 } from '@heroicons/react/24/outline';
 
