@@ -23,6 +23,11 @@ import CrackSha256 from './pages/CrackSha256';
 import NetSecLogin from './pages/NetSecLogin';
 import CheckPwned from './pages/CheckPwned';
 import CheckStrength from './pages/CheckStrength';
+// Advanced Cybersecurity Workshop Pages
+import AdvancedCyberWorkshop from './pages/AdvancedCyberWorkshop';
+import ReverseEngineeringChallenge from './pages/ReverseEngineeringChallenge';
+import MalwareAnalysisDemo from './pages/MalwareAnalysisDemo';
+import AISecurityChallenge from './pages/AISecurityChallenge';
 
 // Discord redirect component
 const DiscordRedirect: React.FC = () => {
@@ -144,6 +149,11 @@ const Router: React.FC = () => {
         <Route path="/netsec-login" element={<NetSecLogin />} />
         <Route path="/check-pwned" element={<CheckPwned />} />
         <Route path="/check-strength" element={<CheckStrength />} />
+        {/* Advanced Cybersecurity Workshop Routes */}
+        <Route path="/advanced-cyber-workshop" element={<AdvancedCyberWorkshop />} />
+        <Route path="/reverse-engineering-challenge" element={<ReverseEngineeringChallenge />} />
+        <Route path="/malware-analysis-demo" element={<MalwareAnalysisDemo />} />
+        <Route path="/ai-security-challenge" element={<AISecurityChallenge />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
         {/* Redirect to discord */}
