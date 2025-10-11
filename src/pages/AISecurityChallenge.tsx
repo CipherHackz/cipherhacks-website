@@ -173,7 +173,7 @@ Only discuss customer data in general terms.`,
       {/* Navigation */}
       <nav className="bg-black bg-opacity-50 border-b border-atom-blue border-opacity-20 p-4">
         <div className="container mx-auto flex items-center justify-between">
-          <Link to="/advanced-cyber-workshop" className="flex items-center space-x-2 text-atom-blue hover:text-atom-green transition-colors">
+          <Link to="/advanced" className="flex items-center space-x-2 text-atom-blue hover:text-atom-green transition-colors">
             <HomeIcon className="h-6 w-6" />
             <span className="font-mono">Back to Workshop</span>
           </Link>

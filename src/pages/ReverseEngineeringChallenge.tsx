@@ -85,7 +85,7 @@ const ReverseEngineeringChallenge: React.FC = () => {
       <nav className="bg-black bg-opacity-50 border-b border-atom-blue border-opacity-20 p-4 sticky top-0 z-50 backdrop-blur-sm">
         <div className="container mx-auto flex items-center justify-between">
           <Link 
-            to="/advanced-cyber-workshop" 
+            to="/advanced" 
             className="flex items-center space-x-2 text-atom-blue hover:text-atom-green transition-colors"
           >
             <HomeIcon className="h-6 w-6" />
@@ -232,7 +232,7 @@ const ReverseEngineeringChallenge: React.FC = () => {
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link
-                  to="/advanced-cyber-workshop"
+                  to="/advanced"
                   className="px-6 py-3 bg-atom-blue text-white rounded-lg hover:bg-opacity-80 transition-colors font-bold"
                 >
                   Back to Workshop
