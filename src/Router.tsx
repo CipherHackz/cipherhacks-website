@@ -150,7 +150,7 @@ const Router: React.FC = () => {
         <Route path="/check-pwned" element={<CheckPwned />} />
         <Route path="/check-strength" element={<CheckStrength />} />
         {/* Advanced Cybersecurity Workshop Routes */}
-        <Route path="/advanced-cyber-workshop" element={<AdvancedCyberWorkshop />} />
+        <Route path="/advanced" element={<AdvancedCyberWorkshop />} />
         <Route path="/reverse-engineering-challenge" element={<ReverseEngineeringChallenge />} />
         <Route path="/malware-analysis-demo" element={<MalwareAnalysisDemo />} />
         <Route path="/ai-security-challenge" element={<AISecurityChallenge />} />
