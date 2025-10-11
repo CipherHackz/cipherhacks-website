@@ -17,6 +17,7 @@ import InstagramIcon from './components/InstagramIcon';
 import PdfViewer from './components/PdfViewer';
 import Footer from './components/Footer';
 import FaqPopup from './components/FaqPopup';
+import VulnerableSearch from './components/VulnerableSearch';
 import {
   EVENT_DATE,
   generateTerminalText,
@@ -1104,6 +1105,9 @@ const App: React.FC = () => {
       >
         Security Level: 🔒🔒🔒 | Flags: 3 | Status: Hidden
       </div>
+
+      {/* Vulnerable Search Component - Intentional XSS Demo */}
+      <VulnerableSearch />
 
       {/* Navigation */}
       <motion.nav 
