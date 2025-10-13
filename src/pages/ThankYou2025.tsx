@@ -22,6 +22,11 @@ const ALL_EVENT_PHOTOS = [
   '/photos/2025/IMG_6905.webp',
   '/photos/2025/IMG_6914.webp',
   '/photos/2025/IMG_6941.webp',
+  '/photos/2025/art-1052.webp',
+  '/photos/2025/art-1053.webp',
+  '/photos/2025/art-1054.webp',
+  '/photos/2025/art-1055.webp',
+  '/photos/2025/art-1056.webp',
   '/photos/2025/art-1057.webp',
   '/photos/2025/art-1058.webp',
   '/photos/2025/art-1061.webp',
@@ -71,11 +76,6 @@ const ALL_EVENT_PHOTOS = [
   '/photos/2025/art-1128.webp',
   '/photos/2025/art-1129.webp',
   '/photos/2025/art-1133.webp',
-  '/photos/2025/santo.webp',
-  '/photos/2025/shannon.webp',
-  '/photos/2025/sherveen.webp',
-  '/photos/2025/toolsLandscape.webp',
-  '/photos/2025/tyler.webp',
 ];
 
 // Shuffle and pick random photos
