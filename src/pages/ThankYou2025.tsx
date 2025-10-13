@@ -1,5 +1,5 @@
 import React, { useRef, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   UserGroupIcon, 
@@ -86,6 +86,7 @@ const getRandomPhotos = (photos: string[], count: number): string[] => {
 
 const ThankYou2025: React.FC = () => {
   const galleryTriggerRef = useRef<HTMLDivElement>(null);
+  const [showTeamPhoto, setShowTeamPhoto] = React.useState(false);
   
   // Pick 6 random photos on page load - only 6 images for better performance!
   const selectedPhotos = useMemo(() => getRandomPhotos(ALL_EVENT_PHOTOS, 6), []);
@@ -313,14 +314,14 @@ const ThankYou2025: React.FC = () => {
               <div className="h-1 w-32 bg-gradient-to-r from-atom-blue to-atom-purple mx-auto rounded-full"></div>
             </div>
 
-            <div className="bg-atom-bg/80 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-atom-blue/20 shadow-xl">
+            <div className="bg-gradient-to-br from-atom-blue/10 via-atom-bg/95 to-atom-purple/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border-2 border-atom-blue/30 shadow-2xl">
               {/* Profile Section */}
-              <div className="flex flex-col md:flex-row gap-8 items-center mb-10">
+              <div className="flex flex-col md:flex-row gap-6 items-center md:items-center justify-center mb-10 pb-8 pt-4 border-b-2 border-gradient-to-r from-atom-blue/20 via-atom-purple/20 to-atom-blue/20">
                 <div className="flex-shrink-0">
                   <div className="relative">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-atom-blue to-atom-purple rounded-full blur-sm opacity-60"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-atom-blue via-atom-purple to-atom-blue rounded-full blur opacity-75 animate-pulse"></div>
                     <div 
-                      className="relative w-32 h-32 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-atom-blue to-atom-purple shadow-xl"
+                      className="relative w-40 h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-atom-blue to-atom-purple shadow-2xl ring-4 ring-atom-blue/20"
                       style={{
                         backgroundImage: 'url(/photos/founder/arshan.png)',
                         backgroundSize: 'cover',
@@ -332,35 +333,86 @@ const ThankYou2025: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-3xl md:text-4xl font-bold text-atom-blue mb-2">
+                  <h3 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-atom-blue to-atom-purple bg-clip-text text-transparent mb-3">
                     Arshan Shokoohi
                   </h3>
-                  <p className="text-lg text-atom-purple font-medium">
-                    Founder & Organizer
+                  <p className="text-xl md:text-2xl text-atom-purple font-semibold mb-2">
+                    Founder & Head Organizer
                   </p>
+                  <div className="flex gap-2 items-center justify-center md:justify-start text-atom-blue">
+                    <span className="text-2xl">✨</span>
+                    <span className="text-base font-medium">Est. 2025</span>
+                  </div>
+                </div>
+                {/* Team Photo - Hidden on mobile, shown on desktop */}
+                <div className="hidden md:block flex-shrink-0">
+                  <div className="relative group cursor-pointer" onClick={() => setShowTeamPhoto(true)}>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-atom-blue to-atom-purple rounded-xl blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
+                    <div 
+                      className="relative w-80 h-52 rounded-xl overflow-hidden border-2 border-atom-blue/40 shadow-xl group-hover:scale-105 transition-transform duration-300"
+                      style={{
+                        backgroundImage: 'url(/photos/founder/daTeam.jpg)',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                        <span className="text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">🔍</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-atom-blue font-semibold mt-2 text-center">
+                      Organizers/Event Staff (Click to expand)
+                    </p>
+                  </div>
                 </div>
               </div>
 
               {/* Message Content */}
-              <div className="space-y-6 text-base md:text-lg text-atom-fg leading-relaxed">
-                <p>
-                  CipherHacks began because, through my 4 years of being a high schooler striving for a career in STEM, 
-                  I had immense amounts of fun at the very few and select hackathons that were available to San Diegan 
-                  high schoolers. Each hackathon I've attended has had an impact on my life in some shape or form, and 
-                  as I near the end of high school, feining at the chance of attending just one more high school hackathon 
-                  before graduation, I decided to take initiative and begin CipherHacks for all of you.
-                </p>
-                
-                <p>
-                  I think it's safe to say that <span className="text-atom-blue font-semibold">CipherHacks 2026</span> will be in the works, 
-                  and as we work out more details, we will keep you all in the loop. I may be nearing graduation, 
-                  but just know I won't be going anywhere just yet 😉
-                </p>
-                
-                <div className="pt-4 mt-6 border-t border-atom-blue/20">
-                  <p className="text-atom-green font-semibold text-xl text-center">
-                    See you next year. The best is yet to come. 🚀
+              <div className="space-y-6 text-base md:text-lg leading-relaxed">
+                <div className="bg-gradient-to-r from-atom-blue/5 to-atom-purple/5 p-6 rounded-xl border-l-4 border-atom-blue">
+                  <p className="text-atom-fg">
+                    <span className="text-2xl text-atom-blue mr-2">"</span>
+                    CipherHacks began because, through my 4 years of being a high schooler striving for a career in STEM, 
+                    I had immense amounts of fun at the very few and select hackathons that were available to San Diegan 
+                    high schoolers. Each hackathon I've attended has had an impact on my life in some shape or form, and 
+                    as I near the end of high school, wishing for the chance of attending just one more high school hackathon 
+                    before graduation, I decided to take initiative and begin CipherHacks for all of you.
+                    <span className="text-2xl text-atom-blue ml-2">"</span>
                   </p>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <span className="text-3xl">🚀</span>
+                  <p className="text-atom-fg flex-1">
+                    I think it's safe to say that <span className="text-atom-blue font-bold text-xl">CipherHacks 2026</span> will be in the works, 
+                    and as we work out more details, we will keep you all in the loop. I may be nearing graduation, 
+                    but just know I won't be going anywhere just yet 😉
+                  </p>
+                </div>
+
+                <div className="bg-gradient-to-r from-atom-purple/10 to-atom-blue/10 p-6 rounded-xl border-l-4 border-atom-purple">
+                  <div className="flex items-start gap-3">
+                    <span className="text-3xl">🙏</span>
+                    <p className="text-atom-fg flex-1">
+                      On behalf of all CipherHacks attendees, I'd like to thank our <span className="text-atom-purple font-semibold">sponsors, donators, mentors, industry & college panelists, event staff, organizers, and parents</span> for all of their support. 
+                      We couldn't have made it this far without you all. 
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <span className="text-3xl">💙</span>
+                  <p className="text-atom-fg flex-1">
+                    I'm incredibly grateful for the opportunity to put on CipherHacks and I'm excited to see what the future holds. 
+                  </p>
+                </div>
+                
+                <div className="pt-6 mt-8">
+                  <div className="bg-gradient-to-r from-atom-green/20 via-atom-blue/20 to-atom-green/20 p-6 rounded-2xl border-2 border-atom-green/40 shadow-lg">
+                    <p className="text-atom-green font-bold text-2xl text-center">
+                      See you all in 2026. 🚀
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -456,7 +508,7 @@ const ThankYou2025: React.FC = () => {
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <a
-                  href="https://instagram.com/cipherhacks"
+                  href="https://instagram.com/cipherhacks2025"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:opacity-90 transition-all duration-300 font-bold"
@@ -475,6 +527,46 @@ const ThankYou2025: React.FC = () => {
         </div>
       </section>
 
+      {/* Team Photo Modal/Overlay */}
+      <AnimatePresence>
+        {showTeamPhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-8 cursor-pointer"
+            onClick={() => setShowTeamPhoto(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-5xl mx-auto cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative w-full">
+                <img
+                  src="/photos/founder/daTeam.jpg"
+                  alt="CipherHacks Organizers and Event Staff"
+                  className="w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl mx-auto"
+                />
+                <button
+                  onClick={() => setShowTeamPhoto(false)}
+                  className="absolute -top-4 -right-4 w-14 h-14 bg-atom-red hover:bg-atom-red/90 text-white rounded-full flex items-center justify-center text-3xl font-bold transition-all duration-200 hover:scale-110 shadow-xl z-10"
+                >
+                  ×
+                </button>
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-atom-bg/95 backdrop-blur-md px-8 py-4 rounded-full border-2 border-atom-blue/40 shadow-xl">
+                  <p className="text-atom-blue font-bold text-xl whitespace-nowrap">
+                    CipherHacks Organizers & Event Staff
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>

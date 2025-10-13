@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-atom-bg text-white py-8 px-4 sm:px-6 lg:px-8 border-t border-atom-blue border-opacity-20">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        <p className="text-atom-fg-muted">&copy; {new Date().getFullYear()} CipherHacks. All Rights Reserved.</p>
+        <p className="text-atom-fg-muted">{new Date().getFullYear()} CipherHacks. Made with ❤️ by Arshan & Claude 3.5/4/4.5 Sonnet.</p>
         <div className="flex items-center space-x-4">
           {SOCIAL_LINKS.map(social => {
             let icon;
