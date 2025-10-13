@@ -105,7 +105,7 @@ const ThankYou2025: React.FC = () => {
     <div className="min-h-screen bg-atom-bg relative">
       {/* Photo Grid Background - Static, non-blocking, more visible */}
       <div 
-        className="fixed inset-0 z-0 grid grid-cols-3 md:grid-cols-3 gap-0" 
+        className="fixed inset-0 z-0 grid grid-cols-2 sm:grid-cols-3 gap-0" 
         style={{ willChange: 'auto' }}
       >
         {selectedPhotos.map((photoUrl, index) => (
@@ -144,7 +144,7 @@ const ThankYou2025: React.FC = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold text-atom-blue mb-6"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold text-atom-blue mb-4 sm:mb-6"
           >
             Thank You! 🎉
           </motion.h1>
@@ -153,7 +153,7 @@ const ThankYou2025: React.FC = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-2xl md:text-4xl text-white font-semibold mb-4"
+            className="text-xl sm:text-2xl md:text-4xl text-white font-semibold mb-3 sm:mb-4 px-4"
           >
             CipherHacks 2025 Was a Success
           </motion.p>
@@ -162,7 +162,7 @@ const ThankYou2025: React.FC = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-lg md:text-xl text-white/90 mb-12 max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto px-4"
           >
             Our inaugural year brought together San Diego's brightest high school minds 
             for 2 days of innovation, learning, and cybersecurity excellence.
@@ -263,17 +263,17 @@ const ThankYou2025: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16 px-4"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-atom-blue mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-atom-blue mb-3 sm:mb-4">
               By the Numbers
             </h2>
-            <p className="text-xl text-atom-fg-muted">
+            <p className="text-base sm:text-lg md:text-xl text-atom-fg-muted">
               CipherHacks 2025 in numbers
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -307,21 +307,21 @@ const ThankYou2025: React.FC = () => {
             viewport={{ once: true }}
             className="max-w-5xl mx-auto"
           >
-            <div className="text-center mb-16">
-              <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-atom-blue to-atom-purple bg-clip-text text-transparent mb-6">
+            <div className="text-center mb-12 sm:mb-16 px-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-atom-blue to-atom-purple bg-clip-text text-transparent mb-4 sm:mb-6">
                 A Message from Our Founder
               </h2>
-              <div className="h-1 w-32 bg-gradient-to-r from-atom-blue to-atom-purple mx-auto rounded-full"></div>
+              <div className="h-1 w-24 sm:w-32 bg-gradient-to-r from-atom-blue to-atom-purple mx-auto rounded-full"></div>
             </div>
 
-            <div className="bg-gradient-to-br from-atom-blue/10 via-atom-bg/95 to-atom-purple/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border-2 border-atom-blue/30 shadow-2xl">
+            <div className="bg-gradient-to-br from-atom-blue/10 via-atom-bg/95 to-atom-purple/10 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 border-2 border-atom-blue/30 shadow-2xl">
               {/* Profile Section */}
-              <div className="flex flex-col md:flex-row gap-6 items-center md:items-center justify-center mb-10 pb-8 pt-4 border-b-2 border-gradient-to-r from-atom-blue/20 via-atom-purple/20 to-atom-blue/20">
+              <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-center md:items-center justify-center mb-8 sm:mb-10 pb-6 sm:pb-8 pt-3 sm:pt-4 border-b-2 border-gradient-to-r from-atom-blue/20 via-atom-purple/20 to-atom-blue/20">
                 <div className="flex-shrink-0">
                   <div className="relative">
                     <div className="absolute -inset-1 bg-gradient-to-r from-atom-blue via-atom-purple to-atom-blue rounded-full blur opacity-75 animate-pulse"></div>
                     <div 
-                      className="relative w-40 h-40 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-atom-blue to-atom-purple shadow-2xl ring-4 ring-atom-blue/20"
+                      className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-atom-blue to-atom-purple shadow-2xl ring-4 ring-atom-blue/20"
                       style={{
                         backgroundImage: 'url(/photos/founder/arshan.png)',
                         backgroundSize: 'cover',
@@ -333,23 +333,23 @@ const ThankYou2025: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-atom-blue to-atom-purple bg-clip-text text-transparent mb-3">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-atom-blue to-atom-purple bg-clip-text text-transparent mb-2 sm:mb-3">
                     Arshan Shokoohi
                   </h3>
-                  <p className="text-xl md:text-2xl text-atom-purple font-semibold mb-2">
+                  <p className="text-lg sm:text-xl md:text-2xl text-atom-purple font-semibold mb-1 sm:mb-2">
                     Founder & Head Organizer
                   </p>
                   <div className="flex gap-2 items-center justify-center md:justify-start text-atom-blue">
-                    <span className="text-2xl">✨</span>
-                    <span className="text-base font-medium">Est. 2025</span>
+                    <span className="text-xl sm:text-2xl">✨</span>
+                    <span className="text-sm sm:text-base font-medium">Est. 2025</span>
                   </div>
                 </div>
-                {/* Team Photo - Hidden on mobile, shown on desktop */}
-                <div className="hidden md:block flex-shrink-0">
+                {/* Team Photo - Visible on mobile as smaller, full size on desktop */}
+                <div className="flex-shrink-0 w-full md:w-auto">
                   <div className="relative group cursor-pointer" onClick={() => setShowTeamPhoto(true)}>
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-atom-blue to-atom-purple rounded-xl blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
                     <div 
-                      className="relative w-80 h-52 rounded-xl overflow-hidden border-2 border-atom-blue/40 shadow-xl group-hover:scale-105 transition-transform duration-300"
+                      className="relative w-full md:w-80 h-40 sm:h-48 md:h-52 rounded-xl overflow-hidden border-2 border-atom-blue/40 shadow-xl group-hover:scale-105 transition-transform duration-300"
                       style={{
                         backgroundImage: 'url(/photos/founder/daTeam.jpg)',
                         backgroundSize: 'cover',
@@ -357,10 +357,10 @@ const ThankYou2025: React.FC = () => {
                       }}
                     >
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                        <span className="text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">🔍</span>
+                        <span className="text-white text-3xl sm:text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">🔍</span>
                       </div>
                     </div>
-                    <p className="text-sm text-atom-blue font-semibold mt-2 text-center">
+                    <p className="text-xs sm:text-sm text-atom-blue font-semibold mt-2 text-center">
                       Organizers/Event Staff (Click to expand)
                     </p>
                   </div>
@@ -368,7 +368,7 @@ const ThankYou2025: React.FC = () => {
               </div>
 
               {/* Message Content */}
-              <div className="space-y-6 text-base md:text-lg leading-relaxed">
+              <div className="space-y-4 sm:space-y-6 text-sm sm:text-base md:text-lg leading-relaxed">
                 <div className="bg-gradient-to-r from-atom-blue/5 to-atom-purple/5 p-6 rounded-xl border-l-4 border-atom-blue">
                   <p className="text-atom-fg">
                     <span className="text-2xl text-atom-blue mr-2">"</span>
@@ -534,7 +534,7 @@ const ThankYou2025: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-8 cursor-pointer"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 cursor-pointer"
             onClick={() => setShowTeamPhoto(false)}
           >
             <motion.div
