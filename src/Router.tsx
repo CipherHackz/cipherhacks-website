@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './App';
+import ThankYou2025 from './pages/ThankYou2025';
 import Register from './pages/Register';
 import Sponsor from './pages/Sponsor';
 import EmailTester from './pages/EmailTester';
@@ -125,7 +126,8 @@ const Router: React.FC = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<ThankYou2025 />} />
+        <Route path="/2025" element={<App />} />
         <Route path="/register" element={<Register />} />
                 <Route path="/sponsor" element={<Sponsor />} />
         <Route path="/email-tester" element={<EmailTester />} />
