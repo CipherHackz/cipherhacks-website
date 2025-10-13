@@ -153,7 +153,7 @@ const ThankYou2025: React.FC = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-2xl md:text-4xl text-atom-fg mb-4"
+            className="text-2xl md:text-4xl text-white font-semibold mb-4"
           >
             CipherHacks 2025 Was a Success
           </motion.p>
@@ -162,7 +162,7 @@ const ThankYou2025: React.FC = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-lg md:text-xl text-atom-fg-muted mb-12 max-w-3xl mx-auto"
+            className="text-lg md:text-xl text-white/90 mb-12 max-w-3xl mx-auto"
           >
             Our inaugural year brought together San Diego's brightest high school minds 
             for 2 days of innovation, learning, and cybersecurity excellence.
