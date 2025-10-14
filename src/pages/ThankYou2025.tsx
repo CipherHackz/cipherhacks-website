@@ -86,9 +86,15 @@ const getRandomPhotos = (photos: string[], count: number): string[] => {
 const ThankYou2025: React.FC = () => {
   const galleryTriggerRef = useRef<HTMLDivElement>(null);
   const [showTeamPhoto, setShowTeamPhoto] = React.useState(false);
+  const [imagesLoaded, setImagesLoaded] = React.useState<boolean[]>([]);
   
   // Pick 6 random photos
   const selectedPhotos = useMemo(() => getRandomPhotos(ALL_EVENT_PHOTOS, 6), []);
+  
+  // Initialize loaded state
+  React.useEffect(() => {
+    setImagesLoaded(new Array(selectedPhotos.length).fill(false));
+  }, [selectedPhotos.length]);
 
   // Event Statistics
   const stats = [
@@ -107,13 +113,34 @@ const ThankYou2025: React.FC = () => {
         {selectedPhotos.map((photoUrl, index) => (
           <div 
             key={index} 
-            className="w-full aspect-square bg-atom-bg"
-            style={{ 
-              backgroundImage: `url(${photoUrl})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
+            className="w-full aspect-square bg-atom-bg overflow-hidden relative"
+          >
+            <img
+              src={photoUrl}
+              alt=""
+              className="w-full h-full object-cover"
+              loading="eager"
+              onLoad={() => {
+                setImagesLoaded(prev => {
+                  const newState = [...prev];
+                  newState[index] = true;
+                  return newState;
+                });
+              }}
+              style={{
+                opacity: imagesLoaded[index] ? 1 : 0,
+                transition: 'opacity 0.5s ease-in-out'
+              }}
+            />
+            {/* Curtain reveal animation */}
+            <div 
+              className="absolute inset-0 bg-atom-bg"
+              style={{
+                transform: imagesLoaded[index] ? 'translateY(-100%)' : 'translateY(0)',
+                transition: `transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`,
+              }}
+            />
+          </div>
         ))}
         <div className="absolute inset-0 bg-atom-bg/60 pointer-events-none" />
       </div>
@@ -281,7 +308,7 @@ const ThankYou2025: React.FC = () => {
                   </p>
                   <div className="flex gap-2 items-center justify-center md:justify-start text-atom-blue">
                     <span className="text-xl sm:text-2xl">✨</span>
-                    <span className="text-sm sm:text-base font-medium">Est. 2025</span>
+                    <span className="text-sm sm:text-base font-medium">Senior @ Rancho Bernardo High School</span>
                   </div>
                 </div>
                 {/* Team Photo - Visible on mobile as smaller, full size on desktop */}
