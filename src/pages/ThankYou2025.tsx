@@ -154,6 +154,15 @@ const ThankYou2025: React.FC = () => {
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
+            <a
+              href="https://cipherhacks.devpost.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-gradient-to-r from-atom-purple to-atom-blue text-white rounded-lg hover:opacity-90 transition-all duration-300 font-bold text-lg flex items-center space-x-2 shadow-xl"
+            >
+              <CodeBracketIcon className="h-5 w-5" />
+              <span>View Projects on Devpost</span>
+            </a>
             <Link
               to="/2025"
               className="px-8 py-4 bg-atom-blue text-white rounded-lg hover:bg-opacity-90 transition-all duration-300 font-bold text-lg flex items-center space-x-2 shadow-xl"
