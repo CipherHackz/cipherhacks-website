@@ -1098,6 +1098,19 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-atom-bg">
+      {/* Prominent Back to Home Button */}
+      <RouterLink
+        to="/"
+        className="fixed top-20 left-4 sm:left-8 z-50 group"
+      >
+        <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-atom-blue to-atom-purple text-white rounded-full shadow-2xl hover:shadow-atom-blue/50 transition-all duration-300 hover:scale-105 border-2 border-white/20">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span className="font-bold text-sm sm:text-base whitespace-nowrap">Back to Thank You</span>
+        </div>
+      </RouterLink>
+
       {/* Hidden CTF Indicator - Only visible to those who know to look */}
       <div 
         className="fixed bottom-0 right-0 p-1 text-xs opacity-5 hover:opacity-20 transition-opacity duration-1000 select-none pointer-events-none"

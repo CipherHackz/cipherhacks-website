@@ -1,5 +1,4 @@
 import React, { useRef, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   UserGroupIcon, 
@@ -88,7 +87,7 @@ const ThankYou2025: React.FC = () => {
   const galleryTriggerRef = useRef<HTMLDivElement>(null);
   const [showTeamPhoto, setShowTeamPhoto] = React.useState(false);
   
-  // Pick 6 random photos on page load - only 6 images for better performance!
+  // Pick 6 random photos
   const selectedPhotos = useMemo(() => getRandomPhotos(ALL_EVENT_PHOTOS, 6), []);
 
   // Event Statistics
@@ -103,77 +102,58 @@ const ThankYou2025: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-atom-bg relative">
-      {/* Photo Grid Background - Static, non-blocking, more visible */}
-      <div 
-        className="fixed inset-0 z-0 grid grid-cols-2 sm:grid-cols-3 gap-0" 
-        style={{ willChange: 'auto' }}
-      >
+      {/* Photo Grid Background - Simple and performant */}
+      <div className="fixed inset-0 z-0 grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-2 gap-0 opacity-50">
         {selectedPhotos.map((photoUrl, index) => (
           <div 
-            key={`${photoUrl}-${index}`} 
-            className="aspect-square overflow-hidden bg-atom-bg/50"
+            key={index} 
+            className="w-full aspect-square bg-atom-bg"
             style={{ 
               backgroundImage: `url(${photoUrl})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              opacity: 0.6
             }}
           />
         ))}
-        {/* Lighter overlay so photos are more visible */}
-        <div className="absolute inset-0 bg-atom-bg/50 pointer-events-none" />
+        <div className="absolute inset-0 bg-atom-bg/60 pointer-events-none" />
       </div>
+
+      {/* Floating Back Button */}
+      <Link
+        to="/"
+        className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-atom-blue hover:bg-atom-blue/90 text-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110"
+        title="Back to Home"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+      </Link>
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden z-10">
         <div className="container mx-auto px-4 py-20 relative z-10 text-center">
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
+          <div className="mb-8">
             <img 
               src="/logo.svg" 
               alt="CipherHacks Logo" 
               className="h-32 md:h-40 w-auto mx-auto mb-8"
             />
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl sm:text-5xl md:text-7xl font-bold text-atom-blue mb-4 sm:mb-6"
-          >
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-atom-blue mb-4 sm:mb-6">
             Thank You! 🎉
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-xl sm:text-2xl md:text-4xl text-white font-semibold mb-3 sm:mb-4 px-4"
-          >
+          <p className="text-xl sm:text-2xl md:text-4xl text-white font-semibold mb-3 sm:mb-4 px-4">
             CipherHacks 2025 Was a Success
-          </motion.p>
+          </p>
 
-          <motion.p
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-base sm:text-lg md:text-xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto px-4"
-          >
+          <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto px-4">
             Our inaugural year brought together San Diego's brightest high school minds 
             for 2 days of innovation, learning, and cybersecurity excellence.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="flex flex-wrap gap-4 justify-center"
-          >
+          <div className="flex flex-wrap gap-4 justify-center">
             <Link
               to="/2025"
               className="px-8 py-4 bg-atom-blue text-white rounded-lg hover:bg-opacity-90 transition-all duration-300 font-bold text-lg flex items-center space-x-2 shadow-xl"
@@ -181,25 +161,7 @@ const ThankYou2025: React.FC = () => {
               <span>View 2025 Website</span>
               <ArrowRightIcon className="h-5 w-5" />
             </Link>
-          </motion.div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          >
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-atom-blue"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -218,24 +180,8 @@ const ThankYou2025: React.FC = () => {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <motion.div
-              animate={{ 
-                scale: [1, 1.05, 1],
-                boxShadow: [
-                  "0 0 20px rgba(97, 175, 239, 0.3)",
-                  "0 0 40px rgba(97, 175, 239, 0.5)",
-                  "0 0 20px rgba(97, 175, 239, 0.3)"
-                ]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="bg-gradient-to-br from-atom-blue/20 to-atom-purple/20 backdrop-blur-lg rounded-3xl p-12 border-2 border-atom-blue border-opacity-40"
-            >
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="bg-gradient-to-br from-atom-blue/20 to-atom-purple/20 backdrop-blur-lg rounded-3xl p-12 border-2 border-atom-blue border-opacity-40">
               <PhotoIcon className="h-20 w-20 text-atom-blue mx-auto mb-6" />
               <h3 className="text-3xl md:text-4xl font-bold text-atom-blue mb-4">
                 Relive the Moments
@@ -251,37 +197,27 @@ const ThankYou2025: React.FC = () => {
               >
                 View Photo Gallery
               </a>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Statistics Section */}
       <section className="py-20 bg-atom-bg/98 relative z-10">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16 px-4"
-          >
+          <div className="text-center mb-12 sm:mb-16 px-4">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-atom-blue mb-3 sm:mb-4">
               By the Numbers
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-atom-fg-muted">
               CipherHacks 2025 in numbers
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
-            {stats.map((stat, index) => (
-              <motion.div
+            {stats.map((stat) => (
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
                 className="bg-atom-bg bg-opacity-50 p-6 rounded-xl border border-atom-blue border-opacity-20 text-center backdrop-blur-sm"
               >
                 <stat.icon className={`h-12 w-12 ${stat.color} mx-auto mb-4`} />
@@ -291,7 +227,7 @@ const ThankYou2025: React.FC = () => {
                 <div className="text-sm text-atom-fg-muted">
                   {stat.label}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -301,12 +237,7 @@ const ThankYou2025: React.FC = () => {
       {/* Founder's Message Section */}
       <section className="py-24 relative z-10">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-5xl mx-auto"
-          >
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12 sm:mb-16 px-4">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-atom-blue to-atom-purple bg-clip-text text-transparent mb-4 sm:mb-6">
                 A Message from Our Founder
@@ -319,7 +250,7 @@ const ThankYou2025: React.FC = () => {
               <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-center md:items-center justify-center mb-8 sm:mb-10 pb-6 sm:pb-8 pt-3 sm:pt-4 border-b-2 border-gradient-to-r from-atom-blue/20 via-atom-purple/20 to-atom-blue/20">
                 <div className="flex-shrink-0">
                   <div className="relative">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-atom-blue via-atom-purple to-atom-blue rounded-full blur opacity-75 animate-pulse"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-atom-blue via-atom-purple to-atom-blue rounded-full blur opacity-60"></div>
                     <div 
                       className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-atom-blue to-atom-purple shadow-2xl ring-4 ring-atom-blue/20"
                       style={{
@@ -416,53 +347,38 @@ const ThankYou2025: React.FC = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Looking Forward Section */}
       <section className="py-20 bg-atom-bg relative z-10">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-atom-blue mb-4">
               Looking Beyond
             </h2>
-            <p className="text-xl text-atom-fg-muted max-w-3xl mx-auto">
-              CipherHacks 2025 was just the first chapter in our story. Here's what's next.
+            <p className="text-xl text-atom-fg-muted max-w-3xl mx-auto mb-12">
+              Our mission extends beyond the hackathon, focusing on building community, 
+              enhancing the experience, and creating more opportunities for high school students 
+              to explore cybersecurity and STEM.
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-gradient-to-br from-atom-blue/20 to-atom-blue/5 p-8 rounded-2xl border-2 border-atom-blue border-opacity-30 backdrop-blur-sm"
-            >
-              <div className="text-5xl mb-4">🌟</div>
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="bg-gradient-to-br from-atom-blue/20 to-atom-blue/5 p-8 rounded-2xl border-2 border-atom-blue border-opacity-30 backdrop-blur-sm">
+              <div className="text-5xl mb-4">🚀</div>
               <h3 className="text-2xl font-bold text-atom-blue mb-4">
-                CipherHacks 2026: Bigger & Better
+                CipherHacks 2026 & Beyond
               </h3>
               <p className="text-atom-fg-muted">
-                We're working to make next year's event even more impactful – expanding our reach, 
+                Building on our success, we're committed to making CipherHacks even better, 
                 enhancing the experience, and creating more opportunities for high school students 
                 to explore cybersecurity and STEM.
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-gradient-to-br from-atom-purple/20 to-atom-purple/5 p-8 rounded-2xl border-2 border-atom-purple border-opacity-30 backdrop-blur-sm"
-            >
+            <div className="bg-gradient-to-br from-atom-purple/20 to-atom-purple/5 p-8 rounded-2xl border-2 border-atom-purple border-opacity-30 backdrop-blur-sm">
               <div className="text-5xl mb-4">🤝</div>
               <h3 className="text-2xl font-bold text-atom-purple mb-4">
                 Community of Like-Minded Individuals
@@ -472,15 +388,9 @@ const ThankYou2025: React.FC = () => {
                 professionals can connect, collaborate, and support each other's growth in 
                 cybersecurity and technology.
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="bg-gradient-to-br from-atom-green/20 to-atom-green/5 p-8 rounded-2xl border-2 border-atom-green border-opacity-30 backdrop-blur-sm"
-            >
+            <div className="bg-gradient-to-br from-atom-green/20 to-atom-green/5 p-8 rounded-2xl border-2 border-atom-green border-opacity-30 backdrop-blur-sm">
               <div className="text-5xl mb-4">🎓</div>
               <h3 className="text-2xl font-bold text-atom-green mb-4">
                 STEM Education for All
@@ -490,16 +400,9 @@ const ThankYou2025: React.FC = () => {
                 student has access to the tools, knowledge, and opportunities they need to 
                 pursue their passion in technology.
               </p>
-            </motion.div>
-          </div>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
-            <div className="bg-atom-bg bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border-2 border-atom-blue border-opacity-30 max-w-3xl mx-auto">
+            <div className="bg-atom-bg bg-opacity-50 backdrop-blur-sm rounded-2xl p-8 border-2 border-atom-blue border-opacity-30">
               <h3 className="text-3xl font-bold text-atom-blue mb-4">
                 Stay Connected
               </h3>
@@ -523,28 +426,20 @@ const ThankYou2025: React.FC = () => {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Team Photo Modal/Overlay */}
-      <AnimatePresence>
-        {showTeamPhoto && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 cursor-pointer"
-            onClick={() => setShowTeamPhoto(false)}
+      {showTeamPhoto && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 cursor-pointer"
+          onClick={() => setShowTeamPhoto(false)}
+        >
+          <div
+            className="relative w-full max-w-5xl mx-auto cursor-default"
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full max-w-5xl mx-auto cursor-default"
-              onClick={(e) => e.stopPropagation()}
-            >
               <div className="relative w-full">
                 <img
                   src="/photos/founder/daTeam.jpg"
@@ -563,10 +458,9 @@ const ThankYou2025: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
