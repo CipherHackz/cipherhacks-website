@@ -12,6 +12,7 @@ import Referral from './pages/Referral';
 import Chipotle from './pages/Chipotle';
 // import ReferralPrograms from './pages/ReferralPrograms';
 import Roles from './pages/Roles';
+import Organizer2026 from './pages/Organizer2026';
 import Volunteer from './pages/Volunteer';
 import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
@@ -141,6 +142,7 @@ const Router: React.FC = () => {
         <Route path="/chipotle" element={<Chipotle />} />
         {/* <Route path="/referral-programs" element={<ReferralPrograms />} /> */}
         <Route path="/roles" element={<Roles />} />
+        <Route path="/2026" element={<Organizer2026 />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/san-diego-hackathon" element={<SanDiegoHackathon />} />
         {/* Security Learning Demo Routes */}

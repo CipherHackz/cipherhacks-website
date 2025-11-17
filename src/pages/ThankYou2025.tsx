@@ -8,7 +8,8 @@ import {
   ArrowRightIcon,
   ClockIcon,
   BuildingLibraryIcon,
-  PhotoIcon
+  PhotoIcon,
+  RocketLaunchIcon
 } from '@heroicons/react/24/outline';
 import Footer from '../components/Footer';
 
@@ -108,6 +109,22 @@ const ThankYou2025: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-atom-bg relative">
+      {/* CipherHacks 2026 Organizer Banner */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-atom-green to-atom-blue bg-opacity-95 backdrop-blur-sm border-b border-atom-blue border-opacity-30">
+        <div className="container mx-auto py-2 md:py-3 px-4">
+          <div className="flex items-center justify-center text-center">
+            <div className="flex items-center flex-wrap justify-center gap-x-2 gap-y-1 text-white">
+              <RocketLaunchIcon className="h-4 w-4 md:h-5 md:w-5 animate-pulse flex-shrink-0" />
+              <span className="text-xs sm:text-sm md:text-base font-medium">
+                🌟 <strong>Join Our Team!</strong> We're looking for talent to help organize <strong>CipherHacks 2026</strong>.
+                {' '}
+                <Link to="/2026" className="underline hover:text-atom-green transition-colors font-bold">Apply here</Link>!
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Photo Grid Background - Simple and performant */}
       <div className="fixed inset-0 z-0 grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-2 gap-0 opacity-50">
         {selectedPhotos.map((photoUrl, index) => (
@@ -157,7 +174,7 @@ const ThankYou2025: React.FC = () => {
       </Link>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden z-10">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden z-10 pt-12">
         <div className="container mx-auto px-4 py-20 relative z-10 text-center">
           <div className="mb-8">
             <img 
