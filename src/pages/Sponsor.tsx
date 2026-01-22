@@ -310,7 +310,7 @@ const Sponsor: React.FC = () => {
           <h2 className="text-3xl font-bold text-atom-blue mb-8">Ready to Support the Future?</h2>
           <div className="flex flex-col md:flex-row justify-center items-center gap-6">
             <a 
-              href="/SponsorshipProspectus.pdf" 
+              href="/SponsorshipProspectus2026.pdf" 
               target="_blank"
               className="inline-flex items-center px-6 py-3 bg-atom-purple text-white rounded-lg hover:bg-opacity-90 transition-colors"
             >
