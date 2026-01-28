@@ -89,9 +89,16 @@ code {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Smooth scroll behavior */
+/* Smooth scroll behavior - only for reduced motion preference users */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Prevent scroll jank by using passive scroll listeners hint */
 html {
-  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Account for fixed navbar */
 }
 
 /* Custom scrollbar */

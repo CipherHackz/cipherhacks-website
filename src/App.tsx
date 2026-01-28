@@ -273,17 +273,6 @@ const Terminal: React.FC<TerminalProps> = ({ onStateChange }) => {
   );
 };
 
-// const StatCard: React.FC<{ icon: any; title: string; value: string }> = ({ icon: Icon, title, value }) => (
-//   <motion.div
-//     whileHover={{ scale: 1.05 }}
-//     className="bg-atom-bg p-6 rounded-lg shadow-xl border border-atom-blue border-opacity-20"
-//   >
-//     <Icon className="h-8 w-8 text-atom-blue mb-4" />
-//     <h3 className="text-xl font-bold text-atom-purple mb-2">{title}</h3>
-//     <p className="text-2xl font-bold text-atom-green">{value}</p>
-//   </motion.div>
-// );
-
 // Carousel speed constants
 const CAROUSEL_SPEED = {
   NORMAL: 135, // pixels per second when not hovered
@@ -302,10 +291,23 @@ const SponsorCarousel: React.FC<{
   const [currentX, setCurrentX] = useState(0);
   const [dragStartX, setDragStartX] = useState(0);
   const [isDragThresholdMet, setIsDragThresholdMet] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const animationRef = useRef<number | undefined>(undefined);
   const lastTimeRef = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const speedRef = useRef(CAROUSEL_SPEED.NORMAL);
+
+  // Only animate when carousel is visible in viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   // Constants
   const DRAG_THRESHOLD = 10; // pixels - minimum movement to start dragging
@@ -365,18 +367,19 @@ const SponsorCarousel: React.FC<{
     animationRef.current = requestAnimationFrame(animate);
   }, [isDragging, isHovered, isPopupOpen, isInfinite, singleSetWidth]);
 
-  // Start animation
+  // Start animation only when visible
   useEffect(() => {
-    if (isInfinite) {
+    if (isInfinite && isVisible) {
+      lastTimeRef.current = 0; // Reset timing when becoming visible
       animationRef.current = requestAnimationFrame(animate);
     }
-    
+
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [animate, isInfinite]);
+  }, [animate, isInfinite, isVisible]);
 
   // Handle mouse down for dragging
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -652,10 +655,17 @@ const App: React.FC = () => {
   const [faqPopupDismissed, setFaqPopupDismissed] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
